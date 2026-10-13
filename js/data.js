@@ -1,37 +1,134 @@
 /**
- * EXHIBITION ARCHIVE - Project Database
- * 2학기 졸업/과제 전시 팀 명단 & 브랜드 공간 아카이브
+ * GACHON.IA Archive - Project Database
+ * 가천대학교 실내건축학과(Interior Architecture) 2학기 팀 전시 아카이브
  */
 
 window.STUDIO_INFO = {
-  name: "2026 EXHIBITION ARCHIVE",
-  shortName: "EXHIBITION",
-  tagline: "공간과 브랜드를 만듭니다. 2학기 참여 팀 브랜드 및 공간 기획 아카이브입니다.",
-  tel: "+82 (0)2 000 0000",
-  email: "archive@exhibition.kr",
-  instagram: "@exhibition_archive",
-  addressKr: "디자인대학 공간디자인학과 졸업전시회",
-  addressEn: "Department of Spatial Design, Graduation Exhibition",
+  name: "GACHON.IA Archive",
+  shortName: "GACHON.IA",
+  tagline: "가천대학교 실내건축학과 2학기 과제전 / 졸업전시 브랜드 공간 아카이브입니다.",
+  tel: "+82 (0)31 750 5114",
+  email: "ia@gachon.ac.kr",
+  instagram: "@gachon_ia_archive",
+  addressKr: "경기도 성남시 수정구 성남대로 1342 가천대학교 비전타워",
+  addressEn: "Gachon University, 1342 Seongnam-daero, Sujeong-gu, Seongnam-si, Gyeonggi-do",
   manifesto: [
-    { num: "1", text: "공간과 브랜드를 탐구하는 전시 아카이브입니다." },
-    { num: "2", text: "동시대 브랜드의 공간 경험을 새롭게 정의합니다." },
-    { num: "3", text: "3개 스튜디오, 18개 팀의 결과물을 기록합니다." }
+    { num: "1", text: "가천대학교 실내건축학과의 정체성과 탐구를 담은 전시 아카이브입니다." },
+    { num: "2", text: "동시대 브랜드의 공간 경험과 건축적 구조를 새롭게 정의합니다." },
+    { num: "3", text: "A반, B반, C반 총 18개 팀의 공간 디자인 결과를 기록합니다." }
   ],
-  professors: [
-    { name: "이재석 교수님", studio: "이재석 STUDIO", count: "5 Teams" },
-    { name: "안은희 교수님", studio: "안은희 STUDIO", count: "6 Teams" },
-    { name: "이길호 교수님", studio: "이길호 STUDIO", count: "7 Teams" }
+  classes: [
+    { class: "A반", prof: "안은희 교수님", count: "6 Teams" },
+    { class: "B반", prof: "이재석 교수님", count: "5 Teams" },
+    { class: "C반", prof: "이길호 교수님", count: "7 Teams" }
   ]
 };
 
 window.PROJECTS_DATA = [
   // ==========================================
-  // [1] 이재석 교수님 반 (5개 팀)
+  // [A반] 6개 팀 (안은희 교수님)
+  // ==========================================
+  {
+    id: "hwayo",
+    classGroup: "A반",
+    studio: "A반",
+    brand: "화요 (Hwayo)",
+    title: "화요",
+    members: "장효진, 하은지",
+    genre: "Distillery Bar & Heritage Tasting Room",
+    category: "Spatial",
+    concept: "한국 프리미엄 증류식 소주 화요의 깊은 풍미와 옹기 숙성의 시간을 옻칠과 거친 화강암의 물성으로 번역한 테이스팅 바.",
+    thumbnail: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=1600&auto=format&fit=crop&q=80"
+    ]
+  },
+  {
+    id: "dongwha",
+    classGroup: "A반",
+    studio: "A반",
+    brand: "동화약품",
+    title: "동화약품",
+    members: "김희수, 이지연, 손지후",
+    genre: "Heritage Archive & Modern Wellness",
+    category: "Branding",
+    concept: "대한민국 최초의 제약기업 동화약품의 127년 역사를 아카이빙하고, 현대인의 지친 심신을 치유하는 새로운 약방 공간.",
+    thumbnail: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&auto=format&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&auto=format&fit=crop&q=80"
+    ]
+  },
+  {
+    id: "galaxy",
+    classGroup: "A반",
+    studio: "A반",
+    brand: "삼성 갤럭시 (Samsung Galaxy)",
+    title: "삼성 갤럭시",
+    members: "김민석, 임동혁, 잠시드",
+    genre: "Tech Experience & Future Lab",
+    category: "Spatial",
+    concept: "모바일 기술과 인간의 감각이 조우하는 미래형 테크 익스피리언스 스페이스. 인공지능과 빛의 반응형 인터랙션 설계.",
+    thumbnail: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1600&auto=format&fit=crop&q=80"
+    ]
+  },
+  {
+    id: "gopherwood",
+    classGroup: "A반",
+    studio: "A반",
+    brand: "고퍼우드 (Gopherwood)",
+    title: "고퍼우드",
+    members: "김누리, 이수민, 장호연",
+    genre: "Acoustic Instrument Showroom",
+    category: "Spatial",
+    concept: "어쿠스틱 기타의 정교한 목공 디테일과 공명(Resonance)을 입체 공간으로 구현한 사운드 크래프트맨십 쇼룸.",
+    thumbnail: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1600&auto=format&fit=crop&q=80"
+    ]
+  },
+  {
+    id: "studio-ahn-cho",
+    classGroup: "A반",
+    studio: "A반",
+    brand: "조예은 프로젝트",
+    title: "조예은",
+    members: "조예은",
+    genre: "Independent Spatial Design",
+    category: "Spatial",
+    concept: "개인 작업자로서의 깊이 있는 탐구를 담아낸 독립 공간 디자인 기획 및 프로토타입 전시.",
+    thumbnail: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=80"
+    ]
+  },
+  {
+    id: "bilguun-team",
+    classGroup: "A반",
+    studio: "A반",
+    brand: "글로벌 익스체인지",
+    title: "빌궁 절러 나문다리",
+    members: "빌궁, 절러, 나문다리",
+    genre: "Cultural Exchange & Spatial Installation",
+    category: "Architectural",
+    concept: "국경을 넘는 다문화적 시선과 공간적 조형 언어를 결합한 실험적 공간 인스톨레이션.",
+    thumbnail: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&auto=format&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&auto=format&fit=crop&q=80"
+    ]
+  },
+
+  // ==========================================
+  // [B반] 5개 팀 (이재석 교수님)
   // ==========================================
   {
     id: "marshall",
-    classGroup: "이재석 교수님 반",
-    studio: "이재석 STUDIO",
+    classGroup: "B반",
+    studio: "B반",
     brand: "마샬 (Marshall)",
     title: "마샬",
     members: "송현진, 김보경, 이고은",
@@ -47,8 +144,8 @@ window.PROJECTS_DATA = [
   },
   {
     id: "tekla",
-    classGroup: "이재석 교수님 반",
-    studio: "이재석 STUDIO",
+    classGroup: "B반",
+    studio: "B반",
     brand: "TEKLA",
     title: "TEKLA",
     members: "김민서, 이설아, 이예원",
@@ -63,8 +160,8 @@ window.PROJECTS_DATA = [
   },
   {
     id: "hanyul",
-    classGroup: "이재석 교수님 반",
-    studio: "이재석 STUDIO",
+    classGroup: "B반",
+    studio: "B반",
     brand: "한율 (Hanyul)",
     title: "한율",
     members: "조하나, 김민서",
@@ -79,8 +176,8 @@ window.PROJECTS_DATA = [
   },
   {
     id: "gachi-ieum",
-    classGroup: "이재석 교수님 반",
-    studio: "이재석 STUDIO",
+    classGroup: "B반",
+    studio: "B반",
     brand: "가치이음",
     title: "가치이음",
     members: "명나연, 권은진",
@@ -95,8 +192,8 @@ window.PROJECTS_DATA = [
   },
   {
     id: "karrot",
-    classGroup: "이재석 교수님 반",
-    studio: "이재석 STUDIO",
+    classGroup: "B반",
+    studio: "B반",
     brand: "당근 (Karrot)",
     title: "당근",
     members: "최소윤, 정진석, 박태준",
@@ -111,109 +208,12 @@ window.PROJECTS_DATA = [
   },
 
   // ==========================================
-  // [2] 안은희 교수님 반 (6개 팀)
-  // ==========================================
-  {
-    id: "hwayo",
-    classGroup: "안은희 교수님 반",
-    studio: "안은희 STUDIO",
-    brand: "화요 (Hwayo)",
-    title: "화요",
-    members: "장효진, 하은지",
-    genre: "Distillery Bar & Heritage Tasting Room",
-    category: "Spatial",
-    concept: "한국 프리미엄 증류식 소주 화요의 깊은 풍미와 옹기 숙성의 시간을 옻칠과 거친 화강암의 물성으로 번역한 테이스팅 바.",
-    thumbnail: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=1600&auto=format&fit=crop&q=80"
-    ]
-  },
-  {
-    id: "dongwha",
-    classGroup: "안은희 교수님 반",
-    studio: "안은희 STUDIO",
-    brand: "동화약품",
-    title: "동화약품",
-    members: "김희수, 이지연, 손지후",
-    genre: "Heritage Archive & Modern Wellness",
-    category: "Branding",
-    concept: "대한민국 최초의 제약기업 동화약품의 127년 역사를 아카이빙하고, 현대인의 지친 심신을 치유하는 새로운 약방 공간.",
-    thumbnail: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&auto=format&fit=crop&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&auto=format&fit=crop&q=80"
-    ]
-  },
-  {
-    id: "galaxy",
-    classGroup: "안은희 교수님 반",
-    studio: "안은희 STUDIO",
-    brand: "삼성 갤럭시 (Samsung Galaxy)",
-    title: "삼성 갤럭시",
-    members: "김민석, 임동혁, 잠시드",
-    genre: "Tech Experience & Future Lab",
-    category: "Spatial",
-    concept: "모바일 기술과 인간의 감각이 조우하는 미래형 테크 익스피리언스 스페이스. 인공지능과 빛의 반응형 인터랙션 설계.",
-    thumbnail: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1600&auto=format&fit=crop&q=80"
-    ]
-  },
-  {
-    id: "gopherwood",
-    classGroup: "안은희 교수님 반",
-    studio: "안은희 STUDIO",
-    brand: "고퍼우드 (Gopherwood)",
-    title: "고퍼우드",
-    members: "김누리, 이수민, 장호연",
-    genre: "Acoustic Instrument Showroom",
-    category: "Spatial",
-    concept: "어쿠스틱 기타의 정교한 목공 디테일과 공명(Resonance)을 입체 공간으로 구현한 사운드 크래프트맨십 쇼룸.",
-    thumbnail: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1600&auto=format&fit=crop&q=80"
-    ]
-  },
-  {
-    id: "studio-ahn-cho",
-    classGroup: "안은희 교수님 반",
-    studio: "안은희 STUDIO",
-    brand: "조예은 프로젝트",
-    title: "조예은",
-    members: "조예은",
-    genre: "Independent Spatial Design",
-    category: "Spatial",
-    concept: "개인 작업자로서의 깊이 있는 탐구를 담아낸 독립 공간 디자인 기획 및 프로토타입 전시.",
-    thumbnail: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=80"
-    ]
-  },
-  {
-    id: "bilguun-team",
-    classGroup: "안은희 교수님 반",
-    studio: "안은희 STUDIO",
-    brand: "글로벌 익스체인지",
-    title: "빌궁 절러 나문다리",
-    members: "빌궁, 절러, 나문다리",
-    genre: "Cultural Exchange & Spatial Installation",
-    category: "Architectural",
-    concept: "국경을 넘는 다문화적 시선과 공간적 조형 언어를 결합한 실험적 공간 인스톨레이션.",
-    thumbnail: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&auto=format&fit=crop&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&auto=format&fit=crop&q=80"
-    ]
-  },
-
-  // ==========================================
-  // [3] 이길호 교수님 반 (7개 팀)
+  // [C반] 7개 팀 (이길호 교수님)
   // ==========================================
   {
     id: "ggott",
-    classGroup: "이길호 교수님 반",
-    studio: "이길호 STUDIO",
+    classGroup: "C반",
+    studio: "C반",
     brand: "ggott",
     title: "ggott",
     members: "김민준, 안상영",
@@ -228,8 +228,8 @@ window.PROJECTS_DATA = [
   },
   {
     id: "dedar",
-    classGroup: "이길호 교수님 반",
-    studio: "이길호 STUDIO",
+    classGroup: "C반",
+    studio: "C반",
     brand: "DEDAR",
     title: "DEDAR",
     members: "이새영, 박정민",
@@ -243,8 +243,8 @@ window.PROJECTS_DATA = [
   },
   {
     id: "medicube",
-    classGroup: "이길호 교수님 반",
-    studio: "이길호 STUDIO",
+    classGroup: "C반",
+    studio: "C반",
     brand: "메디큐브 (Medicube)",
     title: "메디큐브",
     members: "임주현, 복선우, 이재진",
@@ -258,8 +258,8 @@ window.PROJECTS_DATA = [
   },
   {
     id: "headspace",
-    classGroup: "이길호 교수님 반",
-    studio: "이길호 STUDIO",
+    classGroup: "C반",
+    studio: "C반",
     brand: "헤드스페이스 (Headspace)",
     title: "헤드스페이스",
     members: "최규민, 최서림",
@@ -273,8 +273,8 @@ window.PROJECTS_DATA = [
   },
   {
     id: "yoshida-porter",
-    classGroup: "이길호 교수님 반",
-    studio: "이길호 STUDIO",
+    classGroup: "C반",
+    studio: "C반",
     brand: "요시다 포터 (Yoshida Porter)",
     title: "요시다 포터",
     members: "강홍인, 장도연",
@@ -288,8 +288,8 @@ window.PROJECTS_DATA = [
   },
   {
     id: "bang-olufsen",
-    classGroup: "이길호 교수님 반",
-    studio: "이길호 STUDIO",
+    classGroup: "C반",
+    studio: "C반",
     brand: "BANG & OLUFSEN",
     title: "BANG & OLUFSEN",
     members: "김동욱, 한유빈",
@@ -303,8 +303,8 @@ window.PROJECTS_DATA = [
   },
   {
     id: "palace",
-    classGroup: "이길호 교수님 반",
-    studio: "이길호 STUDIO",
+    classGroup: "C반",
+    studio: "C반",
     brand: "PALACE (팔라스)",
     title: "PALACE",
     members: "류채민, 이현채",

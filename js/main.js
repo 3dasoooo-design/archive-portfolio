@@ -1,6 +1,6 @@
 /**
- * EXHIBITION ARCHIVE - Main Script
- * Handles table rendering by Class/Professor, Brand, and Members
+ * GACHON.IA Archive - Main Script
+ * Handles table rendering by A반, B반, C반 order with Brand and Members
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,9 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentFilter = "All";
 
-  // Group by Class Group
+  // Group by Class Group in strict order: A반, B반, C반
   function groupByClass(projects) {
-    const classOrder = ["이재석 교수님 반", "안은희 교수님 반", "이길호 교수님 반"];
+    const classOrder = ["A반", "B반", "C반"];
     const grouped = {};
     
     classOrder.forEach(c => { grouped[c] = []; });
@@ -31,7 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return grouped;
   }
 
-  // Render 3-Column Archive Grid (Each column is a Class Studio)
+  // Class Subtitle mapping
+  const classProfMap = {
+    "A반": "안은희 교수님",
+    "B반": "이재석 교수님",
+    "C반": "이길호 교수님"
+  };
+
+  // Render 3-Column Archive Grid (A반 -> B반 -> C반)
   function renderArchive(filter = "All") {
     if (!archiveContainer) return;
 
@@ -45,7 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const grouped = groupByClass(filtered);
-    const activeClasses = Object.keys(grouped).filter(c => grouped[c].length > 0);
+    const classOrder = ["A반", "B반", "C반"];
+    const activeClasses = classOrder.filter(c => grouped[c] && grouped[c].length > 0);
 
     if (activeClasses.length === 0) {
       archiveContainer.innerHTML = `<p style="padding: 40px; color: #888;">참여 팀 명단이 없습니다.</p>`;
@@ -55,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let html = "";
     activeClasses.forEach(className => {
       const items = grouped[className];
-      const shortClassName = className.replace(" 교수님 ", " "); // e.g. "이재석 반"
+      const profName = classProfMap[className] || "";
 
       html += `
         <div class="archive-column">
@@ -64,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <thead>
                 <tr style="background: #fafafa; border-bottom: 1px solid #111;">
                   <th colspan="3" style="padding: 10px 8px; font-weight: 600; font-size: 13px; letter-spacing: 0.05em; text-align: left;">
-                    ${className} <span style="font-size: 11px; color: #888; font-weight: 400; margin-left: 6px;">(${items.length} Teams)</span>
+                    ${className} <span style="font-size: 11px; color: #888; font-weight: 400; margin-left: 6px;">(${profName} / ${items.length} Teams)</span>
                   </th>
                 </tr>
               </thead>
@@ -77,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         html += `
           <tr data-id="${item.id}" data-thumb="${item.thumbnail}" data-brand="${item.brand}" data-members="${item.members}" data-studio="${item.studio}">
-            ${isFirstRow ? `<td class="col-year" rowspan="${rowCount}">${shortClassName}</td>` : ""}
+            ${isFirstRow ? `<td class="col-year" rowspan="${rowCount}">${className}</td>` : ""}
             <td class="col-title">
               <a href="project.html?id=${item.id}" class="project-link" data-id="${item.id}">
                 ${item.brand || item.title}
