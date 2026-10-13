@@ -6,7 +6,7 @@
 window.STUDIO_INFO = {
   name: "GACHON.IA Archive",
   shortName: "GACHON.IA",
-  department: "가천대학교 디자인대학 실내건축학과",
+  department: "가천대학교 공과대학 실내건축학과",
   tagline: "인간의 삶을 담는 공간과 지속 가능한 장소를 만듭니다.",
   tel: "+82 (0)31 750 5114",
   email: "ia@gachon.ac.kr",
@@ -14,7 +14,7 @@ window.STUDIO_INFO = {
   addressKr: "경기도 성남시 수정구 성남대로 1342 가천대학교 비전타워",
   addressEn: "Vision Tower, Gachon University, 1342 Seongnam-daero, Sujeong-gu, Seongnam-si, Gyeonggi-do",
   manifesto: [
-    { num: "1", text: "가천대학교 디자인대학 실내건축학과입니다." },
+    { num: "1", text: "가천대학교 공과대학 실내건축학과입니다." },
     { num: "2", text: "인간의 삶을 담는 공간과 지속 가능한 장소를 만듭니다." },
     { num: "3", text: "예술적 감성과 건축적 구조, 기술의 융합으로 미래 환경을 디자인합니다." }
   ]
