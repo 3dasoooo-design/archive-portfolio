@@ -47,21 +47,8 @@ window.EXHIBITIONS_DATA = [
     teamsCount: "Scheduled",
     status: "UPCOMING",
     link: "#",
-    description: "가천대학교 실내건축학과 4학년 졸업작품 전시회.",
+    description: "소스 받으면 수정하여 올리겠습니다",
     thumbnail: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80"
-  },
-  {
-    id: "2025-semester-works",
-    year: "2025",
-    title: "2학기 종합 과제전",
-    engTitle: "Fall Semester Studio Works",
-    type: "과제전 (Studio Archive)",
-    period: "2025. 12. 10 – 12. 16",
-    teamsCount: "24 Teams",
-    status: "ARCHIVED",
-    link: "#",
-    description: "공간 설계 스튜디오 기초 및 심화 과제전 결과물 아카이브.",
-    thumbnail: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&auto=format&fit=crop&q=80"
   }
 ];
 
