@@ -1,6 +1,6 @@
 /**
- * THE ARCHIVE - Main Script
- * Handles table rendering, category filtering, and signature cursor preview
+ * EXHIBITION ARCHIVE - Main Script
+ * Handles table rendering by Class/Professor, Brand, and Members
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,97 +11,104 @@ document.addEventListener("DOMContentLoaded", () => {
   const previewImg = document.getElementById("cursor-preview-img");
   const previewMeta = document.getElementById("cursor-preview-meta");
 
-  let currentCategory = "All";
+  let currentFilter = "All";
 
-  // 1. Group Projects by Year
-  function groupProjectsByYear(projects) {
+  // Group by Class Group
+  function groupByClass(projects) {
+    const classOrder = ["이재석 교수님 반", "안은희 교수님 반", "이길호 교수님 반"];
     const grouped = {};
+    
+    classOrder.forEach(c => { grouped[c] = []; });
+
     projects.forEach(p => {
-      if (!grouped[p.year]) {
-        grouped[p.year] = [];
+      const groupName = p.classGroup || "기타";
+      if (!grouped[groupName]) {
+        grouped[groupName] = [];
       }
-      grouped[p.year].push(p);
+      grouped[groupName].push(p);
     });
+
     return grouped;
   }
 
-  // 2. Render 3-Column Archive Grid (like T-FP layout)
-  function renderArchive(category = "All") {
+  // Render 3-Column Archive Grid (Each column is a Class Studio)
+  function renderArchive(filter = "All") {
     if (!archiveContainer) return;
 
-    const filtered = (category === "All") 
-      ? window.PROJECTS_DATA 
-      : window.PROJECTS_DATA.filter(p => p.category.toLowerCase() === category.toLowerCase());
+    const allProjects = window.PROJECTS_DATA || [];
+    const filtered = (filter === "All")
+      ? allProjects
+      : allProjects.filter(p => p.classGroup === filter);
 
     if (statsElement) {
-      statsElement.textContent = `INDEX COUNT: ${filtered.length} PROJECTS`;
+      statsElement.textContent = `EXHIBITION TEAMS: ${filtered.length} TEAMS`;
     }
 
-    const grouped = groupProjectsByYear(filtered);
-    const sortedYears = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
+    const grouped = groupByClass(filtered);
+    const activeClasses = Object.keys(grouped).filter(c => grouped[c].length > 0);
 
-    if (sortedYears.length === 0) {
-      archiveContainer.innerHTML = `<p style="padding: 40px; color: #888;">No projects found in this category.</p>`;
+    if (activeClasses.length === 0) {
+      archiveContainer.innerHTML = `<p style="padding: 40px; color: #888;">참여 팀 명단이 없습니다.</p>`;
       return;
     }
 
-    // Split years across 3 columns evenly
-    const columnsCount = 3;
-    const columns = Array.from({ length: columnsCount }, () => []);
-
-    sortedYears.forEach((year, idx) => {
-      const colIndex = idx % columnsCount;
-      columns[colIndex].push({ year, items: grouped[year] });
-    });
-
-    // Generate HTML for each column
     let html = "";
-    columns.forEach(col => {
-      html += `<div class="archive-column">`;
-      col.forEach(yearGroup => {
-        html += `
+    activeClasses.forEach(className => {
+      const items = grouped[className];
+      const shortClassName = className.replace(" 교수님 ", " "); // e.g. "이재석 반"
+
+      html += `
+        <div class="archive-column">
           <div class="year-block">
             <table class="archive-table">
+              <thead>
+                <tr style="background: #fafafa; border-bottom: 1px solid #111;">
+                  <th colspan="3" style="padding: 10px 8px; font-weight: 600; font-size: 13px; letter-spacing: 0.05em; text-align: left;">
+                    ${className} <span style="font-size: 11px; color: #888; font-weight: 400; margin-left: 6px;">(${items.length} Teams)</span>
+                  </th>
+                </tr>
+              </thead>
               <tbody>
-        `;
-        yearGroup.items.forEach((item, index) => {
-          const isFirstRow = index === 0;
-          const rowCount = yearGroup.items.length;
-          html += `
-            <tr data-id="${item.id}" data-thumb="${item.thumbnail}" data-category="${item.category}" data-year="${item.year}">
-              ${isFirstRow ? `<td class="col-year" rowspan="${rowCount}">${yearGroup.year}</td>` : ""}
-              <td class="col-title">
-                <a href="project.html?id=${item.id}" class="project-link" data-id="${item.id}" data-thumb="${item.thumbnail}" data-category="${item.category}" data-title="${item.title}">
-                  ${item.title}
-                </a>
-              </td>
-              <td class="col-location">${item.location}</td>
-            </tr>
-          `;
-        });
+      `;
+
+      items.forEach((item, index) => {
+        const isFirstRow = index === 0;
+        const rowCount = items.length;
+
         html += `
+          <tr data-id="${item.id}" data-thumb="${item.thumbnail}" data-brand="${item.brand}" data-members="${item.members}" data-studio="${item.studio}">
+            ${isFirstRow ? `<td class="col-year" rowspan="${rowCount}">${shortClassName}</td>` : ""}
+            <td class="col-title">
+              <a href="project.html?id=${item.id}" class="project-link" data-id="${item.id}">
+                ${item.brand || item.title}
+              </a>
+            </td>
+            <td class="col-location" title="${item.members}">${item.members}</td>
+          </tr>
+        `;
+      });
+
+      html += `
               </tbody>
             </table>
           </div>
-        `;
-      });
-      html += `</div>`;
+        </div>
+      `;
     });
 
     archiveContainer.innerHTML = html;
     bindPreviewEvents();
   }
 
-  // 3. Cursor Floating Image Preview Interaction
+  // Signature Floating Preview
   let mouseX = -500, mouseY = -500;
   let curX = -500, curY = -500;
   let isHovering = false;
 
   window.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX + 24; // offset from cursor
+    mouseX = e.clientX + 24;
     mouseY = e.clientY + 20;
 
-    // Prevent going off screen
     if (mouseX + 300 > window.innerWidth) {
       mouseX = e.clientX - 304;
     }
@@ -121,17 +128,17 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCursorPosition();
 
   function bindPreviewEvents() {
-    const rows = document.querySelectorAll(".archive-table tr");
+    const rows = document.querySelectorAll(".archive-table tbody tr");
     rows.forEach(row => {
-      row.addEventListener("mouseenter", (e) => {
+      row.addEventListener("mouseenter", () => {
         const thumb = row.dataset.thumb;
-        const cat = row.dataset.category;
-        const year = row.dataset.year;
+        const brand = row.dataset.brand;
+        const members = row.dataset.members;
 
         if (thumb && cursorCard && previewImg) {
           previewImg.src = thumb;
           if (previewMeta) {
-            previewMeta.innerHTML = `<span>${cat}</span><span>${year}</span>`;
+            previewMeta.innerHTML = `<span style="font-weight:600;">${brand}</span><span>${members}</span>`;
           }
           cursorCard.classList.add("visible");
           isHovering = true;
@@ -147,13 +154,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 4. Category Filter Buttons
+  // Filter Button Events
   filterButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       filterButtons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      currentCategory = btn.dataset.category || "All";
-      renderArchive(currentCategory);
+      currentFilter = btn.dataset.filter || "All";
+      renderArchive(currentFilter);
     });
   });
 

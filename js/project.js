@@ -18,12 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!project) return;
 
   // 1. Populate Header & Meta
-  document.title = `${project.title} — THE ARCHIVE`;
+  document.title = `${project.brand || project.title} — EXHIBITION ARCHIVE`;
   const titleEl = document.getElementById("project-title");
   const breadcrumbEl = document.getElementById("project-breadcrumb");
 
-  if (titleEl) titleEl.textContent = project.title;
-  if (breadcrumbEl) breadcrumbEl.textContent = `${project.year} / ${project.category} / ${project.location}`;
+  if (titleEl) titleEl.textContent = project.brand || project.title;
+  if (breadcrumbEl) breadcrumbEl.textContent = `${project.classGroup} / ${project.members}`;
 
   // 2. Setup Image Slider
   const sliderTrack = document.getElementById("slider-track");
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (sliderTrack) {
     sliderTrack.innerHTML = images.map((imgUrl, i) => `
       <div class="slide-item ${i === 0 ? "active" : ""}" data-index="${i}">
-        <img src="${imgUrl}" alt="${project.title} slide ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}" />
+        <img src="${imgUrl}" alt="${project.brand || project.title} slide ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}" />
       </div>
     `).join("");
   }
@@ -83,25 +83,21 @@ document.addEventListener("DOMContentLoaded", () => {
   if (specContainer) {
     specContainer.innerHTML = `
       <tr>
-        <td class="spec-name-col" rowspan="6">${project.title}</td>
-        <td class="spec-key-col">Date</td>
-        <td class="spec-val-col">${project.date || project.year}</td>
+        <td class="spec-name-col" rowspan="5">${project.brand || project.title}</td>
+        <td class="spec-key-col">Brand</td>
+        <td class="spec-val-col"><strong>${project.brand || project.title}</strong></td>
       </tr>
       <tr>
-        <td class="spec-key-col">Address</td>
-        <td class="spec-val-col">${project.address || project.location}</td>
+        <td class="spec-key-col">Class Studio</td>
+        <td class="spec-val-col">${project.classGroup} (${project.studio})</td>
+      </tr>
+      <tr>
+        <td class="spec-key-col">Members (참여 인원)</td>
+        <td class="spec-val-col"><strong>${project.members}</strong></td>
       </tr>
       <tr>
         <td class="spec-key-col">Genre</td>
         <td class="spec-val-col">${project.genre || project.category}</td>
-      </tr>
-      <tr>
-        <td class="spec-key-col">Team</td>
-        <td class="spec-val-col">${project.team || "THE FIRST PENGUIN"}</td>
-      </tr>
-      <tr>
-        <td class="spec-key-col">Partner</td>
-        <td class="spec-val-col">${project.partner || "—"}</td>
       </tr>
       <tr>
         <td class="spec-key-col">Concept</td>
@@ -119,10 +115,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (prevLink) {
     prevLink.href = `project.html?id=${prevProject.id}`;
-    prevLink.textContent = `← PREV: ${prevProject.title}`;
+    prevLink.textContent = `← PREV: ${prevProject.brand || prevProject.title}`;
   }
   if (nextLink) {
     nextLink.href = `project.html?id=${nextProject.id}`;
-    nextLink.textContent = `NEXT: ${nextProject.title} →`;
+    nextLink.textContent = `NEXT: ${nextProject.brand || nextProject.title} →`;
   }
 });
