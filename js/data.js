@@ -1,6 +1,6 @@
 /**
- * GACHON.IA Archive - Project Database
- * 가천대학교 실내건축학과(Interior Architecture) 2학기 팀 전시 아카이브
+ * GACHON.IA Archive - Master Database
+ * 가천대학교 실내건축학과(Interior Architecture) 전체 전시 & 프로젝트 아카이브
  */
 
 window.STUDIO_INFO = {
@@ -17,20 +17,64 @@ window.STUDIO_INFO = {
     { num: "1", text: "가천대학교 디자인대학 실내건축학과입니다." },
     { num: "2", text: "인간의 삶을 담는 공간과 지속 가능한 장소를 만듭니다." },
     { num: "3", text: "예술적 감성과 건축적 구조, 기술의 융합으로 미래 환경을 디자인합니다." }
-  ],
-  classes: [
-    { class: "A반", prof: "안은희 교수님", focus: "Brand Experience & Lifestyle", count: "6 Teams" },
-    { class: "B반", prof: "이재석 교수님", focus: "Tectonic & Spatial Atmosphere", count: "5 Teams" },
-    { class: "C반", prof: "이길호 교수님", focus: "Spatial Narrative & Contemporary Culture", count: "7 Teams" }
   ]
 };
 
+// ==========================================
+// 전체 전시 마스터 디렉토리 (Master Exhibitions Catalog)
+// ==========================================
+window.EXHIBITIONS_DATA = [
+  {
+    id: "2026-3rd-external",
+    year: "2026",
+    title: "3학년 외부전시",
+    engTitle: "3rd Year External Exhibition",
+    type: "외부전시 (External Show)",
+    period: "2026. 10. 15 – 10. 20",
+    teamsCount: "18 Teams (A, B, C반)",
+    status: "CURRENT",
+    link: "exhibition.html?id=2026-3rd-external",
+    description: "동시대 브랜드 공간과 라이프스타일을 탐구한 3학년 3개 스튜디오 18개 팀의 외부 연계 전시 아카이브.",
+    thumbnail: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop&q=80"
+  },
+  {
+    id: "2026-graduation",
+    year: "2026",
+    title: "졸업전시회 (Degree Show)",
+    engTitle: "4th Year Graduation Exhibition",
+    type: "졸업전시 (Graduation)",
+    period: "2026. 11. 20 – 11. 26",
+    teamsCount: "Scheduled",
+    status: "UPCOMING",
+    link: "#",
+    description: "가천대학교 실내건축학과 4학년 졸업작품 전시회.",
+    thumbnail: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80"
+  },
+  {
+    id: "2025-semester-works",
+    year: "2025",
+    title: "2학기 종합 과제전",
+    engTitle: "Fall Semester Studio Works",
+    type: "과제전 (Studio Archive)",
+    period: "2025. 12. 10 – 12. 16",
+    teamsCount: "24 Teams",
+    status: "ARCHIVED",
+    link: "#",
+    description: "공간 설계 스튜디오 기초 및 심화 과제전 결과물 아카이브.",
+    thumbnail: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&auto=format&fit=crop&q=80"
+  }
+];
+
+// ==========================================
+// [2026 3학년 외부전시] 18개 팀 데이터
+// ==========================================
 window.PROJECTS_DATA = [
   // ==========================================
   // [A반] 6개 팀 (안은희 교수님)
   // ==========================================
   {
     id: "hwayo",
+    exhibitionId: "2026-3rd-external",
     classGroup: "A반",
     studio: "A반",
     brand: "화요 (Hwayo)",
@@ -47,6 +91,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "dongwha",
+    exhibitionId: "2026-3rd-external",
     classGroup: "A반",
     studio: "A반",
     brand: "동화약품",
@@ -63,6 +108,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "galaxy",
+    exhibitionId: "2026-3rd-external",
     classGroup: "A반",
     studio: "A반",
     brand: "삼성 갤럭시 (Samsung Galaxy)",
@@ -79,6 +125,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "gopherwood",
+    exhibitionId: "2026-3rd-external",
     classGroup: "A반",
     studio: "A반",
     brand: "고퍼우드 (Gopherwood)",
@@ -94,6 +141,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "studio-ahn-cho",
+    exhibitionId: "2026-3rd-external",
     classGroup: "A반",
     studio: "A반",
     brand: "조예은 프로젝트",
@@ -109,6 +157,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "bilguun-team",
+    exhibitionId: "2026-3rd-external",
     classGroup: "A반",
     studio: "A반",
     brand: "글로벌 익스체인지",
@@ -128,6 +177,7 @@ window.PROJECTS_DATA = [
   // ==========================================
   {
     id: "marshall",
+    exhibitionId: "2026-3rd-external",
     classGroup: "B반",
     studio: "B반",
     brand: "마샬 (Marshall)",
@@ -145,6 +195,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "tekla",
+    exhibitionId: "2026-3rd-external",
     classGroup: "B반",
     studio: "B반",
     brand: "TEKLA",
@@ -161,6 +212,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "hanyul",
+    exhibitionId: "2026-3rd-external",
     classGroup: "B반",
     studio: "B반",
     brand: "한율 (Hanyul)",
@@ -177,6 +229,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "gachi-ieum",
+    exhibitionId: "2026-3rd-external",
     classGroup: "B반",
     studio: "B반",
     brand: "가치이음",
@@ -193,6 +246,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "karrot",
+    exhibitionId: "2026-3rd-external",
     classGroup: "B반",
     studio: "B반",
     brand: "당근 (Karrot)",
@@ -213,6 +267,7 @@ window.PROJECTS_DATA = [
   // ==========================================
   {
     id: "ggott",
+    exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
     brand: "ggott",
@@ -229,6 +284,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "dedar",
+    exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
     brand: "DEDAR",
@@ -244,6 +300,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "medicube",
+    exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
     brand: "메디큐브 (Medicube)",
@@ -259,6 +316,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "headspace",
+    exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
     brand: "헤드스페이스 (Headspace)",
@@ -274,6 +332,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "yoshida-porter",
+    exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
     brand: "요시다 포터 (Yoshida Porter)",
@@ -289,6 +348,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "bang-olufsen",
+    exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
     brand: "BANG & OLUFSEN",
@@ -304,6 +364,7 @@ window.PROJECTS_DATA = [
   },
   {
     id: "palace",
+    exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
     brand: "PALACE (팔라스)",

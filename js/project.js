@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const breadcrumbEl = document.getElementById("project-breadcrumb");
 
   if (titleEl) titleEl.textContent = project.brand || project.title;
-  if (breadcrumbEl) breadcrumbEl.textContent = `${project.classGroup} / ${project.members}`;
+  if (breadcrumbEl) breadcrumbEl.textContent = `2026 3학년 외부전시 / ${project.classGroup} / ${project.members}`;
 
   // 2. Setup Image Slider
   const sliderTrack = document.getElementById("slider-track");

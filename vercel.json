@@ -3,7 +3,8 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/project/:path*", "destination": "/project.html" }
+    { "source": "/project/:path*", "destination": "/project.html" },
+    { "source": "/exhibition/:path*", "destination": "/exhibition.html" }
   ],
   "headers": [
     {
