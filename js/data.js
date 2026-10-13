@@ -6,21 +6,22 @@
 window.STUDIO_INFO = {
   name: "GACHON.IA Archive",
   shortName: "GACHON.IA",
-  tagline: "가천대학교 실내건축학과 2학기 과제전 / 졸업전시 브랜드 공간 아카이브입니다.",
+  department: "가천대학교 디자인대학 실내건축학과",
+  tagline: "인간의 삶을 담는 공간과 지속 가능한 장소를 만듭니다.",
   tel: "+82 (0)31 750 5114",
   email: "ia@gachon.ac.kr",
   instagram: "@gachon_ia_archive",
   addressKr: "경기도 성남시 수정구 성남대로 1342 가천대학교 비전타워",
-  addressEn: "Gachon University, 1342 Seongnam-daero, Sujeong-gu, Seongnam-si, Gyeonggi-do",
+  addressEn: "Vision Tower, Gachon University, 1342 Seongnam-daero, Sujeong-gu, Seongnam-si, Gyeonggi-do",
   manifesto: [
-    { num: "1", text: "가천대학교 실내건축학과의 정체성과 탐구를 담은 전시 아카이브입니다." },
-    { num: "2", text: "동시대 브랜드의 공간 경험과 건축적 구조를 새롭게 정의합니다." },
-    { num: "3", text: "A반, B반, C반 총 18개 팀의 공간 디자인 결과를 기록합니다." }
+    { num: "1", text: "가천대학교 디자인대학 실내건축학과입니다." },
+    { num: "2", text: "인간의 삶을 담는 공간과 지속 가능한 장소를 만듭니다." },
+    { num: "3", text: "예술적 감성과 건축적 구조, 기술의 융합으로 미래 환경을 디자인합니다." }
   ],
   classes: [
-    { class: "A반", prof: "안은희 교수님", count: "6 Teams" },
-    { class: "B반", prof: "이재석 교수님", count: "5 Teams" },
-    { class: "C반", prof: "이길호 교수님", count: "7 Teams" }
+    { class: "A반", prof: "안은희 교수님", focus: "Brand Experience & Lifestyle", count: "6 Teams" },
+    { class: "B반", prof: "이재석 교수님", focus: "Tectonic & Spatial Atmosphere", count: "5 Teams" },
+    { class: "C반", prof: "이길호 교수님", focus: "Spatial Narrative & Contemporary Culture", count: "7 Teams" }
   ]
 };
 
