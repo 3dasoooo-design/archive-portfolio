@@ -49,6 +49,32 @@ window.EXHIBITIONS_DATA = [
     link: "#",
     description: "소스 받으면 수정하여 올리겠습니다",
     thumbnail: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80"
+  },
+  {
+    id: "2026-2nd-studio",
+    year: "2026",
+    title: "2학년 과제전",
+    engTitle: "2nd Year Studio Works",
+    type: "과제전 (Studio Works)",
+    period: "2026",
+    teamsCount: "Scheduled",
+    status: "UPCOMING",
+    link: "#",
+    description: "소스 받으면 수정하여 올리겠습니다",
+    thumbnail: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&auto=format&fit=crop&q=80"
+  },
+  {
+    id: "2026-3rd-studio",
+    year: "2026",
+    title: "3학년 과제전",
+    engTitle: "3rd Year Studio Works",
+    type: "과제전 (Studio Works)",
+    period: "2026",
+    teamsCount: "Scheduled",
+    status: "UPCOMING",
+    link: "#",
+    description: "소스 받으면 수정하여 올리겠습니다",
+    thumbnail: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&auto=format&fit=crop&q=80"
   }
 ];
 
