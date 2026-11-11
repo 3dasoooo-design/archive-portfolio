@@ -3,51 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#111111">
-  <title>OFFPRINT — LOFI STUDIO _ PALACE Receipt</title>
+  <title>OFFPRINT — LOFI STUDIO _ PALACE</title>
   
-  <!-- Pretendard & Inter & Space Mono Typography -->
+  <!-- Pretendard Font -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  
-  <!-- Standalone QR Code Library -->
+  <!-- QRCode.js for live QR preview -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
-    /* ==========================================================================
-       OFFPRINT Exhibition Receipt System
-       Exact match to the LOFI STUDIO _ PALACE OFFPRINT Receipt Specification
-       ========================================================================== */
     :root {
-      --bg-backdrop: #141416;
-      --paper-white: #ffffff;
-      --ink-main: #111111;
-      --ink-sub: #333333;
-      --ink-muted: #777777;
-      --dotted-line: #444444;
-      --font-sans: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'Space Mono', Consolas, monospace;
+      --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: var(--bg-backdrop);
-      color: var(--ink-main);
+      background-color: #141416;
       font-family: var(--font-sans);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 12px 90px;
-      overflow-x: hidden;
+      padding: 28px 16px 100px;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -58,301 +39,86 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
-      font-size: 11.5px;
-      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 12px;
     }
 
-    .top-nav a, .top-nav button {
-      color: #e4e4e7;
+    .top-nav a {
+      color: #d4d4d8;
       text-decoration: none;
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 7px 13px;
+      padding: 7px 12px;
       border-radius: 3px;
-      cursor: pointer;
-      font-family: var(--font-sans);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       font-weight: 600;
-      font-size: 11.5px;
-      transition: all 0.18s ease;
+      transition: all 0.15s ease;
     }
 
-    .top-nav a:hover, .top-nav button:hover {
+    .top-nav a:hover {
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.18);
-      border-color: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.16);
     }
 
-    /* Receipt Drop Animation */
-    @keyframes receiptSlideDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-28px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* White Receipt Paper Sheet */
-    .offprint-receipt {
+    /* Exact Provided Receipt Container */
+    .receipt-paper-wrap {
       width: 100%;
       max-width: 440px;
-      background-color: var(--paper-white);
-      color: var(--ink-main);
-      padding: 26px 34px 38px;
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.75), 0 4px 20px rgba(0, 0, 0, 0.4);
-      animation: receiptSlideDown 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      position: relative;
-    }
-
-    /* Top OFFPRINT Header */
-    .offprint-top-bar {
-      position: relative;
-      text-align: center;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed var(--dotted-line);
-      margin-bottom: 14px;
-    }
-
-    .offprint-top-bar::before,
-    .offprint-top-bar::after {
-      content: "-";
-      position: absolute;
-      top: 0;
-      color: #999;
-      font-size: 10px;
-    }
-    .offprint-top-bar::before { left: 0; }
-    .offprint-top-bar::after { right: 0; }
-
-    .offprint-logo-text {
-      font-family: var(--font-sans);
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      color: var(--ink-main);
-      text-transform: uppercase;
-      padding-left: 0.22em;
-    }
-
-    /* Brand No & Members Row */
-    .brand-member-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-main);
-      margin-bottom: 12px;
-      letter-spacing: -0.01em;
-    }
-
-    .brand-no-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .brand-no-tag::before {
-      content: "·";
-      color: #888;
-      font-weight: 400;
-    }
-
-    .member-names-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .member-names-tag::after {
-      content: "·";
-      color: #888;
-      font-weight: 400;
-    }
-
-    /* Main Title & Sub-brand Block */
-    .title-block {
-      margin-bottom: 18px;
-      padding-bottom: 18px;
-      border-bottom: 1px dashed var(--dotted-line);
-    }
-
-    .main-studio-title {
-      font-family: var(--font-sans);
-      font-size: 27px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--ink-main);
-      line-height: 1.2;
-      margin-bottom: 8px;
-      word-break: keep-all;
-    }
-
-    .sub-brand-spaced {
-      font-family: var(--font-sans);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      color: var(--ink-sub);
-      text-transform: uppercase;
-    }
-
-    /* Concept Description Paragraph */
-    .concept-paragraph {
-      font-family: var(--font-sans);
-      font-size: 12.8px;
-      font-weight: 350;
-      line-height: 1.78;
-      color: #222222;
-      text-align: justify;
-      word-break: break-all;
-      margin-bottom: 20px;
-      padding-bottom: 20px;
-      border-bottom: 1px dashed var(--dotted-line);
-    }
-
-    /* Spec Tables (* KEYWORD & * ELEMENT) */
-    .spec-section {
-      margin-bottom: 20px;
-    }
-
-    .spec-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      color: var(--ink-main);
-      padding-bottom: 10px;
-      border-bottom: 1px dashed var(--dotted-line);
-      margin-bottom: 12px;
-    }
-
-    .spec-header-row .asterisk {
-      color: #999999;
-      margin-right: 4px;
-      font-weight: 500;
-    }
-
-    .spec-rows-list {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      padding-bottom: 18px;
-      border-bottom: 1px dashed var(--dotted-line);
-    }
-
-    .spec-Section-no-bottom-border .spec-rows-list {
-      border-bottom: none;
-      padding-bottom: 6px;
-    }
-
-    .spec-row-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12.5px;
-      color: var(--ink-main);
-    }
-
-    .spec-row-label {
-      font-weight: 400;
-      color: #1a1a1a;
-    }
-
-    .spec-row-val {
-      font-family: var(--font-sans);
-      font-weight: 600;
-      font-variant-numeric: tabular-nums;
-      letter-spacing: 0.03em;
-      color: #111111;
-    }
-
-    /* Diagram / Visual Graphic Box */
-    .diagram-box {
-      width: 100%;
-      margin: 14px 0 22px;
-      background: #1a1a1a;
+      background-color: #ffffff;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75);
       overflow: hidden;
-      position: relative;
     }
 
-    .diagram-box img {
+    /* 100% Original Provided Design Image */
+    .exact-receipt-img {
       width: 100%;
       height: auto;
       display: block;
     }
 
-    /* Full-width Barcode */
-    .barcode-wrap {
-      width: 100%;
-      margin: 18px 0 14px;
-    }
-
-    .barcode-svg {
-      width: 100%;
-      height: 36px;
-      display: block;
-    }
-
-    /* Footer Message */
-    .thank-you-footer {
-      text-align: center;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      color: var(--ink-main);
-      margin-top: 12px;
-    }
-
-    /* Directing CTA Button inside Receipt */
+    /* Manual Directing Button Area */
     .direct-action-area {
-      margin-top: 26px;
-      padding-top: 18px;
-      border-top: 1px dashed var(--dotted-line);
+      padding: 18px 24px 26px;
+      background: #ffffff;
+      border-top: 1px dotted #cccccc;
     }
 
     .btn-direct-exhibit {
       width: 100%;
-      background: #111111;
+      background-color: #111111;
       color: #ffffff;
       border: 1.5px solid #111111;
-      padding: 14px 18px;
+      padding: 15px 18px;
       font-family: var(--font-sans);
       font-size: 13px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      text-decoration: none;
       transition: all 0.18s ease;
     }
 
     .btn-direct-exhibit:hover {
-      background: #2b2b2b;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      background-color: #ffffff;
+      color: #111111;
     }
 
-    /* Connected Plinth QR Preview Card right below the Receipt */
+    /* Connected Plinth QR Preview Box */
     .connected-qr-section {
       width: 100%;
       max-width: 440px;
       margin-top: 22px;
       background: #ffffff;
       padding: 18px 22px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
     }
 
     .connected-qr-caption {
       font-size: 11px;
       font-weight: 700;
-      color: #666;
+      color: #52525b;
       margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
@@ -360,8 +126,8 @@
     }
 
     .plinth-preview-card {
-      border: 1px solid #d4d4d8;
-      padding: 14px 16px 12px;
+      border: 1px solid #111111;
+      padding: 14px 16px;
       background: #ffffff;
     }
 
@@ -369,9 +135,9 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      border-bottom: 1px solid #111111;
       padding-bottom: 6px;
-      border-bottom: 1px solid #111;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .plinth-logo {
@@ -381,9 +147,9 @@
     }
 
     .plinth-univ {
-      text-align: right;
       font-size: 8px;
       font-weight: 800;
+      text-align: right;
       line-height: 1.25;
       color: #000;
     }
@@ -391,29 +157,27 @@
     .plinth-eng {
       font-size: 12px;
       font-weight: 800;
+      text-transform: uppercase;
       letter-spacing: 0.04em;
-      color: #000;
     }
 
     .plinth-kr {
       font-size: 18px;
       font-weight: 900;
+      margin: 2px 0 4px;
       letter-spacing: -0.02em;
-      color: #000;
-      margin: 2px 0 3px;
     }
 
     .plinth-members {
       font-size: 11px;
       font-weight: 700;
-      color: #000;
+      margin-bottom: 12px;
     }
 
     .plinth-bottom {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-top: 10px;
     }
 
     .plinth-qr-box {
@@ -426,46 +190,6 @@
       height: 100% !important;
       display: block;
     }
-
-    /* Bottom Selector Bar */
-    .stand-selector-bar {
-      margin-top: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-      max-width: 440px;
-      font-size: 11px;
-    }
-
-    .stand-selector-bar select {
-      flex: 1;
-      background: #1f1f23;
-      color: #fff;
-      border: 1px solid #3f3f46;
-      padding: 8px 10px;
-      font-family: var(--font-sans);
-      font-size: 11.5px;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-
-    .selector-nav-btn {
-      background: #1f1f23;
-      color: #fff;
-      border: 1px solid #3f3f46;
-      padding: 8px 12px;
-      border-radius: 3px;
-      cursor: pointer;
-      font-family: var(--font-sans);
-      font-weight: 600;
-      font-size: 11.5px;
-    }
-
-    .selector-nav-btn:hover, .stand-selector-bar select:hover {
-      border-color: #a1a1aa;
-    }
   </style>
 </head>
 <body>
@@ -473,86 +197,27 @@
   <!-- Top Navigation -->
   <div class="top-nav">
     <a href="exhibition.html">&larr; 3학년 외부전시 목록</a>
-    <a href="qr-print.html">&#x25A6; 전체 QR 명판 인쇄 시트</a>
+    <a href="qr-print.html">&#x25A6; 좌대 QR 명판 인쇄 시트</a>
   </div>
 
-  <!-- OFFPRINT White Receipt Paper -->
-  <article class="offprint-receipt" id="offprint-receipt">
-    
-    <!-- 1. Top OFFPRINT Header -->
-    <header class="offprint-top-bar">
-      <div class="offprint-logo-text">OFFPRINT</div>
-    </header>
+  <!-- Exact Provided Receipt Image (Untouched Original PDF Design) -->
+  <article class="receipt-paper-wrap">
+    <img src="assets/lofi_receipt.png?v=20261111_3" alt="LOFI STUDIO _ PALACE Receipt" class="exact-receipt-img" id="exact-receipt-img" />
 
-    <!-- 2. Brand No & Members Row -->
-    <div class="brand-member-row">
-      <span class="brand-no-tag" id="receipt-brand-no">BRAND. 01</span>
-      <span class="member-names-tag" id="receipt-members">이현채 &nbsp; 류채민</span>
-    </div>
-
-    <!-- 3. Main Studio & Brand Title -->
-    <div class="title-block">
-      <h1 class="main-studio-title" id="receipt-main-title">LOFI STUDIO _ PALACE</h1>
-      <div class="sub-brand-spaced" id="receipt-sub-brand">PALACE</div>
-    </div>
-
-    <!-- 4. Spatial Concept Paragraph -->
-    <p class="concept-paragraph" id="receipt-concept">
-      스케이트보드가 커브를 따라 중력의 방향을 거스르는 움직임에서 출발한 공간이다. 중심을 향하는 중력의 흐름과 이에 저항하는 움직임 사이의 어긋남을 구의 곡률과 비정형적인 공간으로 표현한다. 또한 사람의 움직임과 자연환경에 의해 축적되는 마찰과 산화의 흔적을 콘크리트와 금속의 물성 변화로 담아내어, 중력과 움직임이 만들어내는 공간의 역동성을 드러낸다.
-    </p>
-
-    <!-- 5. * KEYWORD / ITEM NO. Section -->
-    <section class="spec-section">
-      <div class="spec-header-row">
-        <span><span class="asterisk">*</span>KEYWORD</span>
-        <span>ITEM NO.</span>
-      </div>
-      <div class="spec-rows-list" id="receipt-keywords-list">
-        <!-- Populated by JS -->
-      </div>
-    </section>
-
-    <!-- 6. * ELEMENT / QTY. Section -->
-    <section class="spec-section spec-Section-no-bottom-border">
-      <div class="spec-header-row">
-        <span><span class="asterisk">*</span>ELEMENT</span>
-        <span>QTY.</span>
-      </div>
-      <div class="spec-rows-list" id="receipt-elements-list">
-        <!-- Populated by JS -->
-      </div>
-    </section>
-
-    <!-- 7. Diagram / Visual Image -->
-    <div class="diagram-box">
-      <img src="assets/lofi_diagram_crop.png" alt="Spatial Diagram" id="receipt-diagram-img" />
-    </div>
-
-    <!-- 8. Full-Width Barcode -->
-    <div class="barcode-wrap" id="receipt-barcode-wrap">
-      <!-- SVG Barcode injected via JS -->
-    </div>
-
-    <!-- 9. Footer Message -->
-    <div class="thank-you-footer">
-      THANK YOU FOR VISITING US.
-    </div>
-
-    <!-- 10. Manual Directing Button to Individual Work Page -->
+    <!-- Manual Directing Button to Individual Work Page -->
     <div class="direct-action-area">
-      <button class="btn-direct-exhibit" id="btn-enter-project">
-        <span id="btn-enter-label">➔ LOFI STUDIO _ PALACE 작품 상세 보기</span>
+      <a href="project.html?id=palace" class="btn-direct-exhibit" id="btn-enter-project">
+        <span id="btn-enter-label">➔ LOFI STUDIO _ PALACE 작품 상세 페이지로 이동</span>
         <span>&rarr;</span>
-      </button>
+      </a>
     </div>
-
   </article>
 
-  <!-- Connected QR Code Plinth Label Preview (Shows the exact QR linking to this receipt) -->
+  <!-- Connected QR Code Plinth Label Preview -->
   <section class="connected-qr-section">
     <div class="connected-qr-caption">
       <span>🔗 이 영수증으로 연결되는 좌대 QR 명판</span>
-      <a href="qr-print.html" style="color: #111; text-decoration: underline;">인쇄용 시트 열기 &rarr;</a>
+      <a href="qr-print.html" style="color: #111; text-decoration: underline;">전체 인쇄 시트 열기 &rarr;</a>
     </div>
     <div class="plinth-preview-card">
       <div class="plinth-top">
@@ -566,9 +231,11 @@
       <div class="plinth-members" id="qr-card-members">이현채 | 류채민</div>
       <div class="plinth-bottom">
         <div style="width: 140px;">
-          <div id="qr-card-barcode"></div>
-          <div style="display: flex; justify-content: space-between; font-size: 8px; font-weight: 700; margin-top: 2px;" id="qr-card-caption">
-            <span>Lofi</span><span>of</span><span>Palace</span>
+          <svg viewBox="0 0 160 32" fill="#000000" preserveAspectRatio="none" style="width: 140px; height: 32px; display: block;">
+            <rect x="0" y="0" width="3" height="32"/><rect x="5" y="0" width="1.5" height="32"/><rect x="8" y="0" width="3" height="32"/><rect x="13" y="0" width="1" height="32"/><rect x="16" y="0" width="4" height="32"/><rect x="22" y="0" width="1.5" height="32"/><rect x="25" y="0" width="3" height="32"/><rect x="30" y="0" width="1" height="32"/><rect x="33" y="0" width="2" height="32"/><rect x="37" y="0" width="4" height="32"/><rect x="43" y="0" width="1.5" height="32"/><rect x="46" y="0" width="3" height="32"/><rect x="51" y="0" width="2" height="32"/><rect x="55" y="0" width="4" height="32"/><rect x="61" y="0" width="1" height="32"/><rect x="64" y="0" width="3" height="32"/><rect x="69" y="0" width="1.5" height="32"/><rect x="72" y="0" width="4" height="32"/><rect x="78" y="0" width="2" height="32"/><rect x="82" y="0" width="3" height="32"/><rect x="87" y="0" width="1" height="32"/><rect x="90" y="0" width="4" height="32"/><rect x="96" y="0" width="1.5" height="32"/><rect x="100" y="0" width="3" height="32"/><rect x="105" y="0" width="2" height="32"/><rect x="109" y="0" width="4" height="32"/><rect x="115" y="0" width="1" height="32"/><rect x="118" y="0" width="3" height="32"/><rect x="123" y="0" width="1.5" height="32"/><rect x="126" y="0" width="4" height="32"/><rect x="132" y="0" width="2" height="32"/><rect x="136" y="0" width="3" height="32"/><rect x="141" y="0" width="1.5" height="32"/><rect x="144" y="0" width="4" height="32"/><rect x="150" y="0" width="1" height="32"/><rect x="153" y="0" width="3" height="32"/><rect x="158" y="0" width="2" height="32"/>
+          </svg>
+          <div style="display: flex; justify-content: space-between; font-size: 8px; font-weight: 700; margin-top: 2px;">
+            <span>Gravity</span><span>of</span><span>Palace</span>
           </div>
         </div>
         <div class="plinth-qr-box" id="live-qr-code"></div>
@@ -576,606 +243,41 @@
     </div>
   </section>
 
-  <!-- Stand Switcher (All 17 Teams) -->
-  <div class="stand-selector-bar">
-    <button class="selector-nav-btn" id="btn-prev-stand">&larr; 이전 팀</button>
-    <select id="select-stand" title="다른 팀 영수증 선택"></select>
-    <button class="selector-nav-btn" id="btn-next-stand">다음 팀 &rarr;</button>
-  </div>
-
+  <script src="js/data.js?v=20261111_3"></script>
   <script>
-    // ==========================================================================
-    // 17 Teams OFFPRINT Receipt Database
-    // ==========================================================================
-    const OFFPRINT_RECEIPTS_DB = [
-      // 01. LOFI STUDIO _ PALACE (이현채, 류채민) — Featured Brand 01
-      {
-        id: "palace",
-        brandNo: "BRAND. 01",
-        studio: "Studio C",
-        brandEng: "PALACE",
-        mainTitle: "LOFI STUDIO _ PALACE",
-        subBrand: "PALACE",
-        membersSpaced: "이현채 &nbsp; 류채민",
-        membersPipe: "이현채 | 류채민",
-        concept: "스케이트보드가 커브를 따라 중력의 방향을 거스르는 움직임에서 출발한 공간이다. 중심을 향하는 중력의 흐름과 이에 저항하는 움직임 사이의 어긋남을 구의 곡률과 비정형적인 공간으로 표현한다. 또한 사람의 움직임과 자연환경에 의해 축적되는 마찰과 산화의 흔적을 콘크리트와 금속의 물성 변화로 담아내어, 중력과 움직임이 만들어내는 공간의 역동성을 드러낸다.",
-        keywords: [
-          { label: "스케이트 문화", no: "01" },
-          { label: "자유성", no: "02" },
-          { label: "반항성", no: "03" }
-        ],
-        elements: [
-          { label: "중력의 엇박", qty: "0,000" },
-          { label: "그라인드", qty: "0,027" },
-          { label: "마찰의 흔적", qty: "5,050" },
-          { label: "금속재", qty: "10,288" },
-          { label: "콘크리트", qty: "12,100" }
-        ],
-        diagramImg: "assets/lofi_diagram_crop.png",
-        barcodeWords: ["Gravity", "of", "Palace"],
-        projectId: "palace"
-      },
-
-      // A반 (5개 팀 / 안은희 교수님)
-      {
-        id: "hwayo",
-        brandNo: "BRAND. 02",
-        studio: "Studio A",
-        brandEng: "HWAYO",
-        mainTitle: "HWAYO _ 화요",
-        subBrand: "HWAYO",
-        membersSpaced: "장효진 &nbsp; 하은지",
-        membersPipe: "장효진 | 하은지",
-        concept: "한국 프리미엄 증류식 소주 화요의 깊은 풍미와 옹기 숙성의 시간을 옻칠과 거친 화강암의 물성으로 번역한 테이스팅 바 공간이다.",
-        keywords: [
-          { label: "옹기 숙성의 시간", no: "01" },
-          { label: "전통 증류 헤리티지", no: "02" },
-          { label: "물성의 깊이", no: "03" }
-        ],
-        elements: [
-          { label: "화강암 텍스처", qty: "1,200" },
-          { label: "블랙 옻칠 마감", qty: "0,850" },
-          { label: "옹기 테이스팅 바", qty: "2,400" },
-          { label: "간접 조도 설계", qty: "4,100" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Heritage", "of", "Hwayo"],
-        projectId: "hwayo"
-      },
-      {
-        id: "dongwha",
-        brandNo: "BRAND. 03",
-        studio: "Studio A",
-        brandEng: "DONGWHA",
-        mainTitle: "DONGWHA _ 동화약품",
-        subBrand: "DONGWHA PHARM",
-        membersSpaced: "김희수 &nbsp; 이지연 &nbsp; 손지후",
-        membersPipe: "김희수 | 이지연 | 손지후",
-        concept: "대한민국 최초의 제약기업 동화약품의 127년 역사를 아카이빙하고, 현대인의 지친 심신을 치유하는 새로운 약방 공간을 제안한다.",
-        keywords: [
-          { label: "127년 헤리티지", no: "01" },
-          { label: "치유와 회복", no: "02" },
-          { label: "현대적 약방", no: "03" }
-        ],
-        elements: [
-          { label: "한지 아카이브 월", qty: "1,097" },
-          { label: "약재 서랍 모듈", qty: "3,420" },
-          { label: "목구조 디테일", qty: "5,100" },
-          { label: "석재 카운터", qty: "8,900" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Healing", "of", "Dongwha"],
-        projectId: "dongwha"
-      },
-      {
-        id: "galaxy",
-        brandNo: "BRAND. 04",
-        studio: "Studio A",
-        brandEng: "SAMSUNG GALAXY",
-        mainTitle: "GALAXY _ 삼성 갤럭시",
-        subBrand: "SAMSUNG GALAXY",
-        membersSpaced: "김민석 &nbsp; 임동혁 &nbsp; 잠시드",
-        membersPipe: "김민석 | 임동혁 | 잠시드",
-        concept: "모바일 기술과 인간의 감각이 조우하는 미래형 테크 익스피리언스 스페이스. 인공지능과 빛의 반응형 인터랙션을 공간으로 구현한다.",
-        keywords: [
-          { label: "반응형 인터랙션", no: "01" },
-          { label: "퓨처 테크 랩", no: "02" },
-          { label: "감각의 확장", no: "03" }
-        ],
-        elements: [
-          { label: "아노다이징 알루미늄", qty: "6,400" },
-          { label: "라이트 센서 그리드", qty: "1,280" },
-          { label: "투명 디스플레이", qty: "2,048" },
-          { label: "메탈릭 플로어", qty: "9,500" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Future", "of", "Galaxy"],
-        projectId: "galaxy"
-      },
-      {
-        id: "gopherwood",
-        brandNo: "BRAND. 05",
-        studio: "Studio A",
-        brandEng: "GOPHERWOOD",
-        mainTitle: "GOPHERWOOD _ 고퍼우드",
-        subBrand: "GOPHERWOOD",
-        membersSpaced: "김누리 &nbsp; 이수민 &nbsp; 장호연",
-        membersPipe: "김누리 | 이수민 | 장호연",
-        concept: "어쿠스틱 기타의 정교한 목공 디테일과 공명(Resonance)을 입체 공간으로 구현한 사운드 크래프트맨십 쇼룸이다.",
-        keywords: [
-          { label: "어쿠스틱 공명", no: "01" },
-          { label: "목공 크래프트", no: "02" },
-          { label: "사운드 울림", no: "03" }
-        ],
-        elements: [
-          { label: "솔리드 톤우드 루버", qty: "4,320" },
-          { label: "사운드 리플렉터", qty: "1,850" },
-          { label: "황동 브릿지 조인트", qty: "0,640" },
-          { label: "어쿠스틱 챔버", qty: "7,200" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Resonance", "of", "Wood"],
-        projectId: "gopherwood"
-      },
-      {
-        id: "bilguun-team",
-        brandNo: "BRAND. 06",
-        studio: "Studio A",
-        brandEng: "GLOBAL EXCHANGE",
-        mainTitle: "GLOBAL _ 빌궁 절러 나문다리",
-        subBrand: "CULTURAL EXCHANGE",
-        membersSpaced: "빌궁 &nbsp; 절러 &nbsp; 나문다리",
-        membersPipe: "빌궁 | 절러 | 나문다리",
-        concept: "국경을 넘는 다문화적 시선과 공간적 조형 언어를 결합한 실험적 공간 인스톨레이션 프로젝트이다.",
-        keywords: [
-          { label: "다문화 시선", no: "01" },
-          { label: "경계의 확장", no: "02" },
-          { label: "조형적 결합", no: "03" }
-        ],
-        elements: [
-          { label: "모듈러 프레임", qty: "3,100" },
-          { label: "패브릭 멤브레인", qty: "2,250" },
-          { label: "스틸 조인트", qty: "5,600" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Culture", "of", "Exchange"],
-        projectId: "bilguun-team"
-      },
-
-      // B반 (5개 팀 / 이재석 교수님)
-      {
-        id: "marshall",
-        brandNo: "BRAND. 07",
-        studio: "Studio B",
-        brandEng: "MARSHALL",
-        mainTitle: "MARSHALL _ 마샬",
-        subBrand: "MARSHALL",
-        membersSpaced: "송현진 &nbsp; 김보경 &nbsp; 이고은",
-        membersPipe: "송현진 | 김보경 | 이고은",
-        concept: "마샬의 아이코닉한 앰프 헤리티지와 아날로그 텍스처를 공간으로 확장한 사운드 몰입형 플래그십 라운지이다.",
-        keywords: [
-          { label: "아날로그 앰프", no: "01" },
-          { label: "사운드 몰입", no: "02" },
-          { label: "아이코닉 텍스처", no: "03" }
-        ],
-        elements: [
-          { label: "빈티지 트위드 메쉬", qty: "2,800" },
-          { label: "브라스 컨트롤 노브", qty: "0,920" },
-          { label: "블랙 레더 그레인", qty: "6,100" },
-          { label: "어쿠스틱 배플", qty: "8,400" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Sound", "of", "Marshall"],
-        projectId: "marshall"
-      },
-      {
-        id: "tekla",
-        brandNo: "BRAND. 08",
-        studio: "Studio B",
-        brandEng: "TEKLA",
-        mainTitle: "TEKLA _ 테클라",
-        subBrand: "TEKLA FABRICS",
-        membersSpaced: "김민서 &nbsp; 이설아 &nbsp; 이예원",
-        membersPipe: "김민서 | 이설아 | 이예원",
-        concept: "북유럽 코펜하겐의 정제된 색채와 고요한 빛을 머금은 패브릭 쇼룸. 일상에 휴식을 선사하는 순수한 물성의 안식처이다.",
-        keywords: [
-          { label: "코펜하겐의 빛", no: "01" },
-          { label: "순수한 패브릭", no: "02" },
-          { label: "고요한 안식처", no: "03" }
-        ],
-        elements: [
-          { label: "오가닉 리넨 드레이프", qty: "1,450" },
-          { label: "라임워시 플라스터", qty: "5,300" },
-          { label: "화이트 오크 선반", qty: "3,200" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Sanctuary", "of", "Tekla"],
-        projectId: "tekla"
-      },
-      {
-        id: "hanyul",
-        brandNo: "BRAND. 09",
-        studio: "Studio B",
-        brandEng: "HANYUL",
-        mainTitle: "HANYUL _ 한율",
-        subBrand: "HANYUL",
-        membersSpaced: "조하나 &nbsp; 김민서",
-        membersPipe: "조하나 | 김민서",
-        concept: "한국의 사계절과 땅의 생명력을 담아낸 자연주의 뷰티 스페이스. 흙과 한지, 볏짚의 따스한 온기로 채운 웰니스 리트릿이다.",
-        keywords: [
-          { label: "한국의 사계절", no: "01" },
-          { label: "자연주의 웰니스", no: "02" },
-          { label: "대지의 온기", no: "03" }
-        ],
-        elements: [
-          { label: "다짐흙(Rammed Earth)", qty: "7,800" },
-          { label: "천연 볏짚 텍스처", qty: "2,150" },
-          { label: "투광 한지 스크린", qty: "1,600" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Nature", "of", "Hanyul"],
-        projectId: "hanyul"
-      },
-      {
-        id: "gachi-ieum",
-        brandNo: "BRAND. 10",
-        studio: "Studio B",
-        brandEng: "GACHI IEUM",
-        mainTitle: "GACHI IEUM _ 가치이음",
-        subBrand: "COMMUNITY HUB",
-        membersSpaced: "명나연 &nbsp; 권은진",
-        membersPipe: "명나연 | 권은진",
-        concept: "세대와 지역을 연결하고 일상의 따뜻한 온기를 나누는 지속가능한 소셜 커뮤니티 복합 공간이다.",
-        keywords: [
-          { label: "세대 간 연결", no: "01" },
-          { label: "소셜 커뮤니티", no: "02" },
-          { label: "지속가능 플랫폼", no: "03" }
-        ],
-        elements: [
-          { label: "리사이클 테라조", qty: "4,500" },
-          { label: "오픈 라운지 데크", qty: "6,200" },
-          { label: "커뮤니티 테이블", qty: "1,800" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Value", "of", "Connection"],
-        projectId: "gachi-ieum"
-      },
-      {
-        id: "karrot",
-        brandNo: "BRAND. 11",
-        studio: "Studio B",
-        brandEng: "KARROT",
-        mainTitle: "KARROT _ 당근",
-        subBrand: "KARROT MARKET",
-        membersSpaced: "최소윤 &nbsp; 정진석 &nbsp; 박태준",
-        membersPipe: "최소윤 | 정진석 | 박태준",
-        concept: "온라인 이웃 연결 플랫폼 당근의 첫 오프라인 거점. 신뢰와 온기를 바탕으로 동네 이웃이 모이고 교류하는 공유 라운지이다.",
-        keywords: [
-          { label: "하이퍼로컬 이웃", no: "01" },
-          { label: "신뢰와 온기", no: "02" },
-          { label: "공유 라운지", no: "03" }
-        ],
-        elements: [
-          { label: "자작나무 합판 모듈", qty: "3,900" },
-          { label: "오렌지 포인트 스틸", qty: "1,120" },
-          { label: "오픈 쉐어링 월", qty: "5,400" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Warmth", "of", "Karrot"],
-        projectId: "karrot"
-      },
-
-      // C반 (7개 팀 / 이길호 교수님 — PALACE는 상단 01번에 배치)
-      {
-        id: "ggott",
-        brandNo: "BRAND. 12",
-        studio: "Studio C",
-        brandEng: "GGOTT",
-        mainTitle: "GGOTT _ 꼬뜨",
-        subBrand: "GGOTT ATELIER",
-        membersSpaced: "김민준 &nbsp; 안상영",
-        membersPipe: "김민준 | 안상영",
-        concept: "자연의 식생과 조형미를 도시 실내 공간으로 끌어들인 감각적 플랜테리어 아틀리에 & 바이오필릭 쇼룸이다.",
-        keywords: [
-          { label: "바이오필릭 식생", no: "01" },
-          { label: "플랜테리어 조형", no: "02" },
-          { label: "도심 속 자연", no: "03" }
-        ],
-        elements: [
-          { label: "반투명 유리고벽", qty: "4,800" },
-          { label: "보타니컬 수공간", qty: "2,300" },
-          { label: "노출 콘크리트 플랜터", qty: "9,100" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1445116572660-238429888805?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Atelier", "of", "Nature"],
-        projectId: "ggott"
-      },
-      {
-        id: "dedar",
-        brandNo: "BRAND. 13",
-        studio: "Studio C",
-        brandEng: "DEDAR",
-        mainTitle: "DEDAR _ 데다",
-        subBrand: "DEDAR MILANO",
-        membersSpaced: "이새영 &nbsp; 박정민",
-        membersPipe: "이새영 | 박정민",
-        concept: "이탈리아 밀라노 하이엔드 텍스타일 브랜드 DEDAR의 대담한 패턴과 우아한 실크 물성을 극대화한 패브릭 아카이브 공간이다.",
-        keywords: [
-          { label: "밀라노 하이엔드 텍스타일", no: "01" },
-          { label: "실크와 경사의 직조", no: "02" },
-          { label: "패브릭 아카이브", no: "03" }
-        ],
-        elements: [
-          { label: "이탈리안 실크 드레이프", qty: "1,890" },
-          { label: "마이크로 시멘트 플로어", qty: "7,400" },
-          { label: "브라스 행잉 스트럭처", qty: "3,650" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Fabric", "of", "Dedar"],
-        projectId: "dedar"
-      },
-      {
-        id: "medicube",
-        brandNo: "BRAND. 14",
-        studio: "Studio C",
-        brandEng: "MEDICUBE",
-        mainTitle: "MEDICUBE _ 메디큐브",
-        subBrand: "MEDICUBE CLINIC",
-        membersSpaced: "임주현 &nbsp; 복선우 &nbsp; 이재진",
-        membersPipe: "임주현 | 복선우 | 이재진",
-        concept: "클리니컬한 신뢰감과 감각적인 힐링을 선사하는 메디컬 뷰티테크 플래그십. 미래형 스킨케어 진단 및 라운지이다.",
-        keywords: [
-          { label: "클리니컬 뷰티테크", no: "01" },
-          { label: "정밀 진단 라운지", no: "02" },
-          { label: "감각적 회복", no: "03" }
-        ],
-        elements: [
-          { label: "프로스티드 아크릴", qty: "3,200" },
-          { label: "미러 크롬 메탈", qty: "5,150" },
-          { label: "화이트 에폭시 코팅", qty: "8,700" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Clinic", "of", "Medicube"],
-        projectId: "medicube"
-      },
-      {
-        id: "headspace",
-        brandNo: "BRAND. 15",
-        studio: "Studio C",
-        brandEng: "HEADSPACE",
-        mainTitle: "HEADSPACE _ 헤드스페이스",
-        subBrand: "HEADSPACE",
-        membersSpaced: "최규민 &nbsp; 최서림",
-        membersPipe: "최규민 | 최서림",
-        concept: "도심 속 과부하된 뇌를 비워내는 명상과 마인드풀니스 웰니스 리트릿. 빛과 어둠의 절제된 대비를 통한 내면의 쉼을 제공한다.",
-        keywords: [
-          { label: "마인드풀니스 명상", no: "01" },
-          { label: "빛과 어둠의 대비", no: "02" },
-          { label: "내면의 고요", no: "03" }
-        ],
-        elements: [
-          { label: "현무암 다크 스톤", qty: "6,800" },
-          { label: "어쿠스틱 명상 셀", qty: "1,200" },
-          { label: "천창 자연광 슬릿", qty: "0,450" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Silence", "of", "Mind"],
-        projectId: "headspace"
-      },
-      {
-        id: "yoshida-porter",
-        brandNo: "BRAND. 16",
-        studio: "Studio C",
-        brandEng: "YOSHIDA PORTER",
-        mainTitle: "PORTER _ 요시다 포터",
-        subBrand: "YOSHIDA & CO.",
-        membersSpaced: "강홍인 &nbsp; 장도연",
-        membersPipe: "강홍인 | 장도연",
-        concept: "일침입혼(一針入魂)의 장인정신. 나일론 본딩 원단의 질감과 기능적 금속 모듈 시스템을 공간 요소로 전면화한 매장이다.",
-        keywords: [
-          { label: "일침입혼 장인정신", no: "01" },
-          { label: "모듈러 하드웨어", no: "02" },
-          { label: "나일론 본딩 물성", no: "03" }
-        ],
-        elements: [
-          { label: "나일론 탱커 패브릭", qty: "2,900" },
-          { label: "인더스트리얼 스틸 랙", qty: "7,450" },
-          { label: "매트 블랙 파스너", qty: "1,320" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Craft", "of", "Porter"],
-        projectId: "yoshida-porter"
-      },
-      {
-        id: "bang-olufsen",
-        brandNo: "BRAND. 17",
-        studio: "Studio C",
-        brandEng: "BANG & OLUFSEN",
-        mainTitle: "B&O _ 뱅앤올룹슨",
-        subBrand: "BANG & OLUFSEN",
-        membersSpaced: "김동욱 &nbsp; 한유빈",
-        membersPipe: "김동욱 | 한유빈",
-        concept: "덴마크 명품 오디오 뱅앤올룹슨의 정밀한 알루미늄 가공 미학과 풍부한 음향을 하나의 예술품처럼 감상하는 갤러리형 쇼룸이다.",
-        keywords: [
-          { label: "알루미늄 가공 미학", no: "01" },
-          { label: "음향의 조각적 시각화", no: "02" },
-          { label: "오디오 갤러리", no: "03" }
-        ],
-        elements: [
-          { label: "펄 블라스트 알루미늄", qty: "8,920" },
-          { label: "오크 어쿠스틱 루버", qty: "3,400" },
-          { label: "사운드 리플렉션 돔", qty: "1,050" }
-        ],
-        diagramImg: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80",
-        barcodeWords: ["Sound", "of", "Acoustic"],
-        projectId: "bang-olufsen"
-      }
-    ];
-
-    // Full-Width Barcode SVG Generator (Matches the LOFI STUDIO PDF bottom barcode)
-    function createFullBarcodeSvg(height = 36) {
-      const bars = [
-        [0, 2], [4, 1], [7, 3], [12, 1], [15, 2], [19, 4], [25, 1], [28, 2],
-        [32, 3], [37, 1], [40, 2], [44, 3], [49, 1], [52, 4], [58, 2], [62, 1],
-        [65, 3], [70, 2], [74, 1], [77, 4], [83, 2], [87, 1], [90, 3], [95, 2],
-        [99, 1], [102, 3], [107, 4], [113, 1], [116, 2], [120, 3], [125, 1],
-        [128, 2], [132, 4], [138, 1], [141, 3], [146, 2], [150, 1], [153, 4],
-        [159, 2], [163, 1], [166, 3], [171, 2], [175, 1], [178, 3], [183, 4],
-        [189, 1], [192, 2], [196, 3], [201, 1], [204, 2], [208, 4], [214, 1],
-        [217, 3], [222, 2], [226, 1], [229, 4], [235, 2], [239, 1], [242, 3],
-        [247, 2], [251, 1], [254, 3], [259, 2], [263, 4], [269, 1], [272, 2],
-        [276, 3], [281, 1], [284, 3], [289, 2], [293, 1], [296, 4]
-      ];
-      const rects = bars.map(([x, w]) => `<rect x="${x}" y="0" width="${w}" height="${height}" />`).join("");
-      return `<svg class="barcode-svg" viewBox="0 0 300 ${height}" fill="#111111" preserveAspectRatio="none">${rects}</svg>`;
-    }
-
-    let currentIndex = 0; // Default to 0 (LOFI STUDIO _ PALACE)
-
-    function resolveInitialIndex() {
+    document.addEventListener("DOMContentLoaded", () => {
       const params = new URLSearchParams(window.location.search);
-      const idParam = params.get("id");
-      const teamParam = params.get("team") || params.get("stand");
+      const idParam = params.get("id") || "palace";
+      const projects = window.PROJECTS_DATA || [];
+      const found = projects.find(p => p.id.toLowerCase() === idParam.toLowerCase()) || projects.find(p => p.id === "palace");
 
-      if (idParam) {
-        const clean = idParam.toLowerCase();
-        if (clean === "lofi" || clean === "lofi-studio" || clean === "palace") return 0;
-        const found = OFFPRINT_RECEIPTS_DB.findIndex(w => w.id.toLowerCase() === clean || w.projectId.toLowerCase() === clean);
-        if (found !== -1) return found;
+      if (found) {
+        const btnEnter = document.getElementById("btn-enter-project");
+        const btnLabel = document.getElementById("btn-enter-label");
+        btnEnter.href = `project.html?id=${found.id}`;
+        btnLabel.textContent = `➔ ${found.brand || found.title} 작품 상세 페이지로 이동`;
+
+        document.getElementById("qr-card-studio").innerHTML = `Gachon Univ.<br>${found.classGroup === "A반" ? "Studio A" : found.classGroup === "B반" ? "Studio B" : "Studio C"}`;
+        document.getElementById("qr-card-eng").textContent = (found.brand || found.title).toUpperCase();
+        document.getElementById("qr-card-kr").textContent = found.brand || found.title;
+        document.getElementById("qr-card-members").textContent = found.members.replace(/,\s*/g, " | ");
       }
 
-      if (teamParam) {
-        const num = teamParam.match(/\d+/);
-        if (num) {
-          const val = parseInt(num[0], 10);
-          if (val >= 1 && val <= OFFPRINT_RECEIPTS_DB.length) {
-            return val - 1;
-          }
-        }
-      }
-
-      return 0; // Default to LOFI STUDIO _ PALACE
-    }
-
-    function renderOffprintReceipt(idx) {
-      currentIndex = idx;
-      const item = OFFPRINT_RECEIPTS_DB[idx];
-      if (!item) return;
-
-      document.title = `OFFPRINT — ${item.mainTitle}`;
-
-      // 1. Brand No & Members
-      document.getElementById("receipt-brand-no").textContent = item.brandNo;
-      document.getElementById("receipt-members").innerHTML = item.membersSpaced;
-
-      // 2. Titles
-      document.getElementById("receipt-main-title").textContent = item.mainTitle;
-      document.getElementById("receipt-sub-brand").textContent = item.subBrand;
-
-      // 3. Concept
-      document.getElementById("receipt-concept").textContent = item.concept;
-
-      // 4. Keywords
-      const kwContainer = document.getElementById("receipt-keywords-list");
-      kwContainer.innerHTML = item.keywords.map(k => `
-        <div class="spec-row-item">
-          <span class="spec-row-label">${k.label}</span>
-          <span class="spec-row-val">${k.no}</span>
-        </div>
-      `).join("");
-
-      // 5. Elements
-      const elContainer = document.getElementById("receipt-elements-list");
-      elContainer.innerHTML = item.elements.map(e => `
-        <div class="spec-row-item">
-          <span class="spec-row-label">${e.label}</span>
-          <span class="spec-row-val">${e.qty}</span>
-        </div>
-      `).join("");
-
-      // 6. Diagram Image
-      const diagImg = document.getElementById("receipt-diagram-img");
-      diagImg.src = item.diagramImg;
-      diagImg.alt = `${item.mainTitle} Diagram`;
-
-      // 7. Barcode
-      document.getElementById("receipt-barcode-wrap").innerHTML = createFullBarcodeSvg(36);
-
-      // 8. Directing Button
-      const btnEnter = document.getElementById("btn-enter-project");
-      const btnLabel = document.getElementById("btn-enter-label");
-      btnLabel.textContent = `➔ ${item.mainTitle} 작품 상세 페이지로 이동`;
-      btnEnter.onclick = () => {
-        window.location.href = `project.html?id=${item.projectId}`;
-      };
-
-      // 9. Update Connected Plinth QR Card Preview
-      document.getElementById("qr-card-studio").innerHTML = `Gachon Univ.<br>${item.studio}`;
-      document.getElementById("qr-card-eng").textContent = item.brandEng;
-      document.getElementById("qr-card-kr").textContent = item.mainTitle;
-      document.getElementById("qr-card-members").textContent = item.membersPipe;
-      document.getElementById("qr-card-barcode").innerHTML = createFullBarcodeSvg(28);
-      document.getElementById("qr-card-caption").innerHTML = `
-        <span>${item.barcodeWords[0]}</span>
-        <span>${item.barcodeWords[1]}</span>
-        <span>${item.barcodeWords[2]}</span>
-      `;
-
-      // Generate live QR code for this receipt
       const qrBox = document.getElementById("live-qr-code");
-      qrBox.innerHTML = "";
       const baseHref = window.location.href.split("?")[0];
-      const targetReceiptUrl = `${baseHref}?id=${item.id}`;
+      const targetUrl = `${baseHref}?id=${found ? found.id : "palace"}`;
       try {
         new QRCode(qrBox, {
-          text: targetReceiptUrl,
+          text: targetUrl,
           width: 68,
           height: 68,
           colorDark: "#000000",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.M
         });
-      } catch (err) {
-        console.error(err);
+      } catch (e) {
+        console.error(e);
       }
-
-      // Sync Selector
-      const sel = document.getElementById("select-stand");
-      if (sel) sel.value = String(idx);
-
-      // Update URL
-      const url = new URL(window.location);
-      url.searchParams.set("id", item.id);
-      window.history.replaceState({}, "", url);
-    }
-
-    function initSelector() {
-      const sel = document.getElementById("select-stand");
-      if (sel) {
-        sel.innerHTML = OFFPRINT_RECEIPTS_DB.map((w, i) => `
-          <option value="${i}">${w.brandNo} — ${w.mainTitle} (${w.membersPipe})</option>
-        `).join("");
-
-        sel.addEventListener("change", (e) => {
-          renderOffprintReceipt(parseInt(e.target.value, 10));
-        });
-      }
-
-      document.getElementById("btn-prev-stand").addEventListener("click", () => {
-        const prev = (currentIndex - 1 + OFFPRINT_RECEIPTS_DB.length) % OFFPRINT_RECEIPTS_DB.length;
-        renderOffprintReceipt(prev);
-      });
-
-      document.getElementById("btn-next-stand").addEventListener("click", () => {
-        const next = (currentIndex + 1) % OFFPRINT_RECEIPTS_DB.length;
-        renderOffprintReceipt(next);
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      initSelector();
-      const initialIdx = resolveInitialIndex();
-      renderOffprintReceipt(initialIdx);
     });
   </script>
 </body>

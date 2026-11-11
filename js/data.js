@@ -35,7 +35,7 @@ window.EXHIBITIONS_DATA = [
     status: "CURRENT",
     link: "exhibition.html?id=2026-3rd-external",
     description: "동시대 브랜드 공간과 라이프스타일을 탐구한 3학년 3개 스튜디오 17개 팀의 외부 연계 전시 아카이브.",
-    thumbnail: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop&q=80"
+    thumbnail: "assets/lofi_receipt.png"
   },
   {
     id: "2026-graduation",
@@ -370,10 +370,9 @@ window.PROJECTS_DATA = [
     genre: "Skate Culture & Architectural Installation",
     category: "Spatial",
     concept: "스케이트보드가 커브를 따라 중력의 방향을 거스르는 움직임에서 출발한 공간이다. 중심을 향하는 중력의 흐름과 이에 저항하는 움직임 사이의 어긋남을 구의 곡률과 비정형적인 공간으로 표현한다. 또한 사람의 움직임과 자연환경에 의해 축적되는 마찰과 산화의 흔적을 콘크리트와 금속의 물성 변화로 담아내어, 중력과 움직임이 만들어내는 공간의 역동성을 드러낸다.",
-    thumbnail: "assets/lofi_diagram_crop.png",
+    thumbnail: "assets/lofi_receipt.png",
     images: [
-      "assets/lofi_diagram_crop.png",
-      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600&auto=format&fit=crop&q=80"
+      "assets/lofi_receipt.png"
     ]
   }
 ];

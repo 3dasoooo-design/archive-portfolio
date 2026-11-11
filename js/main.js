@@ -82,12 +82,13 @@ document.addEventListener("DOMContentLoaded", () => {
       items.forEach((item, index) => {
         const isFirstRow = index === 0;
         const rowCount = items.length;
+        const receiptPreviewImg = "assets/lofi_receipt.png?v=20261111_3";
 
         html += `
-          <tr data-id="${item.id}" data-thumb="${item.thumbnail}" data-brand="${item.brand}" data-members="${item.members}" data-studio="${item.studio}">
+          <tr data-id="${item.id}" data-thumb="${receiptPreviewImg}" data-brand="${item.brand}" data-members="${item.members}" data-studio="${item.studio}">
             ${isFirstRow ? `<td class="col-year" rowspan="${rowCount}">${className}</td>` : ""}
             <td class="col-title" style="display: flex; align-items: center; justify-content: space-between; gap: 6px;">
-              <a href="project.html?id=${item.id}" class="project-link" data-id="${item.id}">
+              <a href="receipt.html?id=${item.id}" class="project-link" data-id="${item.id}">
                 ${item.brand || item.title}
               </a>
               <a href="receipt.html?id=${item.id}" title="${item.brand} 영수증 보기" style="font-family: var(--font-mono); font-size: 9.5px; color: #111; background: #f4f4f4; border: 1px solid #ccc; padding: 1px 6px; border-radius: 2px; white-space: nowrap; flex-shrink: 0;">🧾 SLIP</a>
@@ -116,13 +117,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("mousemove", (e) => {
     mouseX = e.clientX + 24;
-    mouseY = e.clientY + 20;
+    mouseY = e.clientY - 120;
 
-    if (mouseX + 300 > window.innerWidth) {
-      mouseX = e.clientX - 304;
+    if (mouseX + 260 > window.innerWidth) {
+      mouseX = e.clientX - 264;
     }
-    if (mouseY + 210 > window.innerHeight) {
-      mouseY = e.clientY - 210;
+    if (mouseY + 490 > window.innerHeight) {
+      mouseY = Math.max(12, window.innerHeight - 500);
+    }
+    if (mouseY < 12) {
+      mouseY = 12;
     }
   });
 

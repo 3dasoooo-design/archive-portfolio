@@ -34,12 +34,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const images = (project.images && project.images.length > 0) ? project.images : [project.thumbnail];
   let currentSlide = 0;
 
+  const sliderContainer = document.getElementById("project-slider");
+  if (sliderContainer && images.length === 1 && images[0].includes("lofi_receipt")) {
+    sliderContainer.style.aspectRatio = "auto";
+    sliderContainer.style.background = "#141416";
+    sliderContainer.style.padding = "32px 16px";
+    sliderContainer.style.display = "flex";
+    sliderContainer.style.justifyContent = "center";
+    if (prevBtn) prevBtn.style.display = "none";
+    if (nextBtn) nextBtn.style.display = "none";
+    if (indicatorContainer) indicatorContainer.style.display = "none";
+  }
+
   if (sliderTrack) {
-    sliderTrack.innerHTML = images.map((imgUrl, i) => `
-      <div class="slide-item ${i === 0 ? "active" : ""}" data-index="${i}">
-        <img src="${imgUrl}" alt="${project.brand || project.title} slide ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}" />
-      </div>
-    `).join("");
+    if (images.length === 1 && images[0].includes("lofi_receipt")) {
+      sliderTrack.style.height = "auto";
+      sliderTrack.style.display = "flex";
+      sliderTrack.style.justifyContent = "center";
+      sliderTrack.innerHTML = `
+        <img src="${images[0]}" alt="${project.brand || project.title}" style="width: 100%; max-width: 440px; height: auto; display: block; box-shadow: 0 20px 50px rgba(0,0,0,0.6);" />
+      `;
+    } else {
+      sliderTrack.innerHTML = images.map((imgUrl, i) => `
+        <div class="slide-item ${i === 0 ? "active" : ""}" data-index="${i}">
+          <img src="${imgUrl}" alt="${project.brand || project.title} slide ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}" />
+        </div>
+      `).join("");
+    }
   }
 
   if (indicatorContainer) {
