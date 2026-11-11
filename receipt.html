@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#000000">
+  <title>OFFPRINT — Exhibition Thermal Receipt</title>
+
+  <!-- Monospace & Typography for Thermal Printing -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@700;800;900&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       Thermal Paper Receipt Design System
+       Faithfully recreating the authentic physical torn-paper thermal receipt
+       ========================================================================== */
+    :root {
+      --bg-viewport: #000000;
+      --paper-bg: #f8f8f6;
+      --paper-shadow: rgba(0, 0, 0, 0.95);
+      --ink-black: #141414;
+      --ink-muted: #3a3a3a;
+      --ink-faint: #6e6e6e;
+      --dashed-rule: #333333;
+      --font-receipt: 'Space Mono', 'JetBrains Mono', Courier, monospace;
+      --font-sans: 'Inter', 'Noto Sans KR', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-viewport);
+      color: var(--ink-black);
+      font-family: var(--font-receipt);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 12px 90px;
+      overflow-x: hidden;
+      background-image: radial-gradient(circle at 50% 20%, #181a1f 0%, #000000 80%);
+    }
+
+    /* Top Utility Bar */
+    .top-nav {
+      width: 100%;
+      max-width: 410px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 11px;
+    }
+
+    .top-nav a,
+    .top-nav button {
+      color: #a1a1aa;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-receipt);
+      font-size: 11px;
+      transition: all 0.2s ease;
+    }
+
+    .top-nav a:hover,
+    .top-nav button:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    /* Thermal Paper Animation (Print & Drop Motion) */
+    @keyframes thermalDrop {
+      0% {
+        opacity: 0;
+        transform: translateY(-40px) scale(0.97);
+        filter: blur(1px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* Receipt Paper Canvas */
+    .receipt-container {
+      width: 100%;
+      max-width: 410px;
+      position: relative;
+      animation: thermalDrop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Jagged Torn Top Edge (Sawtooth paper cut) */
+    .torn-top-edge {
+      width: 100%;
+      height: 10px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10'><polygon points='0,10 6,0 12,10' fill='%23f8f8f6'/></svg>");
+      background-repeat: repeat-x;
+      background-size: 12px 10px;
+      filter: drop-shadow(0 -2px 3px rgba(0, 0, 0, 0.3));
+    }
+
+    .receipt-sheet {
+      background-color: var(--paper-bg);
+      color: var(--ink-black);
+      padding: 24px 26px 36px;
+      box-shadow:
+        0 20px 65px rgba(0, 0, 0, 0.95),
+        0 4px 18px rgba(0, 0, 0, 0.6);
+      font-size: 11px;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      position: relative;
+    }
+
+    /* Subtle Thermal Grain / Paper Texture Overlay */
+    .receipt-sheet::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(#000000 0.5px, transparent 0.5px);
+      background-size: 4px 4px;
+      opacity: 0.035;
+      pointer-events: none;
+    }
+
+    /* Header Logo & Header Meta */
+    .header-logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    /* Perspective Graphic Logo Icon */
+    .logo-graphic {
+      width: 46px;
+      height: 30px;
+      background: var(--ink-black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--paper-bg);
+      font-weight: 900;
+      font-size: 14px;
+      clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%);
+    }
+
+    .logo-title-group {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+
+    .logo-main-text {
+      font-family: var(--font-sans);
+      font-size: 18px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -0.03em;
+      color: var(--ink-black);
+      text-transform: uppercase;
+    }
+
+    .logo-sub-text {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: 0.04em;
+      color: var(--ink-black);
+      text-transform: uppercase;
+    }
+
+    /* Subtitle block (Centered All-Caps) */
+    .header-manifesto {
+      text-align: center;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      line-height: 1.35;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    /* Date & Time Row */
+    .datetime-bar {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ink-black);
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
+
+    /* Dashed Lines */
+    .rule-dashed {
+      border: none;
+      border-top: 1px dashed var(--dashed-rule);
+      margin: 8px 0;
+    }
+
+    /* Centered Status Bar */
+    .status-bar-center {
+      text-align: center;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--ink-black);
+      padding: 3px 0;
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-black);
+      letter-spacing: -0.01em;
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+
+    /* Numbered Lists */
+    .receipt-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5px;
+      margin-bottom: 8px;
+    }
+
+    .receipt-item-line {
+      display: flex;
+      font-size: 10.5px;
+      line-height: 1.35;
+      color: var(--ink-black);
+    }
+
+    .receipt-item-num {
+      width: 26px;
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+
+    .receipt-item-content {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    /* Detailed Items with Sub-description */
+    .detailed-item {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5px;
+      margin-bottom: 5px;
+      font-size: 10.5px;
+    }
+
+    .detailed-item-header {
+      display: flex;
+      font-weight: 700;
+      color: var(--ink-black);
+    }
+
+    .detailed-item-sub {
+      padding-left: 26px;
+      font-size: 9.5px;
+      color: var(--ink-muted);
+      line-height: 1.35;
+      font-family: var(--font-sans);
+    }
+
+    /* ASCII Art Section (Exact 3D Isometric Typography) */
+    .ascii-section {
+      margin: 16px 0 14px;
+      text-align: center;
+    }
+
+    .ascii-asterisk-bar {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--ink-black);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ascii-art-pre {
+      font-family: var(--font-receipt);
+      font-size: 8.5px;
+      line-height: 1.15;
+      font-weight: 700;
+      color: var(--ink-black);
+      margin: 8px auto;
+      display: inline-block;
+      text-align: left;
+      white-space: pre;
+    }
+
+    /* Footer Inquiry Text */
+    .footer-inquiry {
+      text-align: center;
+      font-size: 9.5px;
+      color: var(--ink-muted);
+      line-height: 1.45;
+      margin-top: 12px;
+      font-family: var(--font-receipt);
+    }
+
+    /* Directing Action Button (CTA inside Receipt) */
+    .receipt-cta-wrap {
+      margin-top: 20px;
+    }
+
+    .receipt-direct-btn {
+      width: 100%;
+      background: var(--ink-black);
+      color: #ffffff;
+      border: 2px solid var(--ink-black);
+      padding: 13px 18px;
+      font-family: var(--font-receipt);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border-radius: 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .receipt-direct-btn:hover {
+      background: #333333;
+      border-color: #333333;
+      transform: translateY(-1px);
+    }
+
+    .receipt-direct-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Lofi Studio Custom Receipt Styling */
+    .receipt-sheet.is-lofi-mode {
+      padding: 0 !important;
+      background-color: #ffffff !important;
+      border-radius: 0 0 2px 2px;
+    }
+
+    .lofi-custom-container {
+      width: 100%;
+      background: #ffffff;
+      position: relative;
+    }
+
+    .lofi-receipt-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .lofi-cta-box {
+      padding: 16px 20px 24px;
+      background: #ffffff;
+      border-top: 1px dashed #d1d5db;
+    }
+
+    /* Quick Selector for Testing Stands */
+    .stand-selector-bar {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 410px;
+      font-size: 10.5px;
+    }
+
+    .stand-selector-bar select {
+      flex: 1;
+      background: #111;
+      color: #fff;
+      border: 1px solid #333;
+      padding: 7px 10px;
+      font-family: var(--font-receipt);
+      font-size: 10.5px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .selector-nav-btn {
+      background: #111;
+      color: #fff;
+      border: 1px solid #333;
+      padding: 7px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-receipt);
+      font-size: 10.5px;
+    }
+
+    .selector-nav-btn:hover,
+    .stand-selector-bar select:hover {
+      border-color: #777;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Action Navigation -->
+  <div class="top-nav">
+    <a href="exhibition.html">&larr; EXHIBITION CATALOG</a>
+    <a href="qr-print.html" target="_blank">&#x25A6; ALL QR LABELS</a>
+  </div>
+
+  <!-- Thermal Paper Container -->
+  <div class="receipt-container">
+
+    <!-- Sawtooth Torn Paper Top Edge -->
+    <div class="torn-top-edge"></div>
+
+    <!-- The Paper Slip Content -->
+    <div class="receipt-sheet" id="receipt-sheet">
+
+      <!-- Logo Header -->
+      <div class="header-logo-row">
+        <div class="logo-graphic">IA</div>
+        <div class="logo-title-group">
+          <div class="logo-main-text" id="header-brand-title">OFFPRINT</div>
+          <div class="logo-sub-text">SPATIAL DESIGN.</div>
+        </div>
+      </div>
+
+      <!-- Centered Subtitle Manifesto -->
+      <div class="header-manifesto">
+        A CATALOG OF EXPLORATORY<br>
+        SPATIAL VISIONS &amp; IDEAS<br>
+        GACHON INTERIOR ARCHITECTURE<br>
+        BASED IN VISION TOWER
+      </div>
+
+      <!-- Date & Time Row -->
+      <div class="datetime-bar">
+        <span id="receipt-date">11/20/2026</span>
+        <span id="receipt-time">02:30 PM</span>
+      </div>
+
+      <hr class="rule-dashed">
+
+      <!-- Status / Stand Indicator -->
+      <div class="status-bar-center" id="receipt-status-stand">
+        [ STAND #13 // 03F DESCEND ZONE ]
+      </div>
+
+      <hr class="rule-dashed">
+
+      <!-- Section 1: Product/Service (Spatial Outputs) -->
+      <div class="section-title">Product/Service</div>
+      <hr class="rule-dashed" style="margin-top: 2px; margin-bottom: 6px;">
+
+      <div class="receipt-list" id="receipt-products-list">
+        <!-- Rendered via JS -->
+      </div>
+
+      <hr class="rule-dashed">
+
+      <!-- Section 2: Exhibition Work & Docent Guide ("How To Work With Me" format) -->
+      <div class="status-bar-center" style="font-weight: 700;">
+        Exhibition Work &amp; Docent Guide
+      </div>
+
+      <hr class="rule-dashed">
+
+      <div class="receipt-list" id="receipt-docent-list">
+        <!-- Rendered via JS -->
+      </div>
+
+      <hr class="rule-dashed">
+
+      <!-- Section 3: Isometric ASCII Art Block -->
+      <div class="ascii-section">
+        <div class="ascii-asterisk-bar">************************************************</div>
+        <pre class="ascii-art-pre" id="ascii-art-display">
+  ___  ____ ____ ____ ____  _ _   _ _____ 
+ / _ \| ___| ___|  _ \|  _ \| | \ | |_   _|
+| | | | |_ | |_ | |_) | |_) | |  \| | | |  
+| |_| |  _||  _||  __/|  _ <| | |\  | | |  
+ \___/|_|  |_|  |_|   |_| \_\_|_| \_| |_|  
+        </pre>
+        <div class="ascii-asterisk-bar">************************************************</div>
+      </div>
+
+      <!-- Section 4: Footer Inquiry Text -->
+      <div class="footer-inquiry">
+        For more information or if you have<br>
+        questions, please visit the online catalog<br>
+        ia@gachon.ac.kr or send a<br>
+        message over Instagram @gachon_ia_archive
+      </div>
+
+      <!-- Section 5: Directing CTA Button -->
+      <div class="receipt-cta-wrap">
+        <button class="receipt-direct-btn" id="btn-enter-project">
+          <span id="btn-enter-label">➔ ENTER EXHIBIT : DEDAR 작품 상세 보기</span>
+          <span>&rarr;</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Stand Quick Navigation Selector -->
+  <div class="stand-selector-bar">
+    <button class="selector-nav-btn" id="btn-prev-stand">&larr; PREV</button>
+    <select id="select-stand" title="다른 좌대 영수증 선택"></select>
+    <button class="selector-nav-btn" id="btn-next-stand">NEXT &rarr;</button>
+  </div>
+
+  <script>
+    // ==========================================================================
+    // 18 Teams Data Definition
+    // Supports customized thermal receipt output
+    // ==========================================================================
+    const THERMAL_RECEIPTS_DB = [
+      // 0. Sample Reference Demo (가천의 바람개비)
+      {
+        id: "sample",
+        standNo: "00",
+        floor: "04F",
+        zone: "04F START ZONE",
+        brandEng: "GACHON",
+        titleKr: "가천의 바람개비",
+        members: "Hong Gildong | Kim Gachon",
+        studio: "Gachon Univ. Studio 4",
+        concept: "바람과 구조의 회전 운동을 통해 가천대학교의 상징적 조형 언어를 공간에 투영한 키네틱 아트 인스톨레이션.",
+        projectId: "hwayo",
+        products: [
+          "Kinetic Wind Analysis & Mapping",
+          "Structural Axonometric Drawing",
+          "Material Spec: Anodized Steel & Glass",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:20 Model)"
+        ]
+      },
+
+      // 4F Route 01 (TEAM_01 ~ TEAM_06)
+      {
+        id: "hwayo",
+        standNo: "01",
+        floor: "04F",
+        zone: "04F START ZONE",
+        brandEng: "HWAYO",
+        titleKr: "화요 (Hwayo)",
+        members: "장효진 | 하은지",
+        studio: "Studio A // 안은희 교수님",
+        concept: "한국 프리미엄 증류식 소주 화요의 깊은 풍미와 옹기 숙성의 시간을 옻칠과 거친 화강암의 물성으로 번역한 테이스팅 바.",
+        projectId: "hwayo",
+        products: [
+          "Heritage Distillery Bar Context",
+          "Aged Ceramic & Granite Spec",
+          "Spatial Programming Plan",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "dongwha",
+        standNo: "02",
+        floor: "04F",
+        zone: "04F START ZONE",
+        brandEng: "DONGWHA",
+        titleKr: "동화약품",
+        members: "김희수 | 이지연 | 손지후",
+        studio: "Studio A // 안은희 교수님",
+        concept: "대한민국 최초의 제약기업 동화약품의 127년 역사를 아카이빙하고, 현대인의 지친 심신을 치유하는 새로운 약방 공간.",
+        projectId: "dongwha",
+        products: [
+          "Heritage Pharmaceutical Archive",
+          "Modern Wellness Sanctuary",
+          "Hanji & Medicinal Wood Spec",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "galaxy",
+        standNo: "03",
+        floor: "04F",
+        zone: "04F START ZONE",
+        brandEng: "GALAXY",
+        titleKr: "삼성 갤럭시",
+        members: "김민석 | 임동혁 | 잠시드",
+        studio: "Studio A // 안은희 교수님",
+        concept: "모바일 기술과 인간의 감각이 조우하는 미래형 테크 익스피리언스 스페이스. 인공지능과 빛의 반응형 인터랙션 설계.",
+        projectId: "galaxy",
+        products: [
+          "Future Mobile Interaction Lab",
+          "Dynamic Light & Sensor Programming",
+          "Anodized Aluminum & Glass Spec",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "gopherwood",
+        standNo: "04",
+        floor: "04F",
+        zone: "04F START ZONE",
+        brandEng: "GOPHERWOOD",
+        titleKr: "고퍼우드",
+        members: "김누리 | 이수민 | 장호연",
+        studio: "Studio A // 안은희 교수님",
+        concept: "어쿠스틱 기타의 정교한 목공 디테일과 공명(Resonance)을 입체 공간으로 구현한 사운드 크래프트맨십 쇼룸.",
+        projectId: "gopherwood",
+        products: [
+          "Acoustic Resonance Analysis",
+          "Timber Joinery & Acoustic Wall Spec",
+          "Sound Immersion Floor Layout",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "studio-ahn-cho",
+        standNo: "05",
+        floor: "04F",
+        zone: "04F START ZONE",
+        brandEng: "LE LABO",
+        titleKr: "조예은 프로젝트",
+        members: "조예은",
+        studio: "Studio A // 안은희 교수님",
+        concept: "개인 작업자로서의 깊이 있는 탐구를 담아낸 독립 공간 디자인 기획 및 프로토타입 전시.",
+        projectId: "studio-ahn-cho",
+        products: [
+          "Independent Spatial Manifesto",
+          "Micro-Cement Prototype Spec",
+          "Sensory Tactile Experience Plan",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "bilguun-team",
+        standNo: "06",
+        floor: "04F",
+        zone: "04F START ZONE",
+        brandEng: "GLOBAL",
+        titleKr: "글로벌 익스체인지",
+        members: "빌궁 | 절러 | 나문다리",
+        studio: "Studio A // 안은희 교수님",
+        concept: "국경을 넘는 다문화적 시선과 공간적 조형 언어를 결합한 실험적 공간 인스톨레이션.",
+        projectId: "bilguun-team",
+        products: [
+          "Cross-Cultural Spatial Mapping",
+          "Modular Pavilion Structure Spec",
+          "Recycled Membrane & Steel",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+
+      // 3F Route 02 (TEAM_07 ~ TEAM_18)
+      {
+        id: "marshall",
+        standNo: "07",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "MARSHALL",
+        titleKr: "마샬 (Marshall)",
+        members: "송현진 | 김보경 | 이고은",
+        studio: "Studio B // 이재석 교수님",
+        concept: "마샬의 아이코닉한 앰프 헤리티지와 아날로그 텍스처를 공간으로 확장한 사운드 몰입형 플래그십 라운지.",
+        projectId: "marshall",
+        products: [
+          "Amplifier Acoustic Sound Lounge",
+          "Vintage Tweed & Brass Hardware Spec",
+          "Immersive Audio Room Layout",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "tekla",
+        standNo: "08",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "TEKLA",
+        titleKr: "TEKLA",
+        members: "김민서 | 이설아 | 이예원",
+        studio: "Studio B // 이재석 교수님",
+        concept: "북유럽 코펜하겐의 정제된 색채와 고요한 빛을 머금은 패브릭 쇼룸. 일상에 휴식을 선사하는 순수한 물성의 안식처.",
+        projectId: "tekla",
+        products: [
+          "Copenhagen Light & Shadow Study",
+          "Natural Organic Linen Drapery Spec",
+          "Restorative Home Sanctuary Layout",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "hanyul",
+        standNo: "09",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "HANYUL",
+        titleKr: "한율 (Hanyul)",
+        members: "조하나 | 김민서",
+        studio: "Studio B // 이재석 교수님",
+        concept: "한국의 사계절과 땅의 생명력을 담아낸 자연주의 뷰티 스페이스. 흙과 한지, 볏짚의 따스한 온기로 채운 웰니스 리트릿.",
+        projectId: "hanyul",
+        products: [
+          "Seasonal Botanic Wellness Mapping",
+          "Rammed Earth & Hanji Spec",
+          "Herbal Spa & Retreat Layout",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "gachi-ieum",
+        standNo: "10",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "VITRA",
+        titleKr: "가치이음",
+        members: "명나연 | 권은진",
+        studio: "Studio B // 이재석 교수님",
+        concept: "세대와 지역을 연결하고 일상의 따뜻한 온기를 나누는 지속가능한 소셜 커뮤니티 복합 공간 기획.",
+        projectId: "gachi-ieum",
+        products: [
+          "Inter-Generational Social Platform",
+          "Recycled Terrazzo & Timber Spec",
+          "Open Neighborhood Lounge Plan",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "karrot",
+        standNo: "11",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "KARROT",
+        titleKr: "당근 (Karrot)",
+        members: "최소윤 | 정진석 | 박태준",
+        studio: "Studio B // 이재석 교수님",
+        concept: "온라인 이웃 연결 플랫폼 당근의 첫 오프라인 거점. 신뢰와 온기를 바탕으로 동네 이웃이 모이고 교류하는 공유 라운지.",
+        projectId: "karrot",
+        products: [
+          "Hyper-Local Neighborhood Hub",
+          "Warm Plywood Modular Furniture Spec",
+          "Shared Tool & Workshop Lounge",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "ggott",
+        standNo: "12",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "GGOTT",
+        titleKr: "ggott",
+        members: "김민준 | 안상영",
+        studio: "Studio C // 이길호 교수님",
+        concept: "자연의 식생과 조형미를 도시 실내 공간으로 끌어들인 감각적 플랜테리어 아틀리에 & 바이오필릭 쇼룸.",
+        projectId: "ggott",
+        products: [
+          "Biophilic Plant Atelier Context",
+          "Translucent Ribbed Glass Spec",
+          "Indoor Greenhouse Climate Zoning",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "dedar",
+        standNo: "13",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "DEDAR",
+        titleKr: "DEDAR (데다)",
+        members: "이새영 | 박정민",
+        studio: "Studio C // 이길호 교수님",
+        concept: "이탈리아 밀라노 하이엔드 텍스타일 브랜드 DEDAR의 대담한 패턴과 우아한 실크 물성을 극대화한 패브릭 아카이브.",
+        projectId: "dedar",
+        products: [
+          "Milano Luxury Textile Archive",
+          "Italian Silk & Micro-Cement Spec",
+          "Drapery Lighting Gallery Layout",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "medicube",
+        standNo: "14",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "MEDICUBE",
+        titleKr: "메디큐브",
+        members: "임주현 | 복선우 | 이재진",
+        studio: "Studio C // 이길호 교수님",
+        concept: "클리니컬한 신뢰감과 감각적인 힐링을 선사하는 메디컬 뷰티테크 플래그십. 미래형 스킨케어 진단 및 라운지.",
+        projectId: "medicube",
+        products: [
+          "Clinical Beauty Diagnostic Lab",
+          "Frosted Acrylic & Chrome Spec",
+          "Sensory Recovery Lounge Layout",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "headspace",
+        standNo: "15",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "HEADSPACE",
+        titleKr: "헤드스페이스",
+        members: "최규민 | 최서림",
+        studio: "Studio C // 이길호 교수님",
+        concept: "도심 속 과부하된 뇌를 비워내는 명상과 마인드풀니스 웰니스 리트릿. 빛과 어둠의 절제된 대비를 통한 내면의 쉼.",
+        projectId: "headspace",
+        products: [
+          "Meditative Acoustic Cell Layout",
+          "Black Basalt & Charcoal Spec",
+          "Light Gradient Sensory Tunnel",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "yoshida-porter",
+        standNo: "16",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "YOSHIDA PORTER",
+        titleKr: "요시다 포터",
+        members: "강홍인 | 장도연",
+        studio: "Studio C // 이길호 교수님",
+        concept: "일침입혼(一針入魂)의 장인정신. 나일론 본딩 원단의 질감과 기능적 금속 모듈 시스템을 공간 요소로 전면화한 매장.",
+        projectId: "yoshida-porter",
+        products: [
+          "Craftsmanship Assembly Grid",
+          "Nylon Bonding & Industrial Steel",
+          "Modular Retail Display System",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "bang-olufsen",
+        standNo: "17",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "BANG & OLUFSEN",
+        titleKr: "뱅앤올룹슨",
+        members: "김동욱 | 한유빈",
+        studio: "Studio C // 이길호 교수님",
+        concept: "덴마크 명품 오디오 뱅앤올룹슨의 정밀한 알루미늄 가공 미학과 풍부한 음향을 하나의 예술품처럼 감상하는 갤러리형 쇼룸.",
+        projectId: "bang-olufsen",
+        products: [
+          "Acoustic Reflection Wave Chamber",
+          "Pearl-Blasted Aluminum Spec",
+          "Audio Gallery Exhibition Plan",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+        ]
+      },
+      {
+        id: "palace",
+        standNo: "18",
+        floor: "03F",
+        zone: "03F DESCEND ZONE",
+        brandEng: "PALACE",
+        titleKr: "팔라스 (PALACE)",
+        members: "류채민 | 이현채",
+        brandEng: "LOFI STUDIO",
+        titleKr: "LOFI STUDIO _ PALACE",
+        members: "이현채 | 류채민",
+        studio: "Studio C // 이길호 교수님",
+        concept: "런던 스트리트 스케이트보드 컬처의 반항적 위트와 거친 인더스트리얼 마감재를 해체주의적 구조로 연출한 플래그십 스토어.",
+        concept: "스케이트보드가 커브를 따라 중력의 방향을 거스르는 움직임에서 출발한 공간이다. 중심을 향하는 중력의 흐름과 이에 저항하는 움직임 사이의 어긋남을 구의 곡률과 비정형적인 공간으로 표현한다. 또한 사람의 움직임과 자연환경에 의해 축적되는 마찰과 산화의 흔적을 콘크리트와 금속의 물성 변화로 담아내어, 중력과 움직임이 만들어내는 공간의 역동성을 드러낸다.",
+        projectId: "palace",
+        isCustomLofi: true,
+        products: [
+          "Sub-Culture Skate Ramp Form",
+          "Raw Galvanized Steel & Asphalt",
+          "Deconstructed Streetwear Floor",
+          "3D Spatial Rendering (D5 Render 4K)",
+          "Physical Scale Model (1:40 Model)"
+          "스케이트 문화 (01)",
+          "자유성 (02)",
+          "반항성 (03)",
+          "중력의 엇박 & 그라인드 모션",
+          "마찰의 흔적 & 콘크리트/금속재 물성"
+        ]
+      }
+    ];
+
+    let currentIndex = 13; // default DEDAR
+    let currentIndex = 18; // default to LOFI STUDIO
+    let defaultSheetHtml = "";
+
+    function resolveWorkIndex() {
+      const params = new URLSearchParams(window.location.search);
+      const idParam = params.get("id");
+      const teamParam = params.get("team") || params.get("stand");
+
+      if (idParam) {
+        if (idParam.toLowerCase() === "sample") return 0;
+        const found = THERMAL_RECEIPTS_DB.findIndex(w => w.id.toLowerCase() === idParam.toLowerCase() || w.projectId.toLowerCase() === idParam.toLowerCase());
+        const clean = idParam.toLowerCase();
+        if (clean === "sample") return 0;
+        if (clean === "lofi" || clean === "lofi-studio" || clean === "palace") return 18;
+        const found = THERMAL_RECEIPTS_DB.findIndex(w => w.id.toLowerCase() === clean || w.projectId.toLowerCase() === clean);
+        if (found !== -1) return found;
+      }
+
+      if (teamParam) {
+        if (teamParam.toUpperCase() === "SAMPLE") return 0;
+        const num = teamParam.match(/\d+/);
+        if (num) {
+          const val = parseInt(num[0], 10);
+          const found = THERMAL_RECEIPTS_DB.findIndex(w => parseInt(w.standNo, 10) === val);
+          if (found !== -1) return found;
+        }
+      }
+
+      return 13; // Default to DEDAR
+      return 18; // Default to LOFI STUDIO
+    }
+
+    function renderThermalReceipt(idx) {
+      currentIndex = idx;
+      const data = THERMAL_RECEIPTS_DB[idx];
+      if (!data) return;
+
+      document.title = `OFFPRINT — ${data.titleKr} (${data.brandEng})`;
+      const sheet = document.getElementById("receipt-sheet");
+
+      // Header Brand
+      document.getElementById("header-brand-title").textContent = data.brandEng;
+      if (data.isCustomLofi) {
+        document.title = `OFFPRINT — LOFI STUDIO _ PALACE`;
+        sheet.classList.add("is-lofi-mode");
+        sheet.innerHTML = `
+          <div class="lofi-custom-container">
+            <img src="assets/lofi_receipt.webp" onerror="this.src='assets/lofi_receipt.png'" alt="LOFI STUDIO _ PALACE Receipt" class="lofi-receipt-img" />
+            <div class="lofi-cta-box">
+              <button class="receipt-direct-btn" id="btn-enter-project" onclick="window.location.href='project.html?id=palace'">
+                <span id="btn-enter-label">➔ ENTER EXHIBIT : LOFI STUDIO _ PALACE 작품 상세 보기</span>
+                <span>&rarr;</span>
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        sheet.classList.remove("is-lofi-mode");
+        // Restore standard template
+        if (sheet.querySelector(".lofi-custom-container")) {
+          sheet.innerHTML = defaultSheetHtml;
+        }
+
+        // Status Bar
+        document.getElementById("receipt-status-stand").textContent = `[ STAND #${data.standNo} // ${data.zone} ]`;
+        document.title = `OFFPRINT — ${data.titleKr} (${data.brandEng})`;
+
+        // Product / Service List
+        const productList = document.getElementById("receipt-products-list");
+        productList.innerHTML = data.products.map((item, i) => `
+        <div class="receipt-item-line">
+          <span class="receipt-item-num">${String(i + 1).padStart(2, '0')}.</span>
+          <span class="receipt-item-content">${item}</span>
+        </div>
+      `).join("");
+        // Header Brand
+        document.getElementById("header-brand-title").textContent = data.brandEng;
+
+        // Docent Guide List ("How To Work With Me" format)
+        const docentList = document.getElementById("receipt-docent-list");
+        docentList.innerHTML = `
+        <div class="detailed-item">
+          <div class="detailed-item-header">
+            <span class="receipt-item-num">01.</span>
+            <span>Brand &amp; Work Title</span>
+        // Status Bar
+        document.getElementById("receipt-status-stand").textContent = `[STAND #${ data.standNo } // ${data.zone} ]`;
+
+        // Product / Service List
+        const productList = document.getElementById("receipt-products-list");
+        productList.innerHTML = data.products.map((item, i) => `
+          <div class="receipt-item-line">
+            <span class="receipt-item-num">${String(i + 1).padStart(2, '0')}.</span>
+            <span class="receipt-item-content">${item}</span>
+          </div>
+          <div class="detailed-item-sub">${data.brandEng} — ${data.titleKr}</div>
+        </div>
+        `).join("");
+
+        <div class="detailed-item">
+          <div class="detailed-item-header">
+            <span class="receipt-item-num">02.</span>
+            <span>Designers / Members</span>
+        // Docent Guide List ("How To Work With Me" format)
+            const docentList = document.getElementById("receipt-docent-list");
+            docentList.innerHTML = `
+            <div class="detailed-item">
+              <div class="detailed-item-header">
+                <span class="receipt-item-num">01.</span>
+                <span>Brand &amp; Work Title</span>
+              </div>
+              <div class="detailed-item-sub">${data.brandEng} — ${data.titleKr}</div>
+            </div>
+            <div class="detailed-item-sub">${data.members}</div>
+          </div>
+
+          <div class="detailed-item">
+            <div class="detailed-item-header">
+              <span class="receipt-item-num">03.</span>
+              <span>Studio &amp; Advisor</span>
+              <div class="detailed-item">
+                <div class="detailed-item-header">
+                  <span class="receipt-item-num">02.</span>
+                  <span>Designers / Members</span>
+                </div>
+                <div class="detailed-item-sub">${data.members}</div>
+              </div>
+              <div class="detailed-item-sub">${data.studio}</div>
+            </div>
+
+            <div class="detailed-item">
+              <div class="detailed-item-header">
+                <span class="receipt-item-num">04.</span>
+                <span>Spatial Concept</span>
+                <div class="detailed-item">
+                  <div class="detailed-item-header">
+                    <span class="receipt-item-num">03.</span>
+                    <span>Studio &amp; Advisor</span>
+                  </div>
+                  <div class="detailed-item-sub">${data.studio}</div>
+                </div>
+                <div class="detailed-item-sub">"${data.concept}"</div>
+              </div>
+              `;
+
+              // Directing CTA Button
+              const enterBtn = document.getElementById("btn-enter-project");
+              const enterLabel = document.getElementById("btn-enter-label");
+              enterLabel.textContent = `➔ ENTER EXHIBIT : ${data.titleKr} 작품 상세 보기`;
+      enterBtn.onclick = () => {
+                window.location.href = `project.html?id=${data.projectId}`;
+      };
+              <div class="detailed-item">
+                <div class="detailed-item-header">
+                  <span class="receipt-item-num">04.</span>
+                  <span>Spatial Concept</span>
+                </div>
+                <div class="detailed-item-sub">"${data.concept}"</div>
+              </div>
+              `;
+
+              // Directing CTA Button
+              const enterBtn = document.getElementById("btn-enter-project");
+              const enterLabel = document.getElementById("btn-enter-label");
+              enterLabel.textContent = `➔ ENTER EXHIBIT : ${data.titleKr} 작품 상세 보기`;
+        enterBtn.onclick = () => {
+                window.location.href = `project.html?id=${data.projectId}`;
+        };
+      }
+
+              // Sync Dropdown
+              const sel = document.getElementById("select-stand");
+              if (sel) sel.value = String(idx);
+
+              // Update URL
+              const url = new URL(window.location);
+              url.searchParams.set("id", data.id);
+              url.searchParams.set("stand", data.standNo);
+              window.history.replaceState({ }, "", url);
+    }
+
+              function initSelector() {
+      const sel = document.getElementById("select-stand");
+              if (sel) {
+                sel.innerHTML = THERMAL_RECEIPTS_DB.map((w, i) => `
+          <option value="${i}">STAND ${w.standNo} (${w.floor}) : ${w.titleKr} [${w.brandEng}]</option>
+        `).join("");
+
+        sel.addEventListener("change", (e) => {
+                renderThermalReceipt(parseInt(e.target.value, 10));
+        });
+      }
+
+      document.getElementById("btn-prev-stand").addEventListener("click", () => {
+        const next = (currentIndex - 1 + THERMAL_RECEIPTS_DB.length) % THERMAL_RECEIPTS_DB.length;
+              renderThermalReceipt(next);
+      });
+
+      document.getElementById("btn-next-stand").addEventListener("click", () => {
+        const next = (currentIndex + 1) % THERMAL_RECEIPTS_DB.length;
+              renderThermalReceipt(next);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const sheet = document.getElementById("receipt-sheet");
+              if (sheet) {
+                defaultSheetHtml = sheet.innerHTML;
+      }
+              initSelector();
+              const targetIdx = resolveWorkIndex();
+              renderThermalReceipt(targetIdx);
+    });
+  </script>
+</body>
+
+</html>

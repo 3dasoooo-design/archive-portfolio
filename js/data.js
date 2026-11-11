@@ -380,12 +380,12 @@ window.PROJECTS_DATA = [
     exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
-    brand: "PALACE (팔라스)",
-    title: "PALACE",
-    members: "류채민, 이현채",
-    genre: "Skate Culture & Streetwear Flagship",
+    brand: "LOFI STUDIO _ PALACE",
+    title: "LOFI STUDIO _ PALACE",
+    members: "이현채, 류채민",
+    genre: "Skate Culture & Architectural Installation",
     category: "Spatial",
-    concept: "런던 스트리트 스케이트보드 컬처의 반항적 위트와 거친 인더스트리얼 마감재를 해체주의적 구조로 연출한 플래그십 스토어.",
+    concept: "스케이트보드가 커브를 따라 중력의 방향을 거스르는 움직임에서 출발한 공간이다. 중심을 향하는 중력의 흐름과 이에 저항하는 움직임 사이의 어긋남을 구의 곡률과 비정형적인 공간으로 표현한다. 또한 사람의 움직임과 자연환경에 의해 축적되는 마찰과 산화의 흔적을 콘크리트와 금속의 물성 변화로 담아내어, 중력과 움직임이 만들어내는 공간의 역동성을 드러낸다.",
     thumbnail: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&auto=format&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600&auto=format&fit=crop&q=80"

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offprint — 작품 좌대 QR 명판 라벨 인쇄 시트</title>
+  
+  <!-- Pretendard & Inter Typography -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Standalone QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       Offprint Plinth Exhibition Label System (좌대 부착용 명판)
+       Faithfully matching the minimalist Swiss gallery label reference
+       ========================================================================== */
+    :root {
+      --font-brand: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', Consolas, monospace;
+      --card-w: 96mm;
+      --card-h: 54mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #ebeef2;
+      font-family: var(--font-brand);
+      color: #000000;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Screen UI - Header & Controls */
+    .control-header {
+      max-width: 900px;
+      margin: 0 auto 24px;
+      background: #ffffff;
+      padding: 20px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .control-header h1 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .control-header p {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 3px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 9px 16px;
+      border-radius: 5px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      font-family: var(--font-brand);
+    }
+
+    .btn-dark {
+      background: #000000;
+      color: #ffffff;
+    }
+
+    .btn-dark:hover {
+      background: #262626;
+    }
+
+    .btn-light {
+      background: #f1f5f9;
+      color: #1e293b;
+      border-color: #cbd5e1;
+    }
+
+    .btn-light:hover {
+      background: #e2e8f0;
+    }
+
+    /* Base URL Bar */
+    .url-config-bar {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      background: #ffffff;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .url-config-bar input {
+      flex: 1;
+      padding: 6px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    /* Print Paper Sheet / Grid Layout (A4 format) */
+    .sheet-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      justify-content: center;
+    }
+
+    /* Individual Plinth Card (Matches uploaded image exactly) */
+    .plinth-card {
+      width: 100%;
+      height: 230px;
+      background: #ffffff;
+      border: 1px solid #d4d4d8;
+      border-radius: 2px;
+      padding: 16px 20px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      position: relative;
+      page-break-inside: avoid;
+      overflow: hidden;
+    }
+
+    /* Card Top Header: Offprint (Left) & Gachon Univ. Studio X (Right) */
+    .card-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 7px;
+    }
+
+    .header-logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #000000;
+      line-height: 1;
+    }
+
+    .header-meta-univ {
+      text-align: right;
+      font-size: 8.5px;
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: #000000;
+    }
+
+    /* Divider Line */
+    .card-divider-line {
+      border: none;
+      border-top: 1px solid #000000;
+      margin: 0 0 10px 0;
+      opacity: 0.9;
+    }
+
+    /* Center Artwork Information */
+    .card-body-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .card-eng-brand {
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #000000;
+      text-transform: uppercase;
+      line-height: 1.15;
+    }
+
+    .card-kr-title {
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #000000;
+      margin: 2px 0 4px;
+      line-height: 1.2;
+    }
+
+    .card-member-line {
+      font-size: 12px;
+      font-weight: 700;
+      color: #000000;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    /* Bottom Row: Barcode (Left) & QR Code (Right) */
+    .card-footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 8px;
+    }
+
+    /* Barcode Block */
+    .barcode-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .barcode-svg-element {
+      width: 155px;
+      height: 44px;
+    }
+
+    .barcode-caption {
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #000000;
+      margin-top: 3px;
+      display: flex;
+      justify-content: space-between;
+      width: 155px;
+      padding: 0 2px;
+    }
+
+    /* QR Code Box */
+    .qr-block {
+      width: 68px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+    }
+
+    .qr-block img, .qr-block canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Crop Marks / Cut Guidelines */
+    .cut-guide {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-color: #a1a1aa;
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       Print Media Query for A4 Plinth Cards
+       ========================================================================== */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm;
+      }
+
+      body {
+        background: transparent !important;
+        padding: 0 !important;
+      }
+
+      .control-header, .url-config-bar {
+        display: none !important;
+      }
+
+      .sheet-grid {
+        max-width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8mm;
+      }
+
+      .plinth-card {
+        width: 100%;
+        height: 54mm;
+        padding: 4mm 5.5mm 3.5mm;
+        border: 1px solid #000000;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+
+      .barcode-svg-element {
+        width: 38mm;
+        height: 11mm;
+      }
+
+      .barcode-caption {
+        width: 38mm;
+        font-size: 7pt;
+      }
+
+      .qr-block {
+        width: 17mm;
+        height: 17mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Control Bar -->
+  <div class="control-header">
+    <div>
+      <h1>Offprint — 작품 좌대 부착용 QR 명판 라벨 인쇄 시트</h1>
+      <p>제시해주신 갤러리 명판 디자인 규격(상단 Offprint / 작품명 / 바코드 &amp; QR)으로 제작된 인쇄용 시트입니다.</p>
+    </div>
+    <div class="btn-group">
+      <a href="receipt.html?id=dongwha" class="btn btn-light">&larr; 단독 영수증 테스트</a>
+      <button class="btn btn-dark" onclick="window.print()">&#x2399; A4 전체 명판 인쇄 (Ctrl+P)</button>
+    </div>
+  </div>
+
+  <!-- QR Base URL Setting -->
+  <div class="url-config-bar">
+    <label for="input-base-url"><strong>QR 연결 URL:</strong></label>
+    <input type="text" id="input-base-url" value="" placeholder="자동 감지 중...">
+    <button class="btn btn-light" onclick="renderAllCards()">QR 새로고침</button>
+  </div>
+
+  <!-- Sheet Grid of Plinth Cards -->
+  <div class="sheet-grid" id="sheet-grid">
+    <!-- Generated by JS -->
+  </div>
+
+  <script>
+    // ==========================================================================
+    // 18 Exhibition Plinth Labels Database
+    // Includes sample demonstration card + All 18 department teams
+    // ==========================================================================
+    const PLINTH_CARDS_DATA = [
+      // 0. The User's Exact Sample Image Reference (가천의 바람개비)
+      {
+        id: "sample-gachon",
+        univ: "Gachon Univ.",
+        studio: "Studio 4",
+        brandEng: "GACHON",
+        titleKr: "가천의 바람개비",
+        members: "Hong Gildong | Kim Gachon",
+        barcodeText: ["Pinwheel", "of", "Gachon"],
+        targetUrlId: "sample"
+      },
+
+      // 1. A반 (Studio A / 안은희 교수님)
+      {
+        id: "hwayo",
+        univ: "Gachon Univ.",
+        studio: "Studio A",
+        brandEng: "HWAYO",
+        titleKr: "화요 (Hwayo)",
+        members: "장효진 | 하은지",
+        barcodeText: ["Heritage", "of", "Hwayo"],
+        targetUrlId: "hwayo"
+      },
+      {
+        id: "dongwha",
+        univ: "Gachon Univ.",
+        studio: "Studio A",
+        brandEng: "DONGWHA",
+        titleKr: "동화약품",
+        members: "김희수 | 이지연 | 손지후",
+        barcodeText: ["Healing", "of", "Dongwha"],
+        targetUrlId: "dongwha"
+      },
+      {
+        id: "galaxy",
+        univ: "Gachon Univ.",
+        studio: "Studio A",
+        brandEng: "GALAXY",
+        titleKr: "삼성 갤럭시",
+        members: "김민석 | 임동혁 | 잠시드",
+        barcodeText: ["Future", "of", "Galaxy"],
+        targetUrlId: "galaxy"
+      },
+      {
+        id: "gopherwood",
+        univ: "Gachon Univ.",
+        studio: "Studio A",
+        brandEng: "GOPHERWOOD",
+        titleKr: "고퍼우드",
+        members: "김누리 | 이수민 | 장호연",
+        barcodeText: ["Resonance", "of", "Acoustic"],
+        targetUrlId: "gopherwood"
+      },
+      {
+        id: "studio-ahn-cho",
+        univ: "Gachon Univ.",
+        studio: "Studio A",
+        brandEng: "LE LABO",
+        titleKr: "조예은 프로젝트",
+        members: "조예은",
+        barcodeText: ["Sensory", "of", "Yeeun"],
+        targetUrlId: "studio-ahn-cho"
+      },
+      {
+        id: "bilguun-team",
+        univ: "Gachon Univ.",
+        studio: "Studio A",
+        brandEng: "GLOBAL",
+        titleKr: "글로벌 익스체인지",
+        members: "빌궁 | 절러 | 나문다리",
+        barcodeText: ["Culture", "of", "Exchange"],
+        targetUrlId: "bilguun-team"
+      },
+
+      // 2. B반 (Studio B / 이재석 교수님)
+      {
+        id: "marshall",
+        univ: "Gachon Univ.",
+        studio: "Studio B",
+        brandEng: "MARSHALL",
+        titleKr: "마샬 (Marshall)",
+        members: "송현진 | 김보경 | 이고은",
+        barcodeText: ["Sound", "of", "Marshall"],
+        targetUrlId: "marshall"
+      },
+      {
+        id: "tekla",
+        univ: "Gachon Univ.",
+        studio: "Studio B",
+        brandEng: "TEKLA",
+        titleKr: "TEKLA",
+        members: "김민서 | 이설아 | 이예원",
+        barcodeText: ["Sanctuary", "of", "Tekla"],
+        targetUrlId: "tekla"
+      },
+      {
+        id: "hanyul",
+        univ: "Gachon Univ.",
+        studio: "Studio B",
+        brandEng: "HANYUL",
+        titleKr: "한율 (Hanyul)",
+        members: "조하나 | 김민서",
+        barcodeText: ["Nature", "of", "Hanyul"],
+        targetUrlId: "hanyul"
+      },
+      {
+        id: "gachi-ieum",
+        univ: "Gachon Univ.",
+        studio: "Studio B",
+        brandEng: "VITRA",
+        titleKr: "가치이음",
+        members: "명나연 | 권은진",
+        barcodeText: ["Connection", "of", "Community"],
+        targetUrlId: "gachi-ieum"
+      },
+      {
+        id: "karrot",
+        univ: "Gachon Univ.",
+        studio: "Studio B",
+        brandEng: "KARROT",
+        titleKr: "당근 (Karrot)",
+        members: "최소윤 | 정진석 | 박태준",
+        barcodeText: ["Warmth", "of", "Karrot"],
+        targetUrlId: "karrot"
+      },
+
+      // 3. C반 (Studio C / 이길호 교수님)
+      {
+        id: "ggott",
+        univ: "Gachon Univ.",
+        studio: "Studio C",
+        brandEng: "GGOTT",
+        titleKr: "ggott",
+        members: "김민준 | 안상영",
+        barcodeText: ["Atelier", "of", "Nature"],
+        targetUrlId: "ggott"
+      },
+      {
+        id: "dedar",
+        univ: "Gachon Univ.",
+        studio: "Studio C",
+        brandEng: "DEDAR",
+        titleKr: "DEDAR (데다)",
+        members: "이새영 | 박정민",
+        barcodeText: ["Fabric", "of", "Milano"],
+        targetUrlId: "dedar"
+      },
+      {
+        id: "medicube",
+        univ: "Gachon Univ.",
+        studio: "Studio C",
+        brandEng: "MEDICUBE",
+        titleKr: "메디큐브",
+        members: "임주현 | 복선우 | 이재진",
+        barcodeText: ["Clinic", "of", "Wellness"],
+        targetUrlId: "medicube"
+      },
+      {
+        id: "headspace",
+        univ: "Gachon Univ.",
+        studio: "Studio C",
+        brandEng: "HEADSPACE",
+        titleKr: "헤드스페이스",
+        members: "최규민 | 최서림",
+        barcodeText: ["Silence", "of", "Mind"],
+        targetUrlId: "headspace"
+      },
+      {
+        id: "yoshida-porter",
+        univ: "Gachon Univ.",
+        studio: "Studio C",
+        brandEng: "YOSHIDA PORTER",
+        titleKr: "요시다 포터",
+        members: "강홍인 | 장도연",
+        barcodeText: ["Craft", "of", "Porter"],
+        targetUrlId: "yoshida-porter"
+      },
+      {
+        id: "bang-olufsen",
+        univ: "Gachon Univ.",
+        studio: "Studio C",
+        brandEng: "BANG & OLUFSEN",
+        titleKr: "뱅앤올룹슨",
+        members: "김동욱 | 한유빈",
+        barcodeText: ["Precision", "of", "Acoustic"],
+        targetUrlId: "bang-olufsen"
+      },
+      {
+        id: "palace",
+        univ: "Gachon Univ.",
+        studio: "Studio C",
+        brandEng: "PALACE",
+        titleKr: "LOFI STUDIO _ PALACE",
+        members: "이현채 | 류채민",
+        barcodeText: ["Gravity", "of", "Palace"],
+        targetUrlId: "palace"
+      }
+    ];
+
+    // Barcode SVG Generator
+    function generateBarcodeSvg() {
+      // Precise barcode pattern matching the reference image
+      return `
+        <svg class="barcode-svg-element" viewBox="0 0 160 44" fill="#000000" preserveAspectRatio="none">
+          <rect x="0" y="0" width="3" height="44"/>
+          <rect x="5" y="0" width="1.5" height="44"/>
+          <rect x="8" y="0" width="3" height="44"/>
+          <rect x="13" y="0" width="1" height="44"/>
+          <rect x="16" y="0" width="4" height="44"/>
+          <rect x="22" y="0" width="1.5" height="44"/>
+          <rect x="25" y="0" width="3" height="44"/>
+          <rect x="30" y="0" width="1" height="44"/>
+          <rect x="33" y="0" width="2" height="44"/>
+          <rect x="37" y="0" width="4" height="44"/>
+          <rect x="43" y="0" width="1.5" height="44"/>
+          <rect x="46" y="0" width="3" height="44"/>
+          <rect x="51" y="0" width="2" height="44"/>
+          <rect x="55" y="0" width="4" height="44"/>
+          <rect x="61" y="0" width="1" height="44"/>
+          <rect x="64" y="0" width="3" height="44"/>
+          <rect x="69" y="0" width="1.5" height="44"/>
+          <rect x="72" y="0" width="4" height="44"/>
+          <rect x="78" y="0" width="2" height="44"/>
+          <rect x="82" y="0" width="3" height="44"/>
+          <rect x="87" y="0" width="1" height="44"/>
+          <rect x="90" y="0" width="4" height="44"/>
+          <rect x="96" y="0" width="1.5" height="44"/>
+          <rect x="100" y="0" width="3" height="44"/>
+          <rect x="105" y="0" width="2" height="44"/>
+          <rect x="109" y="0" width="4" height="44"/>
+          <rect x="115" y="0" width="1" height="44"/>
+          <rect x="118" y="0" width="3" height="44"/>
+          <rect x="123" y="0" width="1.5" height="44"/>
+          <rect x="126" y="0" width="4" height="44"/>
+          <rect x="132" y="0" width="2" height="44"/>
+          <rect x="136" y="0" width="3" height="44"/>
+          <rect x="141" y="0" width="1.5" height="44"/>
+          <rect x="144" y="0" width="4" height="44"/>
+          <rect x="150" y="0" width="1" height="44"/>
+          <rect x="153" y="0" width="3" height="44"/>
+          <rect x="158" y="0" width="2" height="44"/>
+        </svg>
+      `;
+    }
+
+    // Default base URL
+    function getDefaultBaseUrl() {
+      const cur = window.location.href;
+      return cur.substring(0, cur.lastIndexOf('/')) + '/receipt.html';
+    }
+
+    // Render Cards
+    function renderAllCards() {
+      const container = document.getElementById("sheet-grid");
+      const baseUrl = document.getElementById("input-base-url").value.trim();
+      container.innerHTML = "";
+
+      PLINTH_CARDS_DATA.forEach((cardData, idx) => {
+        const fullUrl = `${baseUrl}?id=${cardData.targetUrlId}`;
+        const qrId = `qr-code-${cardData.id}`;
+
+        const card = document.createElement("div");
+        card.className = "plinth-card";
+        card.innerHTML = `
+          <!-- Top Row -->
+          <div>
+            <div class="card-header-row">
+              <span class="header-logo">Offprint</span>
+              <div class="header-meta-univ">
+                ${cardData.univ}<br>
+                ${cardData.studio}
+              </div>
+            </div>
+            <hr class="card-divider-line">
+          </div>
+
+          <!-- Body Content -->
+          <div class="card-body-content">
+            <div class="card-eng-brand">${cardData.brandEng}</div>
+            <div class="card-kr-title">${cardData.titleKr}</div>
+            <div class="card-member-line">${cardData.members}</div>
+          </div>
+
+          <!-- Footer Row: Barcode & QR -->
+          <div class="card-footer-row">
+            <div class="barcode-block">
+              ${generateBarcodeSvg()}
+              <div class="barcode-caption">
+                <span>${cardData.barcodeText[0]}</span>
+                <span>${cardData.barcodeText[1]}</span>
+                <span>${cardData.barcodeText[2]}</span>
+              </div>
+            </div>
+            <div class="qr-block" id="${qrId}"></div>
+          </div>
+        `;
+
+        container.appendChild(card);
+
+        // Generate Clean Sharp QR Code
+        try {
+          new QRCode(document.getElementById(qrId), {
+            text: fullUrl,
+            width: 68,
+            height: 68,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.M
+          });
+        } catch (e) {
+          console.error("QR Code Error for", cardData.id, e);
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlInput = document.getElementById("input-base-url");
+      if (!urlInput.value) {
+        urlInput.value = getDefaultBaseUrl();
+      }
+      renderAllCards();
+    });
+  </script>
+</body>
+</html>

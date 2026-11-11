@@ -112,6 +112,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const prevLink = document.getElementById("prev-project-link");
   const nextLink = document.getElementById("next-project-link");
+  const receiptLink = document.getElementById("receipt-project-link");
+
+  if (receiptLink) {
+    receiptLink.href = `receipt.html?id=${project.id}`;
+  }
 
   if (prevLink) {
     prevLink.href = `project.html?id=${prevProject.id}`;
