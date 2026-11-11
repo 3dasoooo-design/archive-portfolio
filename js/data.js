@@ -31,10 +31,10 @@ window.EXHIBITIONS_DATA = [
     engTitle: "3rd Year External Exhibition",
     type: "외부전시 (External Show)",
     period: "2026. 10. 15 – 10. 20",
-    teamsCount: "18 Teams (A, B, C반)",
+    teamsCount: "17 Teams (A, B, C반)",
     status: "CURRENT",
     link: "exhibition.html?id=2026-3rd-external",
-    description: "동시대 브랜드 공간과 라이프스타일을 탐구한 3학년 3개 스튜디오 18개 팀의 외부 연계 전시 아카이브.",
+    description: "동시대 브랜드 공간과 라이프스타일을 탐구한 3학년 3개 스튜디오 17개 팀의 외부 연계 전시 아카이브.",
     thumbnail: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop&q=80"
   },
   {
@@ -79,11 +79,11 @@ window.EXHIBITIONS_DATA = [
 ];
 
 // ==========================================
-// [2026 3학년 외부전시] 18개 팀 데이터
+// [2026 3학년 외부전시] 17개 팀 데이터
 // ==========================================
 window.PROJECTS_DATA = [
   // ==========================================
-  // [A반] 6개 팀 (안은희 교수님)
+  // [A반] 5개 팀 (안은희 교수님)
   // ==========================================
   {
     id: "hwayo",
@@ -150,22 +150,6 @@ window.PROJECTS_DATA = [
     thumbnail: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1600&auto=format&fit=crop&q=80"
-    ]
-  },
-  {
-    id: "studio-ahn-cho",
-    exhibitionId: "2026-3rd-external",
-    classGroup: "A반",
-    studio: "A반",
-    brand: "조예은 프로젝트",
-    title: "조예은",
-    members: "조예은",
-    genre: "Independent Spatial Design",
-    category: "Spatial",
-    concept: "개인 작업자로서의 깊이 있는 탐구를 담아낸 독립 공간 디자인 기획 및 프로토타입 전시.",
-    thumbnail: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&auto=format&fit=crop&q=80"
     ]
   },
   {
@@ -386,8 +370,9 @@ window.PROJECTS_DATA = [
     genre: "Skate Culture & Architectural Installation",
     category: "Spatial",
     concept: "스케이트보드가 커브를 따라 중력의 방향을 거스르는 움직임에서 출발한 공간이다. 중심을 향하는 중력의 흐름과 이에 저항하는 움직임 사이의 어긋남을 구의 곡률과 비정형적인 공간으로 표현한다. 또한 사람의 움직임과 자연환경에 의해 축적되는 마찰과 산화의 흔적을 콘크리트와 금속의 물성 변화로 담아내어, 중력과 움직임이 만들어내는 공간의 역동성을 드러낸다.",
-    thumbnail: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&auto=format&fit=crop&q=80",
+    thumbnail: "assets/lofi_diagram_crop.png",
     images: [
+      "assets/lofi_diagram_crop.png",
       "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600&auto=format&fit=crop&q=80"
     ]
   }

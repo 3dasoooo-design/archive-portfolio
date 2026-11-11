@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#000000">
-  <title>OFFPRINT — Exhibition Thermal Receipt</title>
-
-  <!-- Monospace & Typography for Thermal Printing -->
+  <meta name="theme-color" content="#111111">
+  <title>OFFPRINT — LOFI STUDIO _ PALACE Receipt</title>
+  
+  <!-- Pretendard & Inter & Space Mono Typography -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@700;800;900&family=Noto+Sans+KR:wght@400;500;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Standalone QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
     /* ==========================================================================
-       Thermal Paper Receipt Design System
-       Faithfully recreating the authentic physical torn-paper thermal receipt
+       OFFPRINT Exhibition Receipt System
+       Exact match to the LOFI STUDIO _ PALACE OFFPRINT Receipt Specification
        ========================================================================== */
     :root {
-      --bg-viewport: #000000;
-      --paper-bg: #f8f8f6;
-      --paper-shadow: rgba(0, 0, 0, 0.95);
-      --ink-black: #141414;
-      --ink-muted: #3a3a3a;
-      --ink-faint: #6e6e6e;
-      --dashed-rule: #333333;
-      --font-receipt: 'Space Mono', 'JetBrains Mono', Courier, monospace;
-      --font-sans: 'Inter', 'Noto Sans KR', -apple-system, sans-serif;
+      --bg-backdrop: #141416;
+      --paper-white: #ffffff;
+      --ink-main: #111111;
+      --ink-sub: #333333;
+      --ink-muted: #777777;
+      --dotted-line: #444444;
+      --font-sans: 'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Space Mono', Consolas, monospace;
     }
 
     * {
@@ -39,1106 +39,1144 @@
     }
 
     body {
-      background-color: var(--bg-viewport);
-      color: var(--ink-black);
-      font-family: var(--font-receipt);
+      background-color: var(--bg-backdrop);
+      color: var(--ink-main);
+      font-family: var(--font-sans);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 12px 90px;
+      padding: 20px 12px 90px;
       overflow-x: hidden;
-      background-image: radial-gradient(circle at 50% 20%, #181a1f 0%, #000000 80%);
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Top Utility Bar */
+    /* Top Navigation Bar */
     .top-nav {
       width: 100%;
-      max-width: 410px;
+      max-width: 440px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      font-size: 11px;
+      margin-bottom: 16px;
+      font-size: 11.5px;
+      gap: 8px;
     }
 
-    .top-nav a,
-    .top-nav button {
-      color: #a1a1aa;
+    .top-nav a, .top-nav button {
+      color: #e4e4e7;
       text-decoration: none;
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      padding: 6px 14px;
-      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 7px 13px;
+      border-radius: 3px;
       cursor: pointer;
-      font-family: var(--font-receipt);
-      font-size: 11px;
-      transition: all 0.2s ease;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 11.5px;
+      transition: all 0.18s ease;
     }
 
-    .top-nav a:hover,
-    .top-nav button:hover {
+    .top-nav a:hover, .top-nav button:hover {
       color: #ffffff;
       background: rgba(255, 255, 255, 0.18);
-      border-color: rgba(255, 255, 255, 0.35);
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
-    /* Thermal Paper Animation (Print & Drop Motion) */
-    @keyframes thermalDrop {
+    /* Receipt Drop Animation */
+    @keyframes receiptSlideDown {
       0% {
         opacity: 0;
-        transform: translateY(-40px) scale(0.97);
-        filter: blur(1px);
+        transform: translateY(-28px);
       }
-
       100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
+        transform: translateY(0);
       }
     }
 
-    /* Receipt Paper Canvas */
-    .receipt-container {
+    /* White Receipt Paper Sheet */
+    .offprint-receipt {
       width: 100%;
-      max-width: 410px;
-      position: relative;
-      animation: thermalDrop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    /* Jagged Torn Top Edge (Sawtooth paper cut) */
-    .torn-top-edge {
-      width: 100%;
-      height: 10px;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10'><polygon points='0,10 6,0 12,10' fill='%23f8f8f6'/></svg>");
-      background-repeat: repeat-x;
-      background-size: 12px 10px;
-      filter: drop-shadow(0 -2px 3px rgba(0, 0, 0, 0.3));
-    }
-
-    .receipt-sheet {
-      background-color: var(--paper-bg);
-      color: var(--ink-black);
-      padding: 24px 26px 36px;
-      box-shadow:
-        0 20px 65px rgba(0, 0, 0, 0.95),
-        0 4px 18px rgba(0, 0, 0, 0.6);
-      font-size: 11px;
-      line-height: 1.45;
-      letter-spacing: -0.01em;
+      max-width: 440px;
+      background-color: var(--paper-white);
+      color: var(--ink-main);
+      padding: 26px 34px 38px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.75), 0 4px 20px rgba(0, 0, 0, 0.4);
+      animation: receiptSlideDown 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       position: relative;
     }
 
-    /* Subtle Thermal Grain / Paper Texture Overlay */
-    .receipt-sheet::before {
-      content: "";
+    /* Top OFFPRINT Header */
+    .offprint-top-bar {
+      position: relative;
+      text-align: center;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--dotted-line);
+      margin-bottom: 14px;
+    }
+
+    .offprint-top-bar::before,
+    .offprint-top-bar::after {
+      content: "-";
       position: absolute;
       top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: radial-gradient(#000000 0.5px, transparent 0.5px);
-      background-size: 4px 4px;
-      opacity: 0.035;
-      pointer-events: none;
+      color: #999;
+      font-size: 10px;
     }
+    .offprint-top-bar::before { left: 0; }
+    .offprint-top-bar::after { right: 0; }
 
-    /* Header Logo & Header Meta */
-    .header-logo-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    /* Perspective Graphic Logo Icon */
-    .logo-graphic {
-      width: 46px;
-      height: 30px;
-      background: var(--ink-black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--paper-bg);
-      font-weight: 900;
-      font-size: 14px;
-      clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%);
-    }
-
-    .logo-title-group {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.05;
-    }
-
-    .logo-main-text {
-      font-family: var(--font-sans);
-      font-size: 18px;
-      font-weight: 900;
-      font-style: italic;
-      letter-spacing: -0.03em;
-      color: var(--ink-black);
-      text-transform: uppercase;
-    }
-
-    .logo-sub-text {
+    .offprint-logo-text {
       font-family: var(--font-sans);
       font-size: 14px;
-      font-weight: 900;
-      font-style: italic;
-      letter-spacing: 0.04em;
-      color: var(--ink-black);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      color: var(--ink-main);
       text-transform: uppercase;
+      padding-left: 0.22em;
     }
 
-    /* Subtitle block (Centered All-Caps) */
-    .header-manifesto {
-      text-align: center;
-      font-size: 9.5px;
-      font-weight: 700;
-      color: var(--ink-muted);
-      line-height: 1.35;
-      letter-spacing: 0.02em;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    /* Date & Time Row */
-    .datetime-bar {
+    /* Brand No & Members Row */
+    .brand-member-row {
       display: flex;
       justify-content: space-between;
-      font-size: 10px;
+      align-items: center;
+      font-size: 12px;
       font-weight: 700;
-      color: var(--ink-black);
-      letter-spacing: 0.02em;
-      margin-bottom: 8px;
-    }
-
-    /* Dashed Lines */
-    .rule-dashed {
-      border: none;
-      border-top: 1px dashed var(--dashed-rule);
-      margin: 8px 0;
-    }
-
-    /* Centered Status Bar */
-    .status-bar-center {
-      text-align: center;
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      color: var(--ink-black);
-      padding: 3px 0;
-    }
-
-    /* Section Headers */
-    .section-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--ink-black);
+      color: var(--ink-main);
+      margin-bottom: 12px;
       letter-spacing: -0.01em;
-      margin-top: 6px;
-      margin-bottom: 6px;
     }
 
-    /* Numbered Lists */
-    .receipt-list {
-      display: flex;
-      flex-direction: column;
-      gap: 3.5px;
+    .brand-no-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .brand-no-tag::before {
+      content: "·";
+      color: #888;
+      font-weight: 400;
+    }
+
+    .member-names-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .member-names-tag::after {
+      content: "·";
+      color: #888;
+      font-weight: 400;
+    }
+
+    /* Main Title & Sub-brand Block */
+    .title-block {
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px dashed var(--dotted-line);
+    }
+
+    .main-studio-title {
+      font-family: var(--font-sans);
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink-main);
+      line-height: 1.2;
       margin-bottom: 8px;
+      word-break: keep-all;
     }
 
-    .receipt-item-line {
+    .sub-brand-spaced {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      color: var(--ink-sub);
+      text-transform: uppercase;
+    }
+
+    /* Concept Description Paragraph */
+    .concept-paragraph {
+      font-family: var(--font-sans);
+      font-size: 12.8px;
+      font-weight: 350;
+      line-height: 1.78;
+      color: #222222;
+      text-align: justify;
+      word-break: break-all;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px dashed var(--dotted-line);
+    }
+
+    /* Spec Tables (* KEYWORD & * ELEMENT) */
+    .spec-section {
+      margin-bottom: 20px;
+    }
+
+    .spec-header-row {
       display: flex;
-      font-size: 10.5px;
-      line-height: 1.35;
-      color: var(--ink-black);
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: var(--ink-main);
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--dotted-line);
+      margin-bottom: 12px;
     }
 
-    .receipt-item-num {
-      width: 26px;
-      flex-shrink: 0;
-      font-weight: 700;
-    }
-
-    .receipt-item-content {
-      flex: 1;
+    .spec-header-row .asterisk {
+      color: #999999;
+      margin-right: 4px;
       font-weight: 500;
     }
 
-    /* Detailed Items with Sub-description */
-    .detailed-item {
+    .spec-rows-list {
       display: flex;
       flex-direction: column;
-      gap: 1.5px;
-      margin-bottom: 5px;
-      font-size: 10.5px;
+      gap: 7px;
+      padding-bottom: 18px;
+      border-bottom: 1px dashed var(--dotted-line);
     }
 
-    .detailed-item-header {
-      display: flex;
-      font-weight: 700;
-      color: var(--ink-black);
+    .spec-Section-no-bottom-border .spec-rows-list {
+      border-bottom: none;
+      padding-bottom: 6px;
     }
 
-    .detailed-item-sub {
-      padding-left: 26px;
-      font-size: 9.5px;
-      color: var(--ink-muted);
-      line-height: 1.35;
-      font-family: var(--font-sans);
-    }
-
-    /* ASCII Art Section (Exact 3D Isometric Typography) */
-    .ascii-section {
-      margin: 16px 0 14px;
-      text-align: center;
-    }
-
-    .ascii-asterisk-bar {
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--ink-black);
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    .ascii-art-pre {
-      font-family: var(--font-receipt);
-      font-size: 8.5px;
-      line-height: 1.15;
-      font-weight: 700;
-      color: var(--ink-black);
-      margin: 8px auto;
-      display: inline-block;
-      text-align: left;
-      white-space: pre;
-    }
-
-    /* Footer Inquiry Text */
-    .footer-inquiry {
-      text-align: center;
-      font-size: 9.5px;
-      color: var(--ink-muted);
-      line-height: 1.45;
-      margin-top: 12px;
-      font-family: var(--font-receipt);
-    }
-
-    /* Directing Action Button (CTA inside Receipt) */
-    .receipt-cta-wrap {
-      margin-top: 20px;
-    }
-
-    .receipt-direct-btn {
-      width: 100%;
-      background: var(--ink-black);
-      color: #ffffff;
-      border: 2px solid var(--ink-black);
-      padding: 13px 18px;
-      font-family: var(--font-receipt);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      border-radius: 0;
-      cursor: pointer;
+    .spec-row-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: all 0.15s ease;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      font-size: 12.5px;
+      color: var(--ink-main);
     }
 
-    .receipt-direct-btn:hover {
-      background: #333333;
-      border-color: #333333;
-      transform: translateY(-1px);
+    .spec-row-label {
+      font-weight: 400;
+      color: #1a1a1a;
     }
 
-    .receipt-direct-btn:active {
-      transform: translateY(0);
+    .spec-row-val {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.03em;
+      color: #111111;
     }
 
-    /* Lofi Studio Custom Receipt Styling */
-    .receipt-sheet.is-lofi-mode {
-      padding: 0 !important;
-      background-color: #ffffff !important;
-      border-radius: 0 0 2px 2px;
-    }
-
-    .lofi-custom-container {
+    /* Diagram / Visual Graphic Box */
+    .diagram-box {
       width: 100%;
-      background: #ffffff;
+      margin: 14px 0 22px;
+      background: #1a1a1a;
+      overflow: hidden;
       position: relative;
     }
 
-    .lofi-receipt-img {
+    .diagram-box img {
       width: 100%;
       height: auto;
       display: block;
     }
 
-    .lofi-cta-box {
-      padding: 16px 20px 24px;
-      background: #ffffff;
-      border-top: 1px dashed #d1d5db;
+    /* Full-width Barcode */
+    .barcode-wrap {
+      width: 100%;
+      margin: 18px 0 14px;
     }
 
-    /* Quick Selector for Testing Stands */
+    .barcode-svg {
+      width: 100%;
+      height: 36px;
+      display: block;
+    }
+
+    /* Footer Message */
+    .thank-you-footer {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--ink-main);
+      margin-top: 12px;
+    }
+
+    /* Directing CTA Button inside Receipt */
+    .direct-action-area {
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--dotted-line);
+    }
+
+    .btn-direct-exhibit {
+      width: 100%;
+      background: #111111;
+      color: #ffffff;
+      border: 1.5px solid #111111;
+      padding: 14px 18px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.18s ease;
+    }
+
+    .btn-direct-exhibit:hover {
+      background: #2b2b2b;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Connected Plinth QR Preview Card right below the Receipt */
+    .connected-qr-section {
+      width: 100%;
+      max-width: 440px;
+      margin-top: 22px;
+      background: #ffffff;
+      padding: 18px 22px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .connected-qr-caption {
+      font-size: 11px;
+      font-weight: 700;
+      color: #666;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .plinth-preview-card {
+      border: 1px solid #d4d4d8;
+      padding: 14px 16px 12px;
+      background: #ffffff;
+    }
+
+    .plinth-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #111;
+      margin-bottom: 8px;
+    }
+
+    .plinth-logo {
+      font-size: 16px;
+      font-weight: 800;
+      color: #000;
+    }
+
+    .plinth-univ {
+      text-align: right;
+      font-size: 8px;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #000;
+    }
+
+    .plinth-eng {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #000;
+    }
+
+    .plinth-kr {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #000;
+      margin: 2px 0 3px;
+    }
+
+    .plinth-members {
+      font-size: 11px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .plinth-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 10px;
+    }
+
+    .plinth-qr-box {
+      width: 68px;
+      height: 68px;
+    }
+
+    .plinth-qr-box img, .plinth-qr-box canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Bottom Selector Bar */
     .stand-selector-bar {
-      margin-top: 20px;
+      margin-top: 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 8px;
       width: 100%;
-      max-width: 410px;
-      font-size: 10.5px;
+      max-width: 440px;
+      font-size: 11px;
     }
 
     .stand-selector-bar select {
       flex: 1;
-      background: #111;
+      background: #1f1f23;
       color: #fff;
-      border: 1px solid #333;
-      padding: 7px 10px;
-      font-family: var(--font-receipt);
-      font-size: 10.5px;
-      border-radius: 4px;
+      border: 1px solid #3f3f46;
+      padding: 8px 10px;
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      border-radius: 3px;
       cursor: pointer;
     }
 
     .selector-nav-btn {
-      background: #111;
+      background: #1f1f23;
       color: #fff;
-      border: 1px solid #333;
-      padding: 7px 12px;
-      border-radius: 4px;
+      border: 1px solid #3f3f46;
+      padding: 8px 12px;
+      border-radius: 3px;
       cursor: pointer;
-      font-family: var(--font-receipt);
-      font-size: 10.5px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 11.5px;
     }
 
-    .selector-nav-btn:hover,
-    .stand-selector-bar select:hover {
-      border-color: #777;
+    .selector-nav-btn:hover, .stand-selector-bar select:hover {
+      border-color: #a1a1aa;
     }
   </style>
 </head>
-
 <body>
 
-  <!-- Top Action Navigation -->
+  <!-- Top Navigation -->
   <div class="top-nav">
-    <a href="exhibition.html">&larr; EXHIBITION CATALOG</a>
-    <a href="qr-print.html" target="_blank">&#x25A6; ALL QR LABELS</a>
+    <a href="exhibition.html">&larr; 3학년 외부전시 목록</a>
+    <a href="qr-print.html">&#x25A6; 전체 QR 명판 인쇄 시트</a>
   </div>
 
-  <!-- Thermal Paper Container -->
-  <div class="receipt-container">
+  <!-- OFFPRINT White Receipt Paper -->
+  <article class="offprint-receipt" id="offprint-receipt">
+    
+    <!-- 1. Top OFFPRINT Header -->
+    <header class="offprint-top-bar">
+      <div class="offprint-logo-text">OFFPRINT</div>
+    </header>
 
-    <!-- Sawtooth Torn Paper Top Edge -->
-    <div class="torn-top-edge"></div>
+    <!-- 2. Brand No & Members Row -->
+    <div class="brand-member-row">
+      <span class="brand-no-tag" id="receipt-brand-no">BRAND. 01</span>
+      <span class="member-names-tag" id="receipt-members">이현채 &nbsp; 류채민</span>
+    </div>
 
-    <!-- The Paper Slip Content -->
-    <div class="receipt-sheet" id="receipt-sheet">
+    <!-- 3. Main Studio & Brand Title -->
+    <div class="title-block">
+      <h1 class="main-studio-title" id="receipt-main-title">LOFI STUDIO _ PALACE</h1>
+      <div class="sub-brand-spaced" id="receipt-sub-brand">PALACE</div>
+    </div>
 
-      <!-- Logo Header -->
-      <div class="header-logo-row">
-        <div class="logo-graphic">IA</div>
-        <div class="logo-title-group">
-          <div class="logo-main-text" id="header-brand-title">OFFPRINT</div>
-          <div class="logo-sub-text">SPATIAL DESIGN.</div>
+    <!-- 4. Spatial Concept Paragraph -->
+    <p class="concept-paragraph" id="receipt-concept">
+      스케이트보드가 커브를 따라 중력의 방향을 거스르는 움직임에서 출발한 공간이다. 중심을 향하는 중력의 흐름과 이에 저항하는 움직임 사이의 어긋남을 구의 곡률과 비정형적인 공간으로 표현한다. 또한 사람의 움직임과 자연환경에 의해 축적되는 마찰과 산화의 흔적을 콘크리트와 금속의 물성 변화로 담아내어, 중력과 움직임이 만들어내는 공간의 역동성을 드러낸다.
+    </p>
+
+    <!-- 5. * KEYWORD / ITEM NO. Section -->
+    <section class="spec-section">
+      <div class="spec-header-row">
+        <span><span class="asterisk">*</span>KEYWORD</span>
+        <span>ITEM NO.</span>
+      </div>
+      <div class="spec-rows-list" id="receipt-keywords-list">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- 6. * ELEMENT / QTY. Section -->
+    <section class="spec-section spec-Section-no-bottom-border">
+      <div class="spec-header-row">
+        <span><span class="asterisk">*</span>ELEMENT</span>
+        <span>QTY.</span>
+      </div>
+      <div class="spec-rows-list" id="receipt-elements-list">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- 7. Diagram / Visual Image -->
+    <div class="diagram-box">
+      <img src="assets/lofi_diagram_crop.png" alt="Spatial Diagram" id="receipt-diagram-img" />
+    </div>
+
+    <!-- 8. Full-Width Barcode -->
+    <div class="barcode-wrap" id="receipt-barcode-wrap">
+      <!-- SVG Barcode injected via JS -->
+    </div>
+
+    <!-- 9. Footer Message -->
+    <div class="thank-you-footer">
+      THANK YOU FOR VISITING US.
+    </div>
+
+    <!-- 10. Manual Directing Button to Individual Work Page -->
+    <div class="direct-action-area">
+      <button class="btn-direct-exhibit" id="btn-enter-project">
+        <span id="btn-enter-label">➔ LOFI STUDIO _ PALACE 작품 상세 보기</span>
+        <span>&rarr;</span>
+      </button>
+    </div>
+
+  </article>
+
+  <!-- Connected QR Code Plinth Label Preview (Shows the exact QR linking to this receipt) -->
+  <section class="connected-qr-section">
+    <div class="connected-qr-caption">
+      <span>🔗 이 영수증으로 연결되는 좌대 QR 명판</span>
+      <a href="qr-print.html" style="color: #111; text-decoration: underline;">인쇄용 시트 열기 &rarr;</a>
+    </div>
+    <div class="plinth-preview-card">
+      <div class="plinth-top">
+        <span class="plinth-logo">Offprint</span>
+        <div class="plinth-univ" id="qr-card-studio">
+          Gachon Univ.<br>Studio C
         </div>
       </div>
-
-      <!-- Centered Subtitle Manifesto -->
-      <div class="header-manifesto">
-        A CATALOG OF EXPLORATORY<br>
-        SPATIAL VISIONS &amp; IDEAS<br>
-        GACHON INTERIOR ARCHITECTURE<br>
-        BASED IN VISION TOWER
+      <div class="plinth-eng" id="qr-card-eng">PALACE</div>
+      <div class="plinth-kr" id="qr-card-kr">LOFI STUDIO _ PALACE</div>
+      <div class="plinth-members" id="qr-card-members">이현채 | 류채민</div>
+      <div class="plinth-bottom">
+        <div style="width: 140px;">
+          <div id="qr-card-barcode"></div>
+          <div style="display: flex; justify-content: space-between; font-size: 8px; font-weight: 700; margin-top: 2px;" id="qr-card-caption">
+            <span>Lofi</span><span>of</span><span>Palace</span>
+          </div>
+        </div>
+        <div class="plinth-qr-box" id="live-qr-code"></div>
       </div>
-
-      <!-- Date & Time Row -->
-      <div class="datetime-bar">
-        <span id="receipt-date">11/20/2026</span>
-        <span id="receipt-time">02:30 PM</span>
-      </div>
-
-      <hr class="rule-dashed">
-
-      <!-- Status / Stand Indicator -->
-      <div class="status-bar-center" id="receipt-status-stand">
-        [ STAND #13 // 03F DESCEND ZONE ]
-      </div>
-
-      <hr class="rule-dashed">
-
-      <!-- Section 1: Product/Service (Spatial Outputs) -->
-      <div class="section-title">Product/Service</div>
-      <hr class="rule-dashed" style="margin-top: 2px; margin-bottom: 6px;">
-
-      <div class="receipt-list" id="receipt-products-list">
-        <!-- Rendered via JS -->
-      </div>
-
-      <hr class="rule-dashed">
-
-      <!-- Section 2: Exhibition Work & Docent Guide ("How To Work With Me" format) -->
-      <div class="status-bar-center" style="font-weight: 700;">
-        Exhibition Work &amp; Docent Guide
-      </div>
-
-      <hr class="rule-dashed">
-
-      <div class="receipt-list" id="receipt-docent-list">
-        <!-- Rendered via JS -->
-      </div>
-
-      <hr class="rule-dashed">
-
-      <!-- Section 3: Isometric ASCII Art Block -->
-      <div class="ascii-section">
-        <div class="ascii-asterisk-bar">************************************************</div>
-        <pre class="ascii-art-pre" id="ascii-art-display">
-  ___  ____ ____ ____ ____  _ _   _ _____ 
- / _ \| ___| ___|  _ \|  _ \| | \ | |_   _|
-| | | | |_ | |_ | |_) | |_) | |  \| | | |  
-| |_| |  _||  _||  __/|  _ <| | |\  | | |  
- \___/|_|  |_|  |_|   |_| \_\_|_| \_| |_|  
-        </pre>
-        <div class="ascii-asterisk-bar">************************************************</div>
-      </div>
-
-      <!-- Section 4: Footer Inquiry Text -->
-      <div class="footer-inquiry">
-        For more information or if you have<br>
-        questions, please visit the online catalog<br>
-        ia@gachon.ac.kr or send a<br>
-        message over Instagram @gachon_ia_archive
-      </div>
-
-      <!-- Section 5: Directing CTA Button -->
-      <div class="receipt-cta-wrap">
-        <button class="receipt-direct-btn" id="btn-enter-project">
-          <span id="btn-enter-label">➔ ENTER EXHIBIT : DEDAR 작품 상세 보기</span>
-          <span>&rarr;</span>
-        </button>
-      </div>
-
     </div>
-  </div>
+  </section>
 
-  <!-- Stand Quick Navigation Selector -->
+  <!-- Stand Switcher (All 17 Teams) -->
   <div class="stand-selector-bar">
-    <button class="selector-nav-btn" id="btn-prev-stand">&larr; PREV</button>
-    <select id="select-stand" title="다른 좌대 영수증 선택"></select>
-    <button class="selector-nav-btn" id="btn-next-stand">NEXT &rarr;</button>
+    <button class="selector-nav-btn" id="btn-prev-stand">&larr; 이전 팀</button>
+    <select id="select-stand" title="다른 팀 영수증 선택"></select>
+    <button class="selector-nav-btn" id="btn-next-stand">다음 팀 &rarr;</button>
   </div>
 
   <script>
     // ==========================================================================
-    // 18 Teams Data Definition
-    // Supports customized thermal receipt output
+    // 17 Teams OFFPRINT Receipt Database
     // ==========================================================================
-    const THERMAL_RECEIPTS_DB = [
-      // 0. Sample Reference Demo (가천의 바람개비)
+    const OFFPRINT_RECEIPTS_DB = [
+      // 01. LOFI STUDIO _ PALACE (이현채, 류채민) — Featured Brand 01
       {
-        id: "sample",
-        standNo: "00",
-        floor: "04F",
-        zone: "04F START ZONE",
-        brandEng: "GACHON",
-        titleKr: "가천의 바람개비",
-        members: "Hong Gildong | Kim Gachon",
-        studio: "Gachon Univ. Studio 4",
-        concept: "바람과 구조의 회전 운동을 통해 가천대학교의 상징적 조형 언어를 공간에 투영한 키네틱 아트 인스톨레이션.",
-        projectId: "hwayo",
-        products: [
-          "Kinetic Wind Analysis & Mapping",
-          "Structural Axonometric Drawing",
-          "Material Spec: Anodized Steel & Glass",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:20 Model)"
-        ]
+        id: "palace",
+        brandNo: "BRAND. 01",
+        studio: "Studio C",
+        brandEng: "PALACE",
+        mainTitle: "LOFI STUDIO _ PALACE",
+        subBrand: "PALACE",
+        membersSpaced: "이현채 &nbsp; 류채민",
+        membersPipe: "이현채 | 류채민",
+        concept: "스케이트보드가 커브를 따라 중력의 방향을 거스르는 움직임에서 출발한 공간이다. 중심을 향하는 중력의 흐름과 이에 저항하는 움직임 사이의 어긋남을 구의 곡률과 비정형적인 공간으로 표현한다. 또한 사람의 움직임과 자연환경에 의해 축적되는 마찰과 산화의 흔적을 콘크리트와 금속의 물성 변화로 담아내어, 중력과 움직임이 만들어내는 공간의 역동성을 드러낸다.",
+        keywords: [
+          { label: "스케이트 문화", no: "01" },
+          { label: "자유성", no: "02" },
+          { label: "반항성", no: "03" }
+        ],
+        elements: [
+          { label: "중력의 엇박", qty: "0,000" },
+          { label: "그라인드", qty: "0,027" },
+          { label: "마찰의 흔적", qty: "5,050" },
+          { label: "금속재", qty: "10,288" },
+          { label: "콘크리트", qty: "12,100" }
+        ],
+        diagramImg: "assets/lofi_diagram_crop.png",
+        barcodeWords: ["Gravity", "of", "Palace"],
+        projectId: "palace"
       },
 
-      // 4F Route 01 (TEAM_01 ~ TEAM_06)
+      // A반 (5개 팀 / 안은희 교수님)
       {
         id: "hwayo",
-        standNo: "01",
-        floor: "04F",
-        zone: "04F START ZONE",
+        brandNo: "BRAND. 02",
+        studio: "Studio A",
         brandEng: "HWAYO",
-        titleKr: "화요 (Hwayo)",
-        members: "장효진 | 하은지",
-        studio: "Studio A // 안은희 교수님",
-        concept: "한국 프리미엄 증류식 소주 화요의 깊은 풍미와 옹기 숙성의 시간을 옻칠과 거친 화강암의 물성으로 번역한 테이스팅 바.",
-        projectId: "hwayo",
-        products: [
-          "Heritage Distillery Bar Context",
-          "Aged Ceramic & Granite Spec",
-          "Spatial Programming Plan",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "HWAYO _ 화요",
+        subBrand: "HWAYO",
+        membersSpaced: "장효진 &nbsp; 하은지",
+        membersPipe: "장효진 | 하은지",
+        concept: "한국 프리미엄 증류식 소주 화요의 깊은 풍미와 옹기 숙성의 시간을 옻칠과 거친 화강암의 물성으로 번역한 테이스팅 바 공간이다.",
+        keywords: [
+          { label: "옹기 숙성의 시간", no: "01" },
+          { label: "전통 증류 헤리티지", no: "02" },
+          { label: "물성의 깊이", no: "03" }
+        ],
+        elements: [
+          { label: "화강암 텍스처", qty: "1,200" },
+          { label: "블랙 옻칠 마감", qty: "0,850" },
+          { label: "옹기 테이스팅 바", qty: "2,400" },
+          { label: "간접 조도 설계", qty: "4,100" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Heritage", "of", "Hwayo"],
+        projectId: "hwayo"
       },
       {
         id: "dongwha",
-        standNo: "02",
-        floor: "04F",
-        zone: "04F START ZONE",
+        brandNo: "BRAND. 03",
+        studio: "Studio A",
         brandEng: "DONGWHA",
-        titleKr: "동화약품",
-        members: "김희수 | 이지연 | 손지후",
-        studio: "Studio A // 안은희 교수님",
-        concept: "대한민국 최초의 제약기업 동화약품의 127년 역사를 아카이빙하고, 현대인의 지친 심신을 치유하는 새로운 약방 공간.",
-        projectId: "dongwha",
-        products: [
-          "Heritage Pharmaceutical Archive",
-          "Modern Wellness Sanctuary",
-          "Hanji & Medicinal Wood Spec",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "DONGWHA _ 동화약품",
+        subBrand: "DONGWHA PHARM",
+        membersSpaced: "김희수 &nbsp; 이지연 &nbsp; 손지후",
+        membersPipe: "김희수 | 이지연 | 손지후",
+        concept: "대한민국 최초의 제약기업 동화약품의 127년 역사를 아카이빙하고, 현대인의 지친 심신을 치유하는 새로운 약방 공간을 제안한다.",
+        keywords: [
+          { label: "127년 헤리티지", no: "01" },
+          { label: "치유와 회복", no: "02" },
+          { label: "현대적 약방", no: "03" }
+        ],
+        elements: [
+          { label: "한지 아카이브 월", qty: "1,097" },
+          { label: "약재 서랍 모듈", qty: "3,420" },
+          { label: "목구조 디테일", qty: "5,100" },
+          { label: "석재 카운터", qty: "8,900" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Healing", "of", "Dongwha"],
+        projectId: "dongwha"
       },
       {
         id: "galaxy",
-        standNo: "03",
-        floor: "04F",
-        zone: "04F START ZONE",
-        brandEng: "GALAXY",
-        titleKr: "삼성 갤럭시",
-        members: "김민석 | 임동혁 | 잠시드",
-        studio: "Studio A // 안은희 교수님",
-        concept: "모바일 기술과 인간의 감각이 조우하는 미래형 테크 익스피리언스 스페이스. 인공지능과 빛의 반응형 인터랙션 설계.",
-        projectId: "galaxy",
-        products: [
-          "Future Mobile Interaction Lab",
-          "Dynamic Light & Sensor Programming",
-          "Anodized Aluminum & Glass Spec",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        brandNo: "BRAND. 04",
+        studio: "Studio A",
+        brandEng: "SAMSUNG GALAXY",
+        mainTitle: "GALAXY _ 삼성 갤럭시",
+        subBrand: "SAMSUNG GALAXY",
+        membersSpaced: "김민석 &nbsp; 임동혁 &nbsp; 잠시드",
+        membersPipe: "김민석 | 임동혁 | 잠시드",
+        concept: "모바일 기술과 인간의 감각이 조우하는 미래형 테크 익스피리언스 스페이스. 인공지능과 빛의 반응형 인터랙션을 공간으로 구현한다.",
+        keywords: [
+          { label: "반응형 인터랙션", no: "01" },
+          { label: "퓨처 테크 랩", no: "02" },
+          { label: "감각의 확장", no: "03" }
+        ],
+        elements: [
+          { label: "아노다이징 알루미늄", qty: "6,400" },
+          { label: "라이트 센서 그리드", qty: "1,280" },
+          { label: "투명 디스플레이", qty: "2,048" },
+          { label: "메탈릭 플로어", qty: "9,500" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Future", "of", "Galaxy"],
+        projectId: "galaxy"
       },
       {
         id: "gopherwood",
-        standNo: "04",
-        floor: "04F",
-        zone: "04F START ZONE",
+        brandNo: "BRAND. 05",
+        studio: "Studio A",
         brandEng: "GOPHERWOOD",
-        titleKr: "고퍼우드",
-        members: "김누리 | 이수민 | 장호연",
-        studio: "Studio A // 안은희 교수님",
-        concept: "어쿠스틱 기타의 정교한 목공 디테일과 공명(Resonance)을 입체 공간으로 구현한 사운드 크래프트맨십 쇼룸.",
-        projectId: "gopherwood",
-        products: [
-          "Acoustic Resonance Analysis",
-          "Timber Joinery & Acoustic Wall Spec",
-          "Sound Immersion Floor Layout",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
-      },
-      {
-        id: "studio-ahn-cho",
-        standNo: "05",
-        floor: "04F",
-        zone: "04F START ZONE",
-        brandEng: "LE LABO",
-        titleKr: "조예은 프로젝트",
-        members: "조예은",
-        studio: "Studio A // 안은희 교수님",
-        concept: "개인 작업자로서의 깊이 있는 탐구를 담아낸 독립 공간 디자인 기획 및 프로토타입 전시.",
-        projectId: "studio-ahn-cho",
-        products: [
-          "Independent Spatial Manifesto",
-          "Micro-Cement Prototype Spec",
-          "Sensory Tactile Experience Plan",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "GOPHERWOOD _ 고퍼우드",
+        subBrand: "GOPHERWOOD",
+        membersSpaced: "김누리 &nbsp; 이수민 &nbsp; 장호연",
+        membersPipe: "김누리 | 이수민 | 장호연",
+        concept: "어쿠스틱 기타의 정교한 목공 디테일과 공명(Resonance)을 입체 공간으로 구현한 사운드 크래프트맨십 쇼룸이다.",
+        keywords: [
+          { label: "어쿠스틱 공명", no: "01" },
+          { label: "목공 크래프트", no: "02" },
+          { label: "사운드 울림", no: "03" }
+        ],
+        elements: [
+          { label: "솔리드 톤우드 루버", qty: "4,320" },
+          { label: "사운드 리플렉터", qty: "1,850" },
+          { label: "황동 브릿지 조인트", qty: "0,640" },
+          { label: "어쿠스틱 챔버", qty: "7,200" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Resonance", "of", "Wood"],
+        projectId: "gopherwood"
       },
       {
         id: "bilguun-team",
-        standNo: "06",
-        floor: "04F",
-        zone: "04F START ZONE",
-        brandEng: "GLOBAL",
-        titleKr: "글로벌 익스체인지",
-        members: "빌궁 | 절러 | 나문다리",
-        studio: "Studio A // 안은희 교수님",
-        concept: "국경을 넘는 다문화적 시선과 공간적 조형 언어를 결합한 실험적 공간 인스톨레이션.",
-        projectId: "bilguun-team",
-        products: [
-          "Cross-Cultural Spatial Mapping",
-          "Modular Pavilion Structure Spec",
-          "Recycled Membrane & Steel",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        brandNo: "BRAND. 06",
+        studio: "Studio A",
+        brandEng: "GLOBAL EXCHANGE",
+        mainTitle: "GLOBAL _ 빌궁 절러 나문다리",
+        subBrand: "CULTURAL EXCHANGE",
+        membersSpaced: "빌궁 &nbsp; 절러 &nbsp; 나문다리",
+        membersPipe: "빌궁 | 절러 | 나문다리",
+        concept: "국경을 넘는 다문화적 시선과 공간적 조형 언어를 결합한 실험적 공간 인스톨레이션 프로젝트이다.",
+        keywords: [
+          { label: "다문화 시선", no: "01" },
+          { label: "경계의 확장", no: "02" },
+          { label: "조형적 결합", no: "03" }
+        ],
+        elements: [
+          { label: "모듈러 프레임", qty: "3,100" },
+          { label: "패브릭 멤브레인", qty: "2,250" },
+          { label: "스틸 조인트", qty: "5,600" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Culture", "of", "Exchange"],
+        projectId: "bilguun-team"
       },
 
-      // 3F Route 02 (TEAM_07 ~ TEAM_18)
+      // B반 (5개 팀 / 이재석 교수님)
       {
         id: "marshall",
-        standNo: "07",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
+        brandNo: "BRAND. 07",
+        studio: "Studio B",
         brandEng: "MARSHALL",
-        titleKr: "마샬 (Marshall)",
-        members: "송현진 | 김보경 | 이고은",
-        studio: "Studio B // 이재석 교수님",
-        concept: "마샬의 아이코닉한 앰프 헤리티지와 아날로그 텍스처를 공간으로 확장한 사운드 몰입형 플래그십 라운지.",
-        projectId: "marshall",
-        products: [
-          "Amplifier Acoustic Sound Lounge",
-          "Vintage Tweed & Brass Hardware Spec",
-          "Immersive Audio Room Layout",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "MARSHALL _ 마샬",
+        subBrand: "MARSHALL",
+        membersSpaced: "송현진 &nbsp; 김보경 &nbsp; 이고은",
+        membersPipe: "송현진 | 김보경 | 이고은",
+        concept: "마샬의 아이코닉한 앰프 헤리티지와 아날로그 텍스처를 공간으로 확장한 사운드 몰입형 플래그십 라운지이다.",
+        keywords: [
+          { label: "아날로그 앰프", no: "01" },
+          { label: "사운드 몰입", no: "02" },
+          { label: "아이코닉 텍스처", no: "03" }
+        ],
+        elements: [
+          { label: "빈티지 트위드 메쉬", qty: "2,800" },
+          { label: "브라스 컨트롤 노브", qty: "0,920" },
+          { label: "블랙 레더 그레인", qty: "6,100" },
+          { label: "어쿠스틱 배플", qty: "8,400" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Sound", "of", "Marshall"],
+        projectId: "marshall"
       },
       {
         id: "tekla",
-        standNo: "08",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
+        brandNo: "BRAND. 08",
+        studio: "Studio B",
         brandEng: "TEKLA",
-        titleKr: "TEKLA",
-        members: "김민서 | 이설아 | 이예원",
-        studio: "Studio B // 이재석 교수님",
-        concept: "북유럽 코펜하겐의 정제된 색채와 고요한 빛을 머금은 패브릭 쇼룸. 일상에 휴식을 선사하는 순수한 물성의 안식처.",
-        projectId: "tekla",
-        products: [
-          "Copenhagen Light & Shadow Study",
-          "Natural Organic Linen Drapery Spec",
-          "Restorative Home Sanctuary Layout",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "TEKLA _ 테클라",
+        subBrand: "TEKLA FABRICS",
+        membersSpaced: "김민서 &nbsp; 이설아 &nbsp; 이예원",
+        membersPipe: "김민서 | 이설아 | 이예원",
+        concept: "북유럽 코펜하겐의 정제된 색채와 고요한 빛을 머금은 패브릭 쇼룸. 일상에 휴식을 선사하는 순수한 물성의 안식처이다.",
+        keywords: [
+          { label: "코펜하겐의 빛", no: "01" },
+          { label: "순수한 패브릭", no: "02" },
+          { label: "고요한 안식처", no: "03" }
+        ],
+        elements: [
+          { label: "오가닉 리넨 드레이프", qty: "1,450" },
+          { label: "라임워시 플라스터", qty: "5,300" },
+          { label: "화이트 오크 선반", qty: "3,200" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Sanctuary", "of", "Tekla"],
+        projectId: "tekla"
       },
       {
         id: "hanyul",
-        standNo: "09",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
+        brandNo: "BRAND. 09",
+        studio: "Studio B",
         brandEng: "HANYUL",
-        titleKr: "한율 (Hanyul)",
-        members: "조하나 | 김민서",
-        studio: "Studio B // 이재석 교수님",
-        concept: "한국의 사계절과 땅의 생명력을 담아낸 자연주의 뷰티 스페이스. 흙과 한지, 볏짚의 따스한 온기로 채운 웰니스 리트릿.",
-        projectId: "hanyul",
-        products: [
-          "Seasonal Botanic Wellness Mapping",
-          "Rammed Earth & Hanji Spec",
-          "Herbal Spa & Retreat Layout",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "HANYUL _ 한율",
+        subBrand: "HANYUL",
+        membersSpaced: "조하나 &nbsp; 김민서",
+        membersPipe: "조하나 | 김민서",
+        concept: "한국의 사계절과 땅의 생명력을 담아낸 자연주의 뷰티 스페이스. 흙과 한지, 볏짚의 따스한 온기로 채운 웰니스 리트릿이다.",
+        keywords: [
+          { label: "한국의 사계절", no: "01" },
+          { label: "자연주의 웰니스", no: "02" },
+          { label: "대지의 온기", no: "03" }
+        ],
+        elements: [
+          { label: "다짐흙(Rammed Earth)", qty: "7,800" },
+          { label: "천연 볏짚 텍스처", qty: "2,150" },
+          { label: "투광 한지 스크린", qty: "1,600" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Nature", "of", "Hanyul"],
+        projectId: "hanyul"
       },
       {
         id: "gachi-ieum",
-        standNo: "10",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
-        brandEng: "VITRA",
-        titleKr: "가치이음",
-        members: "명나연 | 권은진",
-        studio: "Studio B // 이재석 교수님",
-        concept: "세대와 지역을 연결하고 일상의 따뜻한 온기를 나누는 지속가능한 소셜 커뮤니티 복합 공간 기획.",
-        projectId: "gachi-ieum",
-        products: [
-          "Inter-Generational Social Platform",
-          "Recycled Terrazzo & Timber Spec",
-          "Open Neighborhood Lounge Plan",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        brandNo: "BRAND. 10",
+        studio: "Studio B",
+        brandEng: "GACHI IEUM",
+        mainTitle: "GACHI IEUM _ 가치이음",
+        subBrand: "COMMUNITY HUB",
+        membersSpaced: "명나연 &nbsp; 권은진",
+        membersPipe: "명나연 | 권은진",
+        concept: "세대와 지역을 연결하고 일상의 따뜻한 온기를 나누는 지속가능한 소셜 커뮤니티 복합 공간이다.",
+        keywords: [
+          { label: "세대 간 연결", no: "01" },
+          { label: "소셜 커뮤니티", no: "02" },
+          { label: "지속가능 플랫폼", no: "03" }
+        ],
+        elements: [
+          { label: "리사이클 테라조", qty: "4,500" },
+          { label: "오픈 라운지 데크", qty: "6,200" },
+          { label: "커뮤니티 테이블", qty: "1,800" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Value", "of", "Connection"],
+        projectId: "gachi-ieum"
       },
       {
         id: "karrot",
-        standNo: "11",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
+        brandNo: "BRAND. 11",
+        studio: "Studio B",
         brandEng: "KARROT",
-        titleKr: "당근 (Karrot)",
-        members: "최소윤 | 정진석 | 박태준",
-        studio: "Studio B // 이재석 교수님",
-        concept: "온라인 이웃 연결 플랫폼 당근의 첫 오프라인 거점. 신뢰와 온기를 바탕으로 동네 이웃이 모이고 교류하는 공유 라운지.",
-        projectId: "karrot",
-        products: [
-          "Hyper-Local Neighborhood Hub",
-          "Warm Plywood Modular Furniture Spec",
-          "Shared Tool & Workshop Lounge",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "KARROT _ 당근",
+        subBrand: "KARROT MARKET",
+        membersSpaced: "최소윤 &nbsp; 정진석 &nbsp; 박태준",
+        membersPipe: "최소윤 | 정진석 | 박태준",
+        concept: "온라인 이웃 연결 플랫폼 당근의 첫 오프라인 거점. 신뢰와 온기를 바탕으로 동네 이웃이 모이고 교류하는 공유 라운지이다.",
+        keywords: [
+          { label: "하이퍼로컬 이웃", no: "01" },
+          { label: "신뢰와 온기", no: "02" },
+          { label: "공유 라운지", no: "03" }
+        ],
+        elements: [
+          { label: "자작나무 합판 모듈", qty: "3,900" },
+          { label: "오렌지 포인트 스틸", qty: "1,120" },
+          { label: "오픈 쉐어링 월", qty: "5,400" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Warmth", "of", "Karrot"],
+        projectId: "karrot"
       },
+
+      // C반 (7개 팀 / 이길호 교수님 — PALACE는 상단 01번에 배치)
       {
         id: "ggott",
-        standNo: "12",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
+        brandNo: "BRAND. 12",
+        studio: "Studio C",
         brandEng: "GGOTT",
-        titleKr: "ggott",
-        members: "김민준 | 안상영",
-        studio: "Studio C // 이길호 교수님",
-        concept: "자연의 식생과 조형미를 도시 실내 공간으로 끌어들인 감각적 플랜테리어 아틀리에 & 바이오필릭 쇼룸.",
-        projectId: "ggott",
-        products: [
-          "Biophilic Plant Atelier Context",
-          "Translucent Ribbed Glass Spec",
-          "Indoor Greenhouse Climate Zoning",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "GGOTT _ 꼬뜨",
+        subBrand: "GGOTT ATELIER",
+        membersSpaced: "김민준 &nbsp; 안상영",
+        membersPipe: "김민준 | 안상영",
+        concept: "자연의 식생과 조형미를 도시 실내 공간으로 끌어들인 감각적 플랜테리어 아틀리에 & 바이오필릭 쇼룸이다.",
+        keywords: [
+          { label: "바이오필릭 식생", no: "01" },
+          { label: "플랜테리어 조형", no: "02" },
+          { label: "도심 속 자연", no: "03" }
+        ],
+        elements: [
+          { label: "반투명 유리고벽", qty: "4,800" },
+          { label: "보타니컬 수공간", qty: "2,300" },
+          { label: "노출 콘크리트 플랜터", qty: "9,100" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1445116572660-238429888805?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Atelier", "of", "Nature"],
+        projectId: "ggott"
       },
       {
         id: "dedar",
-        standNo: "13",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
+        brandNo: "BRAND. 13",
+        studio: "Studio C",
         brandEng: "DEDAR",
-        titleKr: "DEDAR (데다)",
-        members: "이새영 | 박정민",
-        studio: "Studio C // 이길호 교수님",
-        concept: "이탈리아 밀라노 하이엔드 텍스타일 브랜드 DEDAR의 대담한 패턴과 우아한 실크 물성을 극대화한 패브릭 아카이브.",
-        projectId: "dedar",
-        products: [
-          "Milano Luxury Textile Archive",
-          "Italian Silk & Micro-Cement Spec",
-          "Drapery Lighting Gallery Layout",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "DEDAR _ 데다",
+        subBrand: "DEDAR MILANO",
+        membersSpaced: "이새영 &nbsp; 박정민",
+        membersPipe: "이새영 | 박정민",
+        concept: "이탈리아 밀라노 하이엔드 텍스타일 브랜드 DEDAR의 대담한 패턴과 우아한 실크 물성을 극대화한 패브릭 아카이브 공간이다.",
+        keywords: [
+          { label: "밀라노 하이엔드 텍스타일", no: "01" },
+          { label: "실크와 경사의 직조", no: "02" },
+          { label: "패브릭 아카이브", no: "03" }
+        ],
+        elements: [
+          { label: "이탈리안 실크 드레이프", qty: "1,890" },
+          { label: "마이크로 시멘트 플로어", qty: "7,400" },
+          { label: "브라스 행잉 스트럭처", qty: "3,650" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Fabric", "of", "Dedar"],
+        projectId: "dedar"
       },
       {
         id: "medicube",
-        standNo: "14",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
+        brandNo: "BRAND. 14",
+        studio: "Studio C",
         brandEng: "MEDICUBE",
-        titleKr: "메디큐브",
-        members: "임주현 | 복선우 | 이재진",
-        studio: "Studio C // 이길호 교수님",
-        concept: "클리니컬한 신뢰감과 감각적인 힐링을 선사하는 메디컬 뷰티테크 플래그십. 미래형 스킨케어 진단 및 라운지.",
-        projectId: "medicube",
-        products: [
-          "Clinical Beauty Diagnostic Lab",
-          "Frosted Acrylic & Chrome Spec",
-          "Sensory Recovery Lounge Layout",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "MEDICUBE _ 메디큐브",
+        subBrand: "MEDICUBE CLINIC",
+        membersSpaced: "임주현 &nbsp; 복선우 &nbsp; 이재진",
+        membersPipe: "임주현 | 복선우 | 이재진",
+        concept: "클리니컬한 신뢰감과 감각적인 힐링을 선사하는 메디컬 뷰티테크 플래그십. 미래형 스킨케어 진단 및 라운지이다.",
+        keywords: [
+          { label: "클리니컬 뷰티테크", no: "01" },
+          { label: "정밀 진단 라운지", no: "02" },
+          { label: "감각적 회복", no: "03" }
+        ],
+        elements: [
+          { label: "프로스티드 아크릴", qty: "3,200" },
+          { label: "미러 크롬 메탈", qty: "5,150" },
+          { label: "화이트 에폭시 코팅", qty: "8,700" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Clinic", "of", "Medicube"],
+        projectId: "medicube"
       },
       {
         id: "headspace",
-        standNo: "15",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
+        brandNo: "BRAND. 15",
+        studio: "Studio C",
         brandEng: "HEADSPACE",
-        titleKr: "헤드스페이스",
-        members: "최규민 | 최서림",
-        studio: "Studio C // 이길호 교수님",
-        concept: "도심 속 과부하된 뇌를 비워내는 명상과 마인드풀니스 웰니스 리트릿. 빛과 어둠의 절제된 대비를 통한 내면의 쉼.",
-        projectId: "headspace",
-        products: [
-          "Meditative Acoustic Cell Layout",
-          "Black Basalt & Charcoal Spec",
-          "Light Gradient Sensory Tunnel",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "HEADSPACE _ 헤드스페이스",
+        subBrand: "HEADSPACE",
+        membersSpaced: "최규민 &nbsp; 최서림",
+        membersPipe: "최규민 | 최서림",
+        concept: "도심 속 과부하된 뇌를 비워내는 명상과 마인드풀니스 웰니스 리트릿. 빛과 어둠의 절제된 대비를 통한 내면의 쉼을 제공한다.",
+        keywords: [
+          { label: "마인드풀니스 명상", no: "01" },
+          { label: "빛과 어둠의 대비", no: "02" },
+          { label: "내면의 고요", no: "03" }
+        ],
+        elements: [
+          { label: "현무암 다크 스톤", qty: "6,800" },
+          { label: "어쿠스틱 명상 셀", qty: "1,200" },
+          { label: "천창 자연광 슬릿", qty: "0,450" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Silence", "of", "Mind"],
+        projectId: "headspace"
       },
       {
         id: "yoshida-porter",
-        standNo: "16",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
+        brandNo: "BRAND. 16",
+        studio: "Studio C",
         brandEng: "YOSHIDA PORTER",
-        titleKr: "요시다 포터",
-        members: "강홍인 | 장도연",
-        studio: "Studio C // 이길호 교수님",
-        concept: "일침입혼(一針入魂)의 장인정신. 나일론 본딩 원단의 질감과 기능적 금속 모듈 시스템을 공간 요소로 전면화한 매장.",
-        projectId: "yoshida-porter",
-        products: [
-          "Craftsmanship Assembly Grid",
-          "Nylon Bonding & Industrial Steel",
-          "Modular Retail Display System",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
+        mainTitle: "PORTER _ 요시다 포터",
+        subBrand: "YOSHIDA & CO.",
+        membersSpaced: "강홍인 &nbsp; 장도연",
+        membersPipe: "강홍인 | 장도연",
+        concept: "일침입혼(一針入魂)의 장인정신. 나일론 본딩 원단의 질감과 기능적 금속 모듈 시스템을 공간 요소로 전면화한 매장이다.",
+        keywords: [
+          { label: "일침입혼 장인정신", no: "01" },
+          { label: "모듈러 하드웨어", no: "02" },
+          { label: "나일론 본딩 물성", no: "03" }
+        ],
+        elements: [
+          { label: "나일론 탱커 패브릭", qty: "2,900" },
+          { label: "인더스트리얼 스틸 랙", qty: "7,450" },
+          { label: "매트 블랙 파스너", qty: "1,320" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Craft", "of", "Porter"],
+        projectId: "yoshida-porter"
       },
       {
         id: "bang-olufsen",
-        standNo: "17",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
+        brandNo: "BRAND. 17",
+        studio: "Studio C",
         brandEng: "BANG & OLUFSEN",
-        titleKr: "뱅앤올룹슨",
-        members: "김동욱 | 한유빈",
-        studio: "Studio C // 이길호 교수님",
-        concept: "덴마크 명품 오디오 뱅앤올룹슨의 정밀한 알루미늄 가공 미학과 풍부한 음향을 하나의 예술품처럼 감상하는 갤러리형 쇼룸.",
-        projectId: "bang-olufsen",
-        products: [
-          "Acoustic Reflection Wave Chamber",
-          "Pearl-Blasted Aluminum Spec",
-          "Audio Gallery Exhibition Plan",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-        ]
-      },
-      {
-        id: "palace",
-        standNo: "18",
-        floor: "03F",
-        zone: "03F DESCEND ZONE",
-        brandEng: "PALACE",
-        titleKr: "팔라스 (PALACE)",
-        members: "류채민 | 이현채",
-        brandEng: "LOFI STUDIO",
-        titleKr: "LOFI STUDIO _ PALACE",
-        members: "이현채 | 류채민",
-        studio: "Studio C // 이길호 교수님",
-        concept: "런던 스트리트 스케이트보드 컬처의 반항적 위트와 거친 인더스트리얼 마감재를 해체주의적 구조로 연출한 플래그십 스토어.",
-        concept: "스케이트보드가 커브를 따라 중력의 방향을 거스르는 움직임에서 출발한 공간이다. 중심을 향하는 중력의 흐름과 이에 저항하는 움직임 사이의 어긋남을 구의 곡률과 비정형적인 공간으로 표현한다. 또한 사람의 움직임과 자연환경에 의해 축적되는 마찰과 산화의 흔적을 콘크리트와 금속의 물성 변화로 담아내어, 중력과 움직임이 만들어내는 공간의 역동성을 드러낸다.",
-        projectId: "palace",
-        isCustomLofi: true,
-        products: [
-          "Sub-Culture Skate Ramp Form",
-          "Raw Galvanized Steel & Asphalt",
-          "Deconstructed Streetwear Floor",
-          "3D Spatial Rendering (D5 Render 4K)",
-          "Physical Scale Model (1:40 Model)"
-          "스케이트 문화 (01)",
-          "자유성 (02)",
-          "반항성 (03)",
-          "중력의 엇박 & 그라인드 모션",
-          "마찰의 흔적 & 콘크리트/금속재 물성"
-        ]
+        mainTitle: "B&O _ 뱅앤올룹슨",
+        subBrand: "BANG & OLUFSEN",
+        membersSpaced: "김동욱 &nbsp; 한유빈",
+        membersPipe: "김동욱 | 한유빈",
+        concept: "덴마크 명품 오디오 뱅앤올룹슨의 정밀한 알루미늄 가공 미학과 풍부한 음향을 하나의 예술품처럼 감상하는 갤러리형 쇼룸이다.",
+        keywords: [
+          { label: "알루미늄 가공 미학", no: "01" },
+          { label: "음향의 조각적 시각화", no: "02" },
+          { label: "오디오 갤러리", no: "03" }
+        ],
+        elements: [
+          { label: "펄 블라스트 알루미늄", qty: "8,920" },
+          { label: "오크 어쿠스틱 루버", qty: "3,400" },
+          { label: "사운드 리플렉션 돔", qty: "1,050" }
+        ],
+        diagramImg: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80",
+        barcodeWords: ["Sound", "of", "Acoustic"],
+        projectId: "bang-olufsen"
       }
     ];
 
-    let currentIndex = 13; // default DEDAR
-    let currentIndex = 18; // default to LOFI STUDIO
-    let defaultSheetHtml = "";
+    // Full-Width Barcode SVG Generator (Matches the LOFI STUDIO PDF bottom barcode)
+    function createFullBarcodeSvg(height = 36) {
+      const bars = [
+        [0, 2], [4, 1], [7, 3], [12, 1], [15, 2], [19, 4], [25, 1], [28, 2],
+        [32, 3], [37, 1], [40, 2], [44, 3], [49, 1], [52, 4], [58, 2], [62, 1],
+        [65, 3], [70, 2], [74, 1], [77, 4], [83, 2], [87, 1], [90, 3], [95, 2],
+        [99, 1], [102, 3], [107, 4], [113, 1], [116, 2], [120, 3], [125, 1],
+        [128, 2], [132, 4], [138, 1], [141, 3], [146, 2], [150, 1], [153, 4],
+        [159, 2], [163, 1], [166, 3], [171, 2], [175, 1], [178, 3], [183, 4],
+        [189, 1], [192, 2], [196, 3], [201, 1], [204, 2], [208, 4], [214, 1],
+        [217, 3], [222, 2], [226, 1], [229, 4], [235, 2], [239, 1], [242, 3],
+        [247, 2], [251, 1], [254, 3], [259, 2], [263, 4], [269, 1], [272, 2],
+        [276, 3], [281, 1], [284, 3], [289, 2], [293, 1], [296, 4]
+      ];
+      const rects = bars.map(([x, w]) => `<rect x="${x}" y="0" width="${w}" height="${height}" />`).join("");
+      return `<svg class="barcode-svg" viewBox="0 0 300 ${height}" fill="#111111" preserveAspectRatio="none">${rects}</svg>`;
+    }
 
-    function resolveWorkIndex() {
+    let currentIndex = 0; // Default to 0 (LOFI STUDIO _ PALACE)
+
+    function resolveInitialIndex() {
       const params = new URLSearchParams(window.location.search);
       const idParam = params.get("id");
       const teamParam = params.get("team") || params.get("stand");
 
       if (idParam) {
-        if (idParam.toLowerCase() === "sample") return 0;
-        const found = THERMAL_RECEIPTS_DB.findIndex(w => w.id.toLowerCase() === idParam.toLowerCase() || w.projectId.toLowerCase() === idParam.toLowerCase());
         const clean = idParam.toLowerCase();
-        if (clean === "sample") return 0;
-        if (clean === "lofi" || clean === "lofi-studio" || clean === "palace") return 18;
-        const found = THERMAL_RECEIPTS_DB.findIndex(w => w.id.toLowerCase() === clean || w.projectId.toLowerCase() === clean);
+        if (clean === "lofi" || clean === "lofi-studio" || clean === "palace") return 0;
+        const found = OFFPRINT_RECEIPTS_DB.findIndex(w => w.id.toLowerCase() === clean || w.projectId.toLowerCase() === clean);
         if (found !== -1) return found;
       }
 
       if (teamParam) {
-        if (teamParam.toUpperCase() === "SAMPLE") return 0;
         const num = teamParam.match(/\d+/);
         if (num) {
           const val = parseInt(num[0], 10);
-          const found = THERMAL_RECEIPTS_DB.findIndex(w => parseInt(w.standNo, 10) === val);
-          if (found !== -1) return found;
+          if (val >= 1 && val <= OFFPRINT_RECEIPTS_DB.length) {
+            return val - 1;
+          }
         }
       }
 
-      return 13; // Default to DEDAR
-      return 18; // Default to LOFI STUDIO
+      return 0; // Default to LOFI STUDIO _ PALACE
     }
 
-    function renderThermalReceipt(idx) {
+    function renderOffprintReceipt(idx) {
       currentIndex = idx;
-      const data = THERMAL_RECEIPTS_DB[idx];
-      if (!data) return;
+      const item = OFFPRINT_RECEIPTS_DB[idx];
+      if (!item) return;
 
-      document.title = `OFFPRINT — ${data.titleKr} (${data.brandEng})`;
-      const sheet = document.getElementById("receipt-sheet");
+      document.title = `OFFPRINT — ${item.mainTitle}`;
 
-      // Header Brand
-      document.getElementById("header-brand-title").textContent = data.brandEng;
-      if (data.isCustomLofi) {
-        document.title = `OFFPRINT — LOFI STUDIO _ PALACE`;
-        sheet.classList.add("is-lofi-mode");
-        sheet.innerHTML = `
-          <div class="lofi-custom-container">
-            <img src="assets/lofi_receipt.webp" onerror="this.src='assets/lofi_receipt.png'" alt="LOFI STUDIO _ PALACE Receipt" class="lofi-receipt-img" />
-            <div class="lofi-cta-box">
-              <button class="receipt-direct-btn" id="btn-enter-project" onclick="window.location.href='project.html?id=palace'">
-                <span id="btn-enter-label">➔ ENTER EXHIBIT : LOFI STUDIO _ PALACE 작품 상세 보기</span>
-                <span>&rarr;</span>
-              </button>
-            </div>
-          </div>
-        `;
-      } else {
-        sheet.classList.remove("is-lofi-mode");
-        // Restore standard template
-        if (sheet.querySelector(".lofi-custom-container")) {
-          sheet.innerHTML = defaultSheetHtml;
-        }
+      // 1. Brand No & Members
+      document.getElementById("receipt-brand-no").textContent = item.brandNo;
+      document.getElementById("receipt-members").innerHTML = item.membersSpaced;
 
-        // Status Bar
-        document.getElementById("receipt-status-stand").textContent = `[ STAND #${data.standNo} // ${data.zone} ]`;
-        document.title = `OFFPRINT — ${data.titleKr} (${data.brandEng})`;
+      // 2. Titles
+      document.getElementById("receipt-main-title").textContent = item.mainTitle;
+      document.getElementById("receipt-sub-brand").textContent = item.subBrand;
 
-        // Product / Service List
-        const productList = document.getElementById("receipt-products-list");
-        productList.innerHTML = data.products.map((item, i) => `
-        <div class="receipt-item-line">
-          <span class="receipt-item-num">${String(i + 1).padStart(2, '0')}.</span>
-          <span class="receipt-item-content">${item}</span>
+      // 3. Concept
+      document.getElementById("receipt-concept").textContent = item.concept;
+
+      // 4. Keywords
+      const kwContainer = document.getElementById("receipt-keywords-list");
+      kwContainer.innerHTML = item.keywords.map(k => `
+        <div class="spec-row-item">
+          <span class="spec-row-label">${k.label}</span>
+          <span class="spec-row-val">${k.no}</span>
         </div>
       `).join("");
-        // Header Brand
-        document.getElementById("header-brand-title").textContent = data.brandEng;
 
-        // Docent Guide List ("How To Work With Me" format)
-        const docentList = document.getElementById("receipt-docent-list");
-        docentList.innerHTML = `
-        <div class="detailed-item">
-          <div class="detailed-item-header">
-            <span class="receipt-item-num">01.</span>
-            <span>Brand &amp; Work Title</span>
-        // Status Bar
-        document.getElementById("receipt-status-stand").textContent = `[STAND #${ data.standNo } // ${data.zone} ]`;
-
-        // Product / Service List
-        const productList = document.getElementById("receipt-products-list");
-        productList.innerHTML = data.products.map((item, i) => `
-          <div class="receipt-item-line">
-            <span class="receipt-item-num">${String(i + 1).padStart(2, '0')}.</span>
-            <span class="receipt-item-content">${item}</span>
-          </div>
-          <div class="detailed-item-sub">${data.brandEng} — ${data.titleKr}</div>
+      // 5. Elements
+      const elContainer = document.getElementById("receipt-elements-list");
+      elContainer.innerHTML = item.elements.map(e => `
+        <div class="spec-row-item">
+          <span class="spec-row-label">${e.label}</span>
+          <span class="spec-row-val">${e.qty}</span>
         </div>
-        `).join("");
+      `).join("");
 
-        <div class="detailed-item">
-          <div class="detailed-item-header">
-            <span class="receipt-item-num">02.</span>
-            <span>Designers / Members</span>
-        // Docent Guide List ("How To Work With Me" format)
-            const docentList = document.getElementById("receipt-docent-list");
-            docentList.innerHTML = `
-            <div class="detailed-item">
-              <div class="detailed-item-header">
-                <span class="receipt-item-num">01.</span>
-                <span>Brand &amp; Work Title</span>
-              </div>
-              <div class="detailed-item-sub">${data.brandEng} — ${data.titleKr}</div>
-            </div>
-            <div class="detailed-item-sub">${data.members}</div>
-          </div>
+      // 6. Diagram Image
+      const diagImg = document.getElementById("receipt-diagram-img");
+      diagImg.src = item.diagramImg;
+      diagImg.alt = `${item.mainTitle} Diagram`;
 
-          <div class="detailed-item">
-            <div class="detailed-item-header">
-              <span class="receipt-item-num">03.</span>
-              <span>Studio &amp; Advisor</span>
-              <div class="detailed-item">
-                <div class="detailed-item-header">
-                  <span class="receipt-item-num">02.</span>
-                  <span>Designers / Members</span>
-                </div>
-                <div class="detailed-item-sub">${data.members}</div>
-              </div>
-              <div class="detailed-item-sub">${data.studio}</div>
-            </div>
+      // 7. Barcode
+      document.getElementById("receipt-barcode-wrap").innerHTML = createFullBarcodeSvg(36);
 
-            <div class="detailed-item">
-              <div class="detailed-item-header">
-                <span class="receipt-item-num">04.</span>
-                <span>Spatial Concept</span>
-                <div class="detailed-item">
-                  <div class="detailed-item-header">
-                    <span class="receipt-item-num">03.</span>
-                    <span>Studio &amp; Advisor</span>
-                  </div>
-                  <div class="detailed-item-sub">${data.studio}</div>
-                </div>
-                <div class="detailed-item-sub">"${data.concept}"</div>
-              </div>
-              `;
-
-              // Directing CTA Button
-              const enterBtn = document.getElementById("btn-enter-project");
-              const enterLabel = document.getElementById("btn-enter-label");
-              enterLabel.textContent = `➔ ENTER EXHIBIT : ${data.titleKr} 작품 상세 보기`;
-      enterBtn.onclick = () => {
-                window.location.href = `project.html?id=${data.projectId}`;
+      // 8. Directing Button
+      const btnEnter = document.getElementById("btn-enter-project");
+      const btnLabel = document.getElementById("btn-enter-label");
+      btnLabel.textContent = `➔ ${item.mainTitle} 작품 상세 페이지로 이동`;
+      btnEnter.onclick = () => {
+        window.location.href = `project.html?id=${item.projectId}`;
       };
-              <div class="detailed-item">
-                <div class="detailed-item-header">
-                  <span class="receipt-item-num">04.</span>
-                  <span>Spatial Concept</span>
-                </div>
-                <div class="detailed-item-sub">"${data.concept}"</div>
-              </div>
-              `;
 
-              // Directing CTA Button
-              const enterBtn = document.getElementById("btn-enter-project");
-              const enterLabel = document.getElementById("btn-enter-label");
-              enterLabel.textContent = `➔ ENTER EXHIBIT : ${data.titleKr} 작품 상세 보기`;
-        enterBtn.onclick = () => {
-                window.location.href = `project.html?id=${data.projectId}`;
-        };
+      // 9. Update Connected Plinth QR Card Preview
+      document.getElementById("qr-card-studio").innerHTML = `Gachon Univ.<br>${item.studio}`;
+      document.getElementById("qr-card-eng").textContent = item.brandEng;
+      document.getElementById("qr-card-kr").textContent = item.mainTitle;
+      document.getElementById("qr-card-members").textContent = item.membersPipe;
+      document.getElementById("qr-card-barcode").innerHTML = createFullBarcodeSvg(28);
+      document.getElementById("qr-card-caption").innerHTML = `
+        <span>${item.barcodeWords[0]}</span>
+        <span>${item.barcodeWords[1]}</span>
+        <span>${item.barcodeWords[2]}</span>
+      `;
+
+      // Generate live QR code for this receipt
+      const qrBox = document.getElementById("live-qr-code");
+      qrBox.innerHTML = "";
+      const baseHref = window.location.href.split("?")[0];
+      const targetReceiptUrl = `${baseHref}?id=${item.id}`;
+      try {
+        new QRCode(qrBox, {
+          text: targetReceiptUrl,
+          width: 68,
+          height: 68,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } catch (err) {
+        console.error(err);
       }
 
-              // Sync Dropdown
-              const sel = document.getElementById("select-stand");
-              if (sel) sel.value = String(idx);
+      // Sync Selector
+      const sel = document.getElementById("select-stand");
+      if (sel) sel.value = String(idx);
 
-              // Update URL
-              const url = new URL(window.location);
-              url.searchParams.set("id", data.id);
-              url.searchParams.set("stand", data.standNo);
-              window.history.replaceState({ }, "", url);
+      // Update URL
+      const url = new URL(window.location);
+      url.searchParams.set("id", item.id);
+      window.history.replaceState({}, "", url);
     }
 
-              function initSelector() {
+    function initSelector() {
       const sel = document.getElementById("select-stand");
-              if (sel) {
-                sel.innerHTML = THERMAL_RECEIPTS_DB.map((w, i) => `
-          <option value="${i}">STAND ${w.standNo} (${w.floor}) : ${w.titleKr} [${w.brandEng}]</option>
+      if (sel) {
+        sel.innerHTML = OFFPRINT_RECEIPTS_DB.map((w, i) => `
+          <option value="${i}">${w.brandNo} — ${w.mainTitle} (${w.membersPipe})</option>
         `).join("");
 
         sel.addEventListener("change", (e) => {
-                renderThermalReceipt(parseInt(e.target.value, 10));
+          renderOffprintReceipt(parseInt(e.target.value, 10));
         });
       }
 
       document.getElementById("btn-prev-stand").addEventListener("click", () => {
-        const next = (currentIndex - 1 + THERMAL_RECEIPTS_DB.length) % THERMAL_RECEIPTS_DB.length;
-              renderThermalReceipt(next);
+        const prev = (currentIndex - 1 + OFFPRINT_RECEIPTS_DB.length) % OFFPRINT_RECEIPTS_DB.length;
+        renderOffprintReceipt(prev);
       });
 
       document.getElementById("btn-next-stand").addEventListener("click", () => {
-        const next = (currentIndex + 1) % THERMAL_RECEIPTS_DB.length;
-              renderThermalReceipt(next);
+        const next = (currentIndex + 1) % OFFPRINT_RECEIPTS_DB.length;
+        renderOffprintReceipt(next);
       });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const sheet = document.getElementById("receipt-sheet");
-              if (sheet) {
-                defaultSheetHtml = sheet.innerHTML;
-      }
-              initSelector();
-              const targetIdx = resolveWorkIndex();
-              renderThermalReceipt(targetIdx);
+      initSelector();
+      const initialIdx = resolveInitialIndex();
+      renderOffprintReceipt(initialIdx);
     });
   </script>
 </body>
-
 </html>

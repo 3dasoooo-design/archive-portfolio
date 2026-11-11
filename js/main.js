@@ -86,10 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
         html += `
           <tr data-id="${item.id}" data-thumb="${item.thumbnail}" data-brand="${item.brand}" data-members="${item.members}" data-studio="${item.studio}">
             ${isFirstRow ? `<td class="col-year" rowspan="${rowCount}">${className}</td>` : ""}
-            <td class="col-title">
+            <td class="col-title" style="display: flex; align-items: center; justify-content: space-between; gap: 6px;">
               <a href="project.html?id=${item.id}" class="project-link" data-id="${item.id}">
                 ${item.brand || item.title}
               </a>
+              <a href="receipt.html?id=${item.id}" title="${item.brand} 영수증 보기" style="font-family: var(--font-mono); font-size: 9.5px; color: #111; background: #f4f4f4; border: 1px solid #ccc; padding: 1px 6px; border-radius: 2px; white-space: nowrap; flex-shrink: 0;">🧾 SLIP</a>
             </td>
             <td class="col-location" title="${item.members}">${item.members}</td>
           </tr>
