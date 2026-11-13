@@ -246,16 +246,16 @@ window.PROJECTS_DATA = [
     exhibitionId: "2026-3rd-external",
     classGroup: "B반",
     studio: "B반",
-    brand: "당근 (Karrot)",
-    title: "당근",
-    members: "최소윤, 정진석, 박태준",
-    genre: "Local Offline Lounge",
+    brand: "당근 (DAANGN NODE)",
+    title: "DAANGN NODE",
+    members: "정진석, 박태준, 최소윤",
+    genre: "Urban Node & Community Pavilion",
     category: "Spatial",
-    concept: "온라인 이웃 연결 플랫폼 당근의 첫 오프라인 거점. 신뢰와 온기를 바탕으로 동네 이웃이 모이고 교류하는 공유 라운지.",
-    thumbnail: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=800&auto=format&fit=crop&q=80",
+    concept: "3,800만 국민의 모바일 앱 당근이 가진 친근하고 따뜻한 '곡선'의 언어를 도시와 건축의 물리적 환경으로 확장합니다. 삭막하고 각진 도시의 경계를 허물고, 골목길을 걷다 누구나 자연스럽게 발걸음을 멈추고 이웃과 눈을 맞출 수 있는 쉼터를 만듭니다. 어두운 골목 어귀나 지하철 출구 앞에서 어색하게 서성이던 중고거래의 순간을, 바람이 통하는 기둥 회랑과 나무 그늘 아래서 이웃의 온기를 마주하는 '다정한 동네의 일상적 축제'로 새롭게 정의합니다.",
+    receiptImg: "assets/karrot_receipt.png",
+    thumbnail: "assets/karrot_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1600&auto=format&fit=crop&q=80"
+      "assets/karrot_receipt.png"
     ]
   },
 
