@@ -124,16 +124,16 @@ window.PROJECTS_DATA = [
     exhibitionId: "2026-3rd-external",
     classGroup: "A반",
     studio: "A반",
-    brand: "삼성 갤럭시 (Samsung Galaxy)",
-    title: "삼성 갤럭시",
+    brand: "갤럭시 (Samsung Galaxy)",
+    title: "품",
     members: "김민석, 임동혁, 잠시드",
-    genre: "Tech Experience & Future Lab",
+    genre: "Tech Experience & Human-Centered Sanctuary",
     category: "Spatial",
-    concept: "모바일 기술과 인간의 감각이 조우하는 미래형 테크 익스피리언스 스페이스. 인공지능과 빛의 반응형 인터랙션 설계.",
-    thumbnail: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop&q=80",
+    concept: "‘품’은 갤럭시의 이중 보안 구조인 보안 폴더에서 착안한 공간이다. 차가운 외피 안에 수공간과 정원을 이중으로 감싸 기술이 사람을 향할 때의 따뜻함을 표현한다. 방문자는 공간을 거닐며 기술 속 배려와 보호를 발견하고, 차갑고 이성적인 이미지를 넘어 따뜻하고 인간 중심적인 갤럭시의 브랜드 이미지를 새롭게 인식하게 된다.",
+    receiptImg: "assets/galaxy_receipt.png",
+    thumbnail: "assets/galaxy_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1600&auto=format&fit=crop&q=80"
+      "assets/galaxy_receipt.png"
     ]
   },
   {
