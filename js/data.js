@@ -91,15 +91,15 @@ window.PROJECTS_DATA = [
     classGroup: "A반",
     studio: "A반",
     brand: "화요 (Hwayo)",
-    title: "화요",
+    title: "화요담",
     members: "장효진, 하은지",
-    genre: "Distillery Bar & Heritage Tasting Room",
+    genre: "Flagship Store & Heritage Dining Space",
     category: "Spatial",
-    concept: "한국 프리미엄 증류식 소주 화요의 깊은 풍미와 옹기 숙성의 시간을 옻칠과 거친 화강암의 물성으로 번역한 테이스팅 바.",
-    thumbnail: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop&q=80",
+    concept: "화요는 광주요의 도기에 우리 음식과 술을 함께 즐기자는 철학에서 탄생한 브랜드이다. 본 프로젝트는 이러한 브랜드의 정체성을 ‘어울림’이라는 공간적 가치로 확장하여, 사람과 음식, 술이 함께 어우러지는 플래그십 스토어를 제안한다. 브랜드명 ‘화요’의 불을 모티브로 한 디자인을 통해 타오르는 생동감과 함께 나누는 즐거움을 담아내며, 흙과 불, 물과 빛 등 자연적 요소를 공간에 녹여 브랜드의 본질을 표현한다.",
+    receiptImg: "assets/hwayo_receipt.png",
+    thumbnail: "assets/hwayo_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=1600&auto=format&fit=crop&q=80"
+      "assets/hwayo_receipt.png"
     ]
   },
   {
