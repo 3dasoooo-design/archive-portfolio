@@ -264,8 +264,7 @@
       }
 
       const qrBox = document.getElementById("live-qr-code");
-      const baseHref = window.location.href.split("?")[0];
-      const targetUrl = `${baseHref}?id=${found ? found.id : "palace"}`;
+      const targetUrl = `https://gachon-ia-archive.vercel.app/receipt?id=${found ? found.id : "palace"}`;
       try {
         new QRCode(qrBox, {
           text: targetUrl,
