@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentSlide = 0;
 
   const sliderContainer = document.getElementById("project-slider");
-  if (sliderContainer && images.length === 1 && images[0].includes("lofi_receipt")) {
+  if (sliderContainer && images.length === 1 && images[0].includes("_receipt")) {
     sliderContainer.style.aspectRatio = "auto";
     sliderContainer.style.background = "#141416";
     sliderContainer.style.padding = "32px 16px";
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (sliderTrack) {
-    if (images.length === 1 && images[0].includes("lofi_receipt")) {
+    if (images.length === 1 && images[0].includes("_receipt")) {
       sliderTrack.style.height = "auto";
       sliderTrack.style.display = "flex";
       sliderTrack.style.justifyContent = "center";

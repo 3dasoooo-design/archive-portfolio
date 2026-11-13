@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
       items.forEach((item, index) => {
         const isFirstRow = index === 0;
         const rowCount = items.length;
-        const receiptPreviewImg = "assets/lofi_receipt.png?v=20261111_3";
+        const receiptPreviewImg = item.receiptImg ? `${item.receiptImg}?v=20261113_1` : "assets/lofi_receipt.png?v=20261113_1";
 
         html += `
           <tr data-id="${item.id}" data-thumb="${receiptPreviewImg}" data-brand="${item.brand}" data-members="${item.members}" data-studio="${item.studio}">

@@ -108,15 +108,15 @@ window.PROJECTS_DATA = [
     classGroup: "A반",
     studio: "A반",
     brand: "동화약품",
-    title: "동화약품",
-    members: "김희수, 이지연, 손지후",
+    title: "호—: 우리를 낫게 했던 동화의 바람",
+    members: "김희수, 손지후, 이지연",
     genre: "Heritage Archive & Modern Wellness",
     category: "Branding",
-    concept: "대한민국 최초의 제약기업 동화약품의 127년 역사를 아카이빙하고, 현대인의 지친 심신을 치유하는 새로운 약방 공간.",
-    thumbnail: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&auto=format&fit=crop&q=80",
+    concept: "어린 시절 상처에 불어주시던 어머니의 “호—”에는 아픔을 달래는 따뜻한 돌봄이 담겨 있었다. 동화약품은 그 기억을 이어받아 지친 현대인에게 회복의 쉼을 제공한다. 갈대의 유연함과 돌의 원초성을 통해 보이지 않는 ‘호—’의 바람을 공간으로 구현한다. 가시적인 지상에는 육체적 회복을, 비가시적인 지하에는 정신적 회복을 담아 서로 다른 치유의 층위를 구성하고, 이를 통해 어머니의 따뜻한 돌봄을 현재의 공간으로 확장한다.",
+    receiptImg: "assets/dongwha_receipt.png",
+    thumbnail: "assets/dongwha_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&auto=format&fit=crop&q=80"
+      "assets/dongwha_receipt.png"
     ]
   },
   {
@@ -370,6 +370,7 @@ window.PROJECTS_DATA = [
     genre: "Skate Culture & Architectural Installation",
     category: "Spatial",
     concept: "스케이트보드가 커브를 따라 중력의 방향을 거스르는 움직임에서 출발한 공간이다. 중심을 향하는 중력의 흐름과 이에 저항하는 움직임 사이의 어긋남을 구의 곡률과 비정형적인 공간으로 표현한다. 또한 사람의 움직임과 자연환경에 의해 축적되는 마찰과 산화의 흔적을 콘크리트와 금속의 물성 변화로 담아내어, 중력과 움직임이 만들어내는 공간의 역동성을 드러낸다.",
+    receiptImg: "assets/lofi_receipt.png",
     thumbnail: "assets/lofi_receipt.png",
     images: [
       "assets/lofi_receipt.png"

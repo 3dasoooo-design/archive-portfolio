@@ -243,13 +243,30 @@
     </div>
   </section>
 
-  <script src="js/data.js?v=20261111_3"></script>
+  <script src="js/data.js?v=20261113_1"></script>
   <script>
+    const RECEIPT_IMAGE_MAP = {
+      "palace": "assets/lofi_receipt.png?v=20261113_1",
+      "lofi": "assets/lofi_receipt.png?v=20261113_1",
+      "lofi-studio": "assets/lofi_receipt.png?v=20261113_1",
+      "dongwha": "assets/dongwha_receipt.png?v=20261113_1"
+    };
+
     document.addEventListener("DOMContentLoaded", () => {
       const params = new URLSearchParams(window.location.search);
-      const idParam = params.get("id") || "palace";
+      const idParam = (params.get("id") || "palace").toLowerCase();
       const projects = window.PROJECTS_DATA || [];
-      const found = projects.find(p => p.id.toLowerCase() === idParam.toLowerCase()) || projects.find(p => p.id === "palace");
+      const found = projects.find(p => p.id.toLowerCase() === idParam) || projects.find(p => p.id === "palace");
+
+      const receiptImgEl = document.getElementById("exact-receipt-img");
+      if (receiptImgEl) {
+        const mappedSrc = RECEIPT_IMAGE_MAP[idParam] || (found && found.receiptImg ? `${found.receiptImg}?v=20261113_1` : "assets/lofi_receipt.png?v=20261113_1");
+        receiptImgEl.src = mappedSrc;
+        if (found) {
+          receiptImgEl.alt = `${found.brand || found.title} Receipt`;
+          document.title = `OFFPRINT — ${found.brand || found.title}`;
+        }
+      }
 
       if (found) {
         const btnEnter = document.getElementById("btn-enter-project");
