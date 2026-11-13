@@ -157,15 +157,16 @@ window.PROJECTS_DATA = [
     exhibitionId: "2026-3rd-external",
     classGroup: "A반",
     studio: "A반",
-    brand: "글로벌 익스체인지",
-    title: "빌궁 절러 나문다리",
-    members: "빌궁, 절러, 나문다리",
-    genre: "Cultural Exchange & Spatial Installation",
+    brand: "Lego (3)",
+    title: "3",
+    members: "졸자야, 빌궁, 나문다리",
+    genre: "Modular Hotel & Spatial Design",
     category: "Architectural",
-    concept: "국경을 넘는 다문화적 시선과 공간적 조형 언어를 결합한 실험적 공간 인스톨레이션.",
-    thumbnail: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&auto=format&fit=crop&q=80",
+    concept: "우리 작품은 레고 브랜드를 콘셉트 해서 호텔 만들오 보려고 합니다.",
+    receiptImg: "assets/lego_receipt.png",
+    thumbnail: "assets/lego_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&auto=format&fit=crop&q=80"
+      "assets/lego_receipt.png"
     ]
   },
 
