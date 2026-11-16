@@ -319,15 +319,16 @@ window.PROJECTS_DATA = [
     exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
-    brand: "메디큐브 (Medicube)",
-    title: "메디큐브",
-    members: "임주현, 복선우, 이재진",
-    genre: "Derma Aesthetic Clinic Lounge",
+    brand: "메디큐브 (오롯)",
+    title: "오롯",
+    members: "복선우, 임주현, 이재진",
+    genre: "Tea Ceremony & Self-Care Space",
     category: "Spatial",
-    concept: "클리니컬한 신뢰감과 감각적인 힐링을 선사하는 메디컬 뷰티테크 플래그십. 미래형 스킨케어 진단 및 라운지.",
-    thumbnail: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&auto=format&fit=crop&q=80",
+    concept: "메디큐브의 리브랜딩을 바탕으로, 자신에게 차를 대접하며 자기돌봄과 여유를 경험하는 티 브랜드 공간을 제안한다. 팽주와 팽객이 모두 자신이라는 개념으로 다례를 재해석하고, 한국적으로 재해석한 와비사비 정서를 장지와 촛불, 선과 면의 조형 요소로 구현했다.",
+    receiptImg: "assets/medicube_receipt.png",
+    thumbnail: "assets/medicube_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=1600&auto=format&fit=crop&q=80"
+      "assets/medicube_receipt.png"
     ]
   },
   {
