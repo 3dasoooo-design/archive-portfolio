@@ -69,9 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="archive-column">
           <div class="year-block">
             <table class="archive-table">
+              <colgroup>
+                <col style="width: 54px;">
+                <col style="width: auto;">
+                <col style="width: 132px;">
+              </colgroup>
               <thead>
                 <tr style="background: #fafafa; border-bottom: 1px solid #111;">
-                  <th colspan="3" style="padding: 10px 8px; font-weight: 600; font-size: 13px; letter-spacing: 0.05em; text-align: left;">
+                  <th colspan="3" style="padding: 10px 10px; font-weight: 600; font-size: 13px; letter-spacing: 0.03em; text-align: left;">
                     ${className} <span style="font-size: 11px; color: #888; font-weight: 400; margin-left: 6px;">(${profName} / ${items.length} Teams)</span>
                   </th>
                 </tr>
