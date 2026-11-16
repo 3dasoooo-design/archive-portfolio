@@ -336,14 +336,15 @@ window.PROJECTS_DATA = [
     classGroup: "C반",
     studio: "C반",
     brand: "헤드스페이스 (Headspace)",
-    title: "헤드스페이스",
+    title: "(   ) ; 덜어내다",
     members: "최규민, 최서림",
     genre: "Mindfulness & Meditation Retreat",
     category: "Spatial",
-    concept: "도심 속 과부하된 뇌를 비워내는 명상과 마인드풀니스 웰니스 리트릿. 빛과 어둠의 절제된 대비를 통한 내면의 쉼.",
-    thumbnail: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&auto=format&fit=crop&q=80",
+    concept: "\"명상은 거창한 것이 아니다. 언제나 누구든지 할 수 있다.\" 지금 귀에 들리는 소리에 집중해보세요. 누군가의 말소리, 발소리 .. 감각을 존재하는 그대로를 느끼는 것, 그것이 명상입니다. 우리는 그 시작을 덜어냄이라 보았습니다. 덜어낼수록 그 속에서 들리는 발소리, 숨소리. 그제서야 느껴지는 있는 그대로의 감각. 침묵할수록 선명해지는, 선명한 침묵을 공간으로 가져와봅니다.",
+    receiptImg: "assets/headspace_receipt.png",
+    thumbnail: "assets/headspace_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1600&auto=format&fit=crop&q=80"
+      "assets/headspace_receipt.png"
     ]
   },
   {
