@@ -160,7 +160,7 @@ window.PROJECTS_DATA = [
     studio: "A반",
     brand: "Lego (3)",
     title: "3",
-    members: "졸자야, 빌궁, 나문다리",
+    members: "졸자야",
     genre: "Modular Hotel & Spatial Design",
     category: "Architectural",
     concept: "우리 작품은 레고 브랜드를 콘셉트 해서 호텔 만들오 보려고 합니다.",
