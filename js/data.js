@@ -285,15 +285,16 @@ window.PROJECTS_DATA = [
     exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
-    brand: "DEDAR",
-    title: "DEDAR",
+    brand: "DEDAR (데다르)",
+    title: "苧 너머",
     members: "이새영, 박정민",
     genre: "Luxury Italian Textile Showroom",
     category: "Spatial",
-    concept: "이탈리아 밀라노 하이엔드 텍스타일 브랜드 DEDAR의 대담한 패턴과 우아한 실크 물성을 극대화한 패브릭 아카이브.",
-    thumbnail: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&auto=format&fit=crop&q=80",
+    concept: "‘苧 너머’ 는 직조의 역사가 켜켜이 쌓인 동대문에서 이탈리아 직물 브랜드 DEDAR가 한산모시의 전통적 가치를 재해석한 공간이다. 타자를 받아들이기 위해 스스로를 비워내는 한국적 포용의 미학을 바탕으로, 후퇴한 벽과 중정에 빛과 바람을 들이고 직물의 결을 감각하는 경험을 제공한다. 이를 통해 전통과 현대, 자연과 사람이 조응하는 새로운 직물의 장을 제안한다.",
+    receiptImg: "assets/dedar_receipt.png",
+    thumbnail: "assets/dedar_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&auto=format&fit=crop&q=80"
+      "assets/dedar_receipt.png"
     ]
   },
   {
