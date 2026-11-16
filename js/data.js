@@ -142,14 +142,15 @@ window.PROJECTS_DATA = [
     classGroup: "A반",
     studio: "A반",
     brand: "고퍼우드 (Gopherwood)",
-    title: "고퍼우드",
+    title: "THE RIPPLE : 울림이 머무는 공간",
     members: "김누리, 이수민, 장호연",
     genre: "Acoustic Instrument Showroom",
     category: "Spatial",
-    concept: "어쿠스틱 기타의 정교한 목공 디테일과 공명(Resonance)을 입체 공간으로 구현한 사운드 크래프트맨십 쇼룸.",
-    thumbnail: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
+    concept: "고퍼우드의 브랜드 철학과 기타의 구조, 소리가 만들어지는 원리를 공간으로 풀어낸 브랜드 체험 공간이다. 기타의 울림에서 시작되는 파동과 리플을 공간의 형태와 동선으로 확장하여, 방문객이 브랜드를 경험하고 음악을 통해 소통할 수 있는 공간을 제안한다.",
+    receiptImg: "assets/gopherwood_receipt.png",
+    thumbnail: "assets/gopherwood_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1600&auto=format&fit=crop&q=80"
+      "assets/gopherwood_receipt.png"
     ]
   },
   {
