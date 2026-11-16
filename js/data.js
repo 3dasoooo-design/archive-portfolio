@@ -196,16 +196,16 @@ window.PROJECTS_DATA = [
     exhibitionId: "2026-3rd-external",
     classGroup: "B반",
     studio: "B반",
-    brand: "TEKLA",
-    title: "TEKLA",
-    members: "김민서, 이설아, 이예원",
+    brand: "TEKLA (TEKLA HOUSE in Seochon)",
+    title: "TEKLA HOUSE in Seochon",
+    members: "이예원, 이설아, 김민서",
     genre: "Home Textile & Sanctuary",
     category: "Spatial",
-    concept: "북유럽 코펜하겐의 정제된 색채와 고요한 빛을 머금은 패브릭 쇼룸. 일상에 휴식을 선사하는 순수한 물성의 안식처.",
-    thumbnail: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&auto=format&fit=crop&q=80",
+    concept: "우리는 익숙하다는 이유로 일상과 사물이 지닌 가치를 무심코 지나치곤 합니다. 하지만 특별함은 새로운 것에만 있는 것이 아니라, 늘 우리 곁에 있는 것들에도 존재합니다. 익숙함 속 작은 변주를 통해 일상의 가치를 새롭게 바라보고, 그 안에서 스스로 의미를 발견하며 일상의 질을 가꾸어 나가길 바라는 마음으로 이 프로젝트를 시작합니다.",
+    receiptImg: "assets/tekla_receipt.png",
+    thumbnail: "assets/tekla_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&auto=format&fit=crop&q=80"
+      "assets/tekla_receipt.png"
     ]
   },
   {
