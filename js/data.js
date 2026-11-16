@@ -370,15 +370,16 @@ window.PROJECTS_DATA = [
     exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
-    brand: "BANG & OLUFSEN",
-    title: "BANG & OLUFSEN",
+    brand: "BANG & OLUFSEN (BANG&OLUFSEN LAB)",
+    title: "BANG&OLUFSEN LAB",
     members: "김동욱, 한유빈",
-    genre: "Acoustic Art Gallery",
+    genre: "Kinetic Acoustic Lab & Street Culture",
     category: "Spatial",
-    concept: "덴마크 명품 오디오 뱅앤올룹슨의 정밀한 알루미늄 가공 미학과 풍부한 음향을 하나의 예술품처럼 감상하는 갤러리형 쇼룸.",
-    thumbnail: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80",
+    concept: "뱅앤올룹슨과 스트릿 컬쳐를 결합한 실험실을 디자인했습니다. 축으로부터 자유로이 움직이는 '키네틱 모션(kinetic)'을 모티브로 선의 자유로움을 통 B&O의 정교함과 스트릿 컬쳐의 역동적인 움직임이 느껴지도록 했습니다. 또한, 운모, 나무 그리고 스틸과 같은 차가움과 따스함을 동시에 지닌 마감재를 사용해 B&O의 따뜻한 질감과 정교한 이미지를 표현했습니다. 정교함, 역동성 그리고 따뜻함을 표현한 요소들을 통해, B&O가 추구하는 정교한 디테일, 세심함 그리고 실험 정신을 공간으로 구현하고자 했습니다.",
+    receiptImg: "assets/bang_olufsen_receipt.png",
+    thumbnail: "assets/bang_olufsen_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&auto=format&fit=crop&q=80"
+      "assets/bang_olufsen_receipt.png"
     ]
   },
   {
