@@ -231,15 +231,15 @@ window.PROJECTS_DATA = [
     classGroup: "B반",
     studio: "B반",
     brand: "한율 (Hanyul)",
-    title: "한율",
+    title: "한율의 뜰로 초대합니다",
     members: "조하나",
     genre: "Beauty & Botanical Sanctuary",
     category: "Branding",
-    concept: "한국의 사계절과 땅의 생명력을 담아낸 자연주의 뷰티 스페이스. 흙과 한지, 볏짚의 따스한 온기로 채운 웰니스 리트릿.",
-    thumbnail: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&auto=format&fit=crop&q=80",
+    concept: "한율의 브랜드 가치인 ‘한국의 이로움으로 전하는 균형 잡힌 아름다움’을 한국의 뜰로 재해석한 브랜드 플래그쉽 스토어 공간이다. 비움·채움·균형을 중심으로 한국의 자연 원료와 전통 소재를 공간에 담아 고객이 피부와 마음을 정돈하고 자신만의 아름다움을 발견하는 경험을 제안한다.",
+    receiptImg: "assets/hanyul_receipt.png",
+    thumbnail: "assets/hanyul_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=1600&auto=format&fit=crop&q=80"
+      "assets/hanyul_receipt.png"
     ]
   },
   {
