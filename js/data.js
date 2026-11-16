@@ -180,16 +180,15 @@ window.PROJECTS_DATA = [
     classGroup: "B반",
     studio: "B반",
     brand: "마샬 (Marshall)",
-    title: "마샬",
+    title: "marshall livehouse seoul",
     members: "송현진, 김보경, 이고은",
     genre: "Audio Showroom & Sound Lounge",
     category: "Spatial",
-    concept: "마샬의 아이코닉한 앰프 헤리티지와 아날로그 텍스처를 공간으로 확장한 사운드 몰입형 플래그십 라운지.",
-    thumbnail: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&auto=format&fit=crop&q=80",
+    concept: "마샬은 뮤지션의 표현을 증폭하고 공연의 에너지를 관객에게 전달하며 성장해 온 오디오 브랜드이다. 그러나 라이프스타일 제품으로 대중화되면서, 일부 소비자에게는 음악적 역사보다 클래식한 디자인과 감성적인 인테리어 오브제로서의 이미지가 먼저 전달되고 있다. 우리는 마샬이 인기도의 상승으로 밴드와 관객의 좁아진 거리감을 '마샬 스택'으로 조절한 마샬의 시도를 다시 재해석하여 마샬 제품에 대한 인식의 갭을 조절한다.",
+    receiptImg: "assets/marshall_receipt.png",
+    thumbnail: "assets/marshall_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1600&auto=format&fit=crop&q=80"
+      "assets/marshall_receipt.png"
     ]
   },
   {
