@@ -31,10 +31,10 @@ window.EXHIBITIONS_DATA = [
     engTitle: "3rd Year External Exhibition",
     type: "외부전시 (External Show)",
     period: "2026. 10. 15 – 10. 20",
-    teamsCount: "17 Teams (A, B, C반)",
+    teamsCount: "18 Teams (A, B, C반)",
     status: "CURRENT",
     link: "exhibition.html?id=2026-3rd-external",
-    description: "동시대 브랜드 공간과 라이프스타일을 탐구한 3학년 3개 스튜디오 17개 팀의 외부 연계 전시 아카이브.",
+    description: "동시대 브랜드 공간과 라이프스타일을 탐구한 3학년 3개 스튜디오 18개 팀의 외부 연계 전시 아카이브.",
     thumbnail: "assets/lofi_receipt.png"
   },
   {
@@ -172,7 +172,7 @@ window.PROJECTS_DATA = [
   },
 
   // ==========================================
-  // [B반] 5개 팀 (이재석 교수님)
+  // [B반] 6개 팀 (이재석 교수님)
   // ==========================================
   {
     id: "marshall",
@@ -210,13 +210,30 @@ window.PROJECTS_DATA = [
     ]
   },
   {
+    id: "tekla-minseo",
+    exhibitionId: "2026-3rd-external",
+    classGroup: "B반",
+    studio: "B반",
+    brand: "TEKLA (A Day with TEKLA)",
+    title: "A Day with TEKLA",
+    members: "김민서",
+    genre: "Home Textile & Sanctuary",
+    category: "Spatial",
+    concept: "TEKLA 의 패브릭이 지닌 부드러운 촉감과 오래 쓰는 가치를 공간으로 확장한 프로젝트다. 천을 천장과 벽의 요소로 풀어내어 사용자를 포근하게 감싸고, 빛과 소재의 결이 어우러지는 일상 속 휴식을 제안한다. 유행보다 지속되는 편안함에 집중한다.",
+    receiptImg: "assets/tekla_minseo_receipt.png",
+    thumbnail: "assets/tekla_minseo_receipt.png",
+    images: [
+      "assets/tekla_minseo_receipt.png"
+    ]
+  },
+  {
     id: "hanyul",
     exhibitionId: "2026-3rd-external",
     classGroup: "B반",
     studio: "B반",
     brand: "한율 (Hanyul)",
     title: "한율",
-    members: "조하나, 김민서",
+    members: "조하나",
     genre: "Beauty & Botanical Sanctuary",
     category: "Branding",
     concept: "한국의 사계절과 땅의 생명력을 담아낸 자연주의 뷰티 스페이스. 흙과 한지, 볏짚의 따스한 온기로 채운 웰니스 리트릿.",
