@@ -82,16 +82,15 @@ document.addEventListener("DOMContentLoaded", () => {
       items.forEach((item, index) => {
         const isFirstRow = index === 0;
         const rowCount = items.length;
-        const receiptPreviewImg = item.receiptImg ? `${item.receiptImg}?v=20261113_1` : "assets/lofi_receipt.png?v=20261113_1";
+        const receiptPreviewImg = item.receiptImg ? `${item.receiptImg}?v=20261116_14` : "assets/lofi_receipt.png?v=20261116_14";
 
         html += `
-          <tr data-id="${item.id}" data-thumb="${receiptPreviewImg}" data-brand="${item.brand}" data-members="${item.members}" data-studio="${item.studio}">
-            ${isFirstRow ? `<td class="col-year" rowspan="${rowCount}">${className}</td>` : ""}
-            <td class="col-title" style="display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+          <tr class="archive-item-row" data-id="${item.id}" data-thumb="${receiptPreviewImg}" data-brand="${item.brand}" data-members="${item.members}" data-studio="${item.studio}" onclick="window.location.href='receipt.html?id=${item.id}'" style="cursor: pointer;">
+            ${isFirstRow ? `<td class="col-year" rowspan="${rowCount}" onclick="event.stopPropagation();" style="cursor: default;">${className}</td>` : ""}
+            <td class="col-title">
               <a href="receipt.html?id=${item.id}" class="project-link" data-id="${item.id}">
                 ${item.brand || item.title}
               </a>
-              <a href="receipt.html?id=${item.id}" title="${item.brand} 영수증 보기" style="font-family: var(--font-mono); font-size: 9.5px; color: #111; background: #f4f4f4; border: 1px solid #ccc; padding: 1px 6px; border-radius: 2px; white-space: nowrap; flex-shrink: 0;">🧾 SLIP</a>
             </td>
             <td class="col-location" title="${item.members}">${item.members}</td>
           </tr>

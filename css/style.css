@@ -236,6 +236,7 @@ button {
   border-collapse: collapse;
   font-size: 13px;
   border-top: 1px solid var(--border-dark);
+  table-layout: fixed;
 }
 
 .archive-table tr {
@@ -248,12 +249,13 @@ button {
 }
 
 .archive-table td {
-  padding: 7px 8px;
-  vertical-align: top;
+  padding: 10px 10px;
+  vertical-align: middle;
+  word-break: keep-all;
 }
 
 .col-year {
-  width: 22%;
+  width: 52px;
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
@@ -261,10 +263,12 @@ button {
   border-right: 1px solid var(--border);
   padding-right: 10px !important;
   white-space: nowrap;
+  vertical-align: top !important;
 }
 
 .col-title {
-  width: 44%;
+  width: auto;
+  padding-left: 12px !important;
 }
 
 .col-title a {
@@ -272,6 +276,8 @@ button {
   color: var(--text-main);
   text-decoration: none;
   font-weight: 500;
+  line-height: 1.4;
+  word-break: keep-all;
 }
 
 .col-title a:hover {
@@ -279,11 +285,13 @@ button {
 }
 
 .col-location {
-  width: 34%;
+  width: 128px;
   text-align: right;
   font-size: 12px;
   color: var(--text-muted);
   line-height: 1.4;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 /* ==========================================================================
