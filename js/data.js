@@ -334,14 +334,15 @@ window.PROJECTS_DATA = [
     classGroup: "C반",
     studio: "C반",
     brand: "요시다 포터 (Yoshida Porter)",
-    title: "요시다 포터",
+    title: "포터 진단실",
     members: "강홍인, 장도연",
     genre: "Craftsmanship Luggage Flagship",
     category: "Spatial",
-    concept: "일침입혼(一針入魂)의 장인정신. 나일론 본딩 원단의 질감과 기능적 금속 모듈 시스템을 공간 요소로 전면화한 매장.",
-    thumbnail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&auto=format&fit=crop&q=80",
+    concept: "가방을 사용하는 사람의 라이프스타일에 주목하는 공간으로, 개인의 취향과 일상, 소지품을 탐색하며 각자의 삶에 어울리는 가방을 발견하는 경험을 제안한다. 사람과 사물, 빛과 소재가 서로 관계를 맺으며 새로운 의미와 경험을 만들어가는 과정을 통해 PORTER의 브랜드 철학을 공간으로 표현하고자 한다.",
+    receiptImg: "assets/porter_receipt.png",
+    thumbnail: "assets/porter_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&auto=format&fit=crop&q=80"
+      "assets/porter_receipt.png"
     ]
   },
   {
