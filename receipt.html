@@ -7,8 +7,6 @@
   
   <!-- Pretendard Font -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <!-- QRCode.js for live QR preview -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
     :root {
@@ -104,92 +102,6 @@
       background-color: #ffffff;
       color: #111111;
     }
-
-    /* Connected Plinth QR Preview Box */
-    .connected-qr-section {
-      width: 100%;
-      max-width: 440px;
-      margin-top: 22px;
-      background: #ffffff;
-      padding: 18px 22px;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
-    }
-
-    .connected-qr-caption {
-      font-size: 11px;
-      font-weight: 700;
-      color: #52525b;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .plinth-preview-card {
-      border: 1px solid #111111;
-      padding: 14px 16px;
-      background: #ffffff;
-    }
-
-    .plinth-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      border-bottom: 1px solid #111111;
-      padding-bottom: 6px;
-      margin-bottom: 10px;
-    }
-
-    .plinth-logo {
-      font-size: 16px;
-      font-weight: 800;
-      color: #000;
-    }
-
-    .plinth-univ {
-      font-size: 8px;
-      font-weight: 800;
-      text-align: right;
-      line-height: 1.25;
-      color: #000;
-    }
-
-    .plinth-eng {
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .plinth-kr {
-      font-size: 18px;
-      font-weight: 900;
-      margin: 2px 0 4px;
-      letter-spacing: -0.02em;
-    }
-
-    .plinth-members {
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .plinth-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-
-    .plinth-qr-box {
-      width: 68px;
-      height: 68px;
-    }
-
-    .plinth-qr-box img, .plinth-qr-box canvas {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
-    }
   </style>
 </head>
 <body>
@@ -197,7 +109,6 @@
   <!-- Top Navigation -->
   <div class="top-nav">
     <a href="exhibition.html">&larr; 3학년 외부전시 목록</a>
-    <a href="qr-print.html">&#x25A6; 좌대 QR 명판 인쇄 시트</a>
   </div>
 
   <!-- Exact Provided Receipt Image (Untouched Original PDF Design) -->
@@ -213,37 +124,7 @@
     </div>
   </article>
 
-  <!-- Connected QR Code Plinth Label Preview -->
-  <section class="connected-qr-section">
-    <div class="connected-qr-caption">
-      <span>🔗 이 영수증으로 연결되는 좌대 QR 명판</span>
-      <a href="qr-print.html" style="color: #111; text-decoration: underline;">전체 인쇄 시트 열기 &rarr;</a>
-    </div>
-    <div class="plinth-preview-card">
-      <div class="plinth-top">
-        <span class="plinth-logo">Offprint</span>
-        <div class="plinth-univ" id="qr-card-studio">
-          Gachon Univ.<br>Studio C
-        </div>
-      </div>
-      <div class="plinth-eng" id="qr-card-eng">PALACE</div>
-      <div class="plinth-kr" id="qr-card-kr">LOFI STUDIO _ PALACE</div>
-      <div class="plinth-members" id="qr-card-members">이현채 | 류채민</div>
-      <div class="plinth-bottom">
-        <div style="width: 140px;">
-          <svg viewBox="0 0 160 32" fill="#000000" preserveAspectRatio="none" style="width: 140px; height: 32px; display: block;">
-            <rect x="0" y="0" width="3" height="32"/><rect x="5" y="0" width="1.5" height="32"/><rect x="8" y="0" width="3" height="32"/><rect x="13" y="0" width="1" height="32"/><rect x="16" y="0" width="4" height="32"/><rect x="22" y="0" width="1.5" height="32"/><rect x="25" y="0" width="3" height="32"/><rect x="30" y="0" width="1" height="32"/><rect x="33" y="0" width="2" height="32"/><rect x="37" y="0" width="4" height="32"/><rect x="43" y="0" width="1.5" height="32"/><rect x="46" y="0" width="3" height="32"/><rect x="51" y="0" width="2" height="32"/><rect x="55" y="0" width="4" height="32"/><rect x="61" y="0" width="1" height="32"/><rect x="64" y="0" width="3" height="32"/><rect x="69" y="0" width="1.5" height="32"/><rect x="72" y="0" width="4" height="32"/><rect x="78" y="0" width="2" height="32"/><rect x="82" y="0" width="3" height="32"/><rect x="87" y="0" width="1" height="32"/><rect x="90" y="0" width="4" height="32"/><rect x="96" y="0" width="1.5" height="32"/><rect x="100" y="0" width="3" height="32"/><rect x="105" y="0" width="2" height="32"/><rect x="109" y="0" width="4" height="32"/><rect x="115" y="0" width="1" height="32"/><rect x="118" y="0" width="3" height="32"/><rect x="123" y="0" width="1.5" height="32"/><rect x="126" y="0" width="4" height="32"/><rect x="132" y="0" width="2" height="32"/><rect x="136" y="0" width="3" height="32"/><rect x="141" y="0" width="1.5" height="32"/><rect x="144" y="0" width="4" height="32"/><rect x="150" y="0" width="1" height="32"/><rect x="153" y="0" width="3" height="32"/><rect x="158" y="0" width="2" height="32"/>
-          </svg>
-          <div style="display: flex; justify-content: space-between; font-size: 8px; font-weight: 700; margin-top: 2px;">
-            <span>Gravity</span><span>of</span><span>Palace</span>
-          </div>
-        </div>
-        <div class="plinth-qr-box" id="live-qr-code"></div>
-      </div>
-    </div>
-  </section>
-
-  <script src="js/data.js?v=20261116_13"></script>
+  <script src="js/data.js?v=20261116_14"></script>
   <script>
     const RECEIPT_IMAGE_MAP = {
       "palace": "assets/lofi_receipt.png?v=20261116_13",
@@ -271,15 +152,26 @@
       "bang-olufsen": "assets/bang_olufsen_receipt.png?v=20261116_13"
     };
 
+    const ID_ALIASES = {
+      "lego": "bilguun-team",
+      "bilguun": "bilguun-team",
+      "lofi": "palace",
+      "lofi-studio": "palace",
+      "karrot": "daangn",
+      "porter": "yoshida-porter",
+      "tekla-seochon": "tekla"
+    };
+
     document.addEventListener("DOMContentLoaded", () => {
       const params = new URLSearchParams(window.location.search);
-      const idParam = (params.get("id") || "palace").toLowerCase();
+      const rawId = (params.get("id") || "palace").toLowerCase();
+      const idParam = ID_ALIASES[rawId] || rawId;
       const projects = window.PROJECTS_DATA || [];
       const found = projects.find(p => p.id.toLowerCase() === idParam) || projects.find(p => p.id === "palace");
 
       const receiptImgEl = document.getElementById("exact-receipt-img");
       if (receiptImgEl) {
-        const mappedSrc = RECEIPT_IMAGE_MAP[idParam] || (found && found.receiptImg ? `${found.receiptImg}?v=20261113_1` : "assets/lofi_receipt.png?v=20261113_1");
+        const mappedSrc = RECEIPT_IMAGE_MAP[idParam] || RECEIPT_IMAGE_MAP[rawId] || (found && found.receiptImg ? `${found.receiptImg}?v=20261116_14` : "assets/lofi_receipt.png?v=20261116_14");
         receiptImgEl.src = mappedSrc;
         if (found) {
           receiptImgEl.alt = `${found.brand || found.title} Receipt`;
@@ -290,28 +182,10 @@
       if (found) {
         const btnEnter = document.getElementById("btn-enter-project");
         const btnLabel = document.getElementById("btn-enter-label");
-        btnEnter.href = `project.html?id=${found.id}`;
-        btnLabel.textContent = `➔ ${found.brand || found.title} 작품 상세 페이지로 이동`;
-
-        document.getElementById("qr-card-studio").innerHTML = `Gachon Univ.<br>${found.classGroup === "A반" ? "Studio A" : found.classGroup === "B반" ? "Studio B" : "Studio C"}`;
-        document.getElementById("qr-card-eng").textContent = (found.brand || found.title).toUpperCase();
-        document.getElementById("qr-card-kr").textContent = found.brand || found.title;
-        document.getElementById("qr-card-members").textContent = found.members.replace(/,\s*/g, " | ");
-      }
-
-      const qrBox = document.getElementById("live-qr-code");
-      const targetUrl = `https://gachon-ia-archive.vercel.app/receipt?id=${found ? found.id : "palace"}`;
-      try {
-        new QRCode(qrBox, {
-          text: targetUrl,
-          width: 68,
-          height: 68,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.M
-        });
-      } catch (e) {
-        console.error(e);
+        if (btnEnter && btnLabel) {
+          btnEnter.href = `project.html?id=${found.id}`;
+          btnLabel.textContent = `➔ ${found.brand || found.title} 작품 상세 페이지로 이동`;
+        }
       }
     });
   </script>
