@@ -285,16 +285,16 @@ window.PROJECTS_DATA = [
     exhibitionId: "2026-3rd-external",
     classGroup: "C반",
     studio: "C반",
-    brand: "ggott",
-    title: "ggott",
+    brand: "ggott (누블곳)",
+    title: "누블곳",
     members: "김민준, 안상영",
     genre: "Botanical Atelier & Planterior",
     category: "Spatial",
-    concept: "자연의 식생과 조형미를 도시 실내 공간으로 끌어들인 감각적 플랜테리어 아틀리에 & 바이오필릭 쇼룸.",
-    thumbnail: "https://images.unsplash.com/photo-1445116572660-238429888805?w=800&auto=format&fit=crop&q=80",
+    concept: "평범한 하루에도 꽃을 가까이 두고 즐길 수는 없을까요? 식탁 위에 꽃 한 송이가 놓이면 무엇이 달라질까요? 저희는 함께 고르고, 가까이 바라보고, 이야기를 나눌 수 있는 시간을 제안합니다. 이 경험을 담을 공간의 단서는 송정동의 산책로에서 발견했습니다. 그 속에는 짙은 그늘 사이로 들어오는 작은 햇살, ‘볕뉘’가 있었습니다. 평범한 식사의 시간 속에서 꽃 한 송이의 존재를 느끼고, 그 경험을 자신의 일상으로 이어가는 공간입니다.",
+    receiptImg: "assets/ggott_receipt.png",
+    thumbnail: "assets/ggott_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1445116572660-238429888805?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=1600&auto=format&fit=crop&q=80"
+      "assets/ggott_receipt.png"
     ]
   },
   {
