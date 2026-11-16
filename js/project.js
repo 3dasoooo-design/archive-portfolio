@@ -5,13 +5,38 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const projectId = urlParams.get("id");
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
+  const lastSeg = pathParts.length > 0 ? pathParts[pathParts.length - 1] : "";
+  const pathId = (lastSeg && lastSeg !== "project" && lastSeg !== "project.html") ? lastSeg : "";
+  const rawId = (urlParams.get("id") || pathId || "palace").toLowerCase();
+
+  const ID_ALIASES = {
+    "lego": "bilguun-team",
+    "bilguun": "bilguun-team",
+    "lofi": "palace",
+    "lofi-studio": "palace",
+    "karrot": "daangn",
+    "porter": "yoshida-porter",
+    "tekla-seochon": "tekla",
+    "tekla-house": "tekla",
+    "tekla_house": "tekla",
+    "tekla-3": "tekla",
+    "tekla3": "tekla",
+    "tekla-team": "tekla",
+    "marshall-livehouse": "marshall",
+    "marshall_livehouse": "marshall",
+    "marshall-seoul": "marshall",
+    "marshalllivehouse": "marshall",
+    "marshall-team": "marshall"
+  };
+  const resolvedId = ID_ALIASES[rawId] || rawId;
 
   const projects = window.PROJECTS_DATA || [];
-  let currentIndex = projects.findIndex(p => p.id === projectId);
+  let currentIndex = projects.findIndex(p => p.id.toLowerCase() === resolvedId);
 
   if (currentIndex === -1) {
-    currentIndex = 0; // fallback to first project
+    currentIndex = projects.findIndex(p => p.id === "palace");
+    if (currentIndex === -1) currentIndex = 0;
   }
 
   const project = projects[currentIndex];
