@@ -248,15 +248,15 @@ window.PROJECTS_DATA = [
     classGroup: "B반",
     studio: "B반",
     brand: "가치이음",
-    title: "가치이음",
-    members: "명나연, 권은진",
-    genre: "Community Hub & Social Platform",
+    title: "〈울퉁과 불퉁〉",
+    members: "권은진, 명나연",
+    genre: "Traditional Craft & Contemporary Space",
     category: "Spatial",
-    concept: "세대와 지역을 연결하고 일상의 따뜻한 온기를 나누는 지속가능한 소셜 커뮤니티 복합 공간 기획.",
-    thumbnail: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80",
+    concept: "가치이음의 미션은 전통 공예가 일상에서 익숙한 대상이 되도록 하는 것이다. 우리는 익숙해지는 첫걸음을 ‘관찰’로 보고, 방문객이 공예를 자세히 바라볼 수 있는 공간을 만들기 위하여 공예품의 미세한 차이를 살펴 흔적과 짜임을 공간 곳곳에 적용했다. 〈울퉁과 불퉁〉은 공예품에서 발견한 ‘울퉁불퉁함’을 전통과 현대가 만나는 방식으로 확장한다. 두 요소는 각자의 모습을 유지한 채 나란히 놓이며 조화로운 이질감을 만든다. 이는 균일한 일상에 차이를 만들어 방문객이 잠시 멈춰 주목하는 계기가 된다.",
+    receiptImg: "assets/gachi_ieum_receipt.png",
+    thumbnail: "assets/gachi_ieum_receipt.png",
     images: [
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=1600&auto=format&fit=crop&q=80"
+      "assets/gachi_ieum_receipt.png"
     ]
   },
   {
