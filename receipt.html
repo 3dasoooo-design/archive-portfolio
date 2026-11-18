@@ -161,8 +161,10 @@
       "bilguun": "bilguun-team",
       "lofi": "palace",
       "lofi-studio": "palace",
-      "karrot": "daangn",
+      "daangn": "karrot",
+      "dangn": "karrot",
       "porter": "yoshida-porter",
+      "yoshida": "yoshida-porter",
       "tekla-seochon": "tekla",
       "tekla-house": "tekla",
       "tekla_house": "tekla",
@@ -184,7 +186,7 @@
       const rawId = (params.get("id") || pathId || "palace").toLowerCase();
       const idParam = ID_ALIASES[rawId] || rawId;
       const projects = window.PROJECTS_DATA || [];
-      const found = projects.find(p => p.id.toLowerCase() === idParam) || projects.find(p => p.id === "palace");
+      const found = projects.find(p => p.id.toLowerCase() === idParam) || projects.find(p => p.id.toLowerCase() === rawId) || projects.find(p => p.brand && p.brand.toLowerCase() === rawId) || projects.find(p => p.id === "palace");
 
       const receiptImgEl = document.getElementById("exact-receipt-img");
       if (receiptImgEl) {
