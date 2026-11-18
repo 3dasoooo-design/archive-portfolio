@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   
-  <!-- Standalone QR Code Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Standalone Vector QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 
   <style>
     /* ==========================================================================
@@ -258,18 +258,20 @@
 
     /* QR Code Box */
     .qr-block {
-      width: 68px;
-      height: 68px;
+      width: 78px;
+      height: 78px;
+      padding: 3px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: #ffffff;
     }
 
-    .qr-block img, .qr-block canvas {
+    .qr-block svg, .qr-block img, .qr-block canvas {
       width: 100% !important;
       height: 100% !important;
       display: block;
+      shape-rendering: crispEdges;
     }
 
     /* Crop Marks / Cut Guidelines */
@@ -325,8 +327,10 @@
       }
 
       .qr-block {
-        width: 17mm;
-        height: 17mm;
+        width: 20mm;
+        height: 20mm;
+        padding: 1mm;
+        background: #ffffff;
       }
     }
   </style>
@@ -652,16 +656,13 @@
 
         container.appendChild(card);
 
-        // Generate Clean Sharp QR Code
+        // Generate Clean Sharp Vector SVG QR Code with Quiet Zone
         try {
-          new QRCode(document.getElementById(qrId), {
-            text: fullUrl,
-            width: 68,
-            height: 68,
-            colorDark : "#000000",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.M
-          });
+          const qr = qrcode(0, 'M');
+          qr.addData(fullUrl);
+          qr.make();
+          const qrContainer = document.getElementById(qrId);
+          qrContainer.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2 });
         } catch (e) {
           console.error("QR Code Error for", cardData.id, e);
         }
